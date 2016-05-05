@@ -3,29 +3,25 @@
     <md-card-content>
       <h2 class="md-title text-center">Login to BuiltRight</h2>
       <form name="userForm">
-        <md-input-container>
-          <label>Last Name</label>
-          <input name="lastName" ng-model="lastName" required md-maxlength="10" minlength="4">
-          <div ng-messages="userForm.lastName.$error" ng-show="userForm.lastName.$dirty">
-            <div ng-message="required">This is required!</div>
-            <div ng-message="md-maxlength">That's too long!</div>
-            <div ng-message="minlength">That's too short!</div>
-          </div>
-        </md-input-container>
-        <md-input-container>
-          <label>Biography</label>
-          <textarea name="bio" ng-model="biography" required md-maxlength="150"></textarea>
-          <div ng-messages="userForm.bio.$error" ng-show="userForm.bio.$dirty">
-            <div ng-message="required">This is required!</div>
-            <div ng-message="md-maxlength">That's too long!</div>
-          </div>
-        </md-input-container>
-        <md-input-container>
-          <input aria-label="title" ng-model="title">
-        </md-input-container>
-        <md-input-container>
-          <input placeholder="title" ng-model="title">
-        </md-input-container>
+        <div layout="column">
+          <md-input-container flex>
+            <label>Last Name</label>
+            <input name="lastName" ng-model="lastName" required md-maxlength="10" minlength="4">
+            <div ng-messages="userForm.lastName.$error" ng-show="userForm.lastName.$dirty">
+              <div ng-message="required">This is required!</div>
+              <div ng-message="md-maxlength">That's too long!</div>
+              <div ng-message="minlength">That's too short!</div>
+            </div>
+          </md-input-container>
+          <md-input-container flex>
+            <label>Biography</label>
+            <textarea name="bio" ng-model="biography" required md-maxlength="150"></textarea>
+            <div ng-messages="userForm.bio.$error" ng-show="userForm.bio.$dirty">
+              <div ng-message="required">This is required!</div>
+              <div ng-message="md-maxlength">That's too long!</div>
+            </div>
+          </md-input-container>
+        </div>
       </form>
     </md-card-content>
   </md-card>

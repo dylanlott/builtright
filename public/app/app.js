@@ -31,6 +31,6 @@
       .primaryPalette('teal')
       .accentPalette('grey')
       .warnPalette('red');
-  });;
+  });
 
 })();

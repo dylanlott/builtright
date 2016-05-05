@@ -13,7 +13,7 @@
 		.module('login')
 		.controller('LoginCtrl', Login);
 
-		Login.$inject = ['LoginService'];
+		Login.$inject = ['LoginService', '$log'];
 
 		/*
 		* recommend
@@ -21,19 +21,9 @@
 		* and bindable members up top.
 		*/
 
-		function Login(LoginService) {
+		function Login(LoginService, $log) {
 			/*jshint validthis: true */
 			var vm = this;
-
-			vm.loginUser(user){
-				LoginService.loginUser(user)
-				.then(function(data){
-					$log.log("loginUser controller data: ", data); 
-				})
-				.catch(function(err){
-					if(err) $log.error("error logging in user: ", err); 
-				})
-			}
 
 		}
 
