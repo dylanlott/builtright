@@ -1,13 +1,15 @@
 <style>
 .login-form {
-  position: relative; 
+  /*position: relative; */
   left: 30%;
   width: 40%;
 }
 
 @media(max-width: 550px) {
   .login-form {
-    width: 100%;
+    width: 90%;
+    left: 5%; 
+    top: 0; 
   }
 }
 </style>
@@ -19,7 +21,7 @@
         <div layout="column">
           <md-input-container flex class="login-form">
             <label>Email</label>
-            <input name="lastName" ng-model="lastName" required md-maxlength="10" minlength="4">
+            <input name="lastName" ng-model="lastName" required md-maxlength="150" minlength="4">
             <div ng-messages="userForm.lastName.$error" ng-show="userForm.lastName.$dirty">
               <div ng-message="required">This is required!</div>
               <div ng-message="md-maxlength">That's too long!</div>
@@ -28,7 +30,7 @@
           </md-input-container>
           <md-input-container flex class="login-form">
             <label>Password</label>
-            <textarea name="bio" ng-model="biography" required md-maxlength="150"></textarea>
+            <textarea name="bio" ng-model="biography" required md-minlength="8"></textarea>
             <div ng-messages="userForm.bio.$error" ng-show="userForm.bio.$dirty">
               <div ng-message="required">This is required!</div>
               <div ng-message="md-maxlength">That's too long!</div>
