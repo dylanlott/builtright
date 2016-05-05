@@ -1,7 +1,12 @@
 <div class="md-padding" flex layout-sm="column">
     <md-card>
         <md-card-content>
-            <h2 class="md-title">Content from: login page</h2>
+            <h2 class="md-title text-center">Login to BuiltRight</h2>
+
+            <form ng-submit="Login.loginUser(user)">
+              <input class="form-control" type="text" ng-model="user.username" placeholder="Email">
+              <input class="form-control" type="password" ng-model="user.password" placeholder="Password">
+            </form>
         </md-card-content>
     </md-card>
 </div>

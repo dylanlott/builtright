@@ -1,24 +1,37 @@
 (function() {
-	'use strict';
+  'use strict';
 
-	/**
-	 * @ngdoc function
-	 * @name app.service:loginService
-	 * @description
-	 * # loginService
-	 * Service of the app
-	 */
+  /**
+   * @ngdoc function
+   * @name app.service:loginService
+   * @description
+   * # loginService
+   * Service of the app
+   */
 
-  	angular
-		.module('login')
-		.factory('LoginService', Login);
-		// Inject your dependencies as .$inject = ['$http', 'someSevide'];
-		// function Name ($http, someSevide) {...}
+  angular
+    .module('login')
+    .factory('LoginService', Login);
+  // Inject your dependencies as .$inject = ['$http', 'someSevide'];
+  // function Name ($http, someSevide) {...}
 
-		Login.$inject = ['$http'];
+  Login.$inject = ['$http', '$log'];
 
-		function Login ($http) {
+  function Login($http, $log) {
+    return {
+      loginUser: loginUser
+    }
 
-		}
+    function loginUser(user) {
+      $http.post('/auth/user', user)
+        .then(function(data, status, headers, config){
+        	$log.log("Logged in user: ", data); 
+        	return data; 
+        })
+        .catch(function(err){
+        	if(err) $log.error("Error logging in user: ", err);
+        })
+    }
+  }
 
 })();
