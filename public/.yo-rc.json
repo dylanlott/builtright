@@ -9,12 +9,19 @@
     "modules": [
       {
         "name": "builds"
+      },
+      {
+        "name": "login"
       }
     ],
     "menu": [
       {
         "link": "builds",
         "title": "Builds"
+      },
+      {
+        "link": "login",
+        "title": "Login"
       }
     ]
   }

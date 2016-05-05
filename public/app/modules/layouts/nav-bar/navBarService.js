@@ -1,39 +1,44 @@
 (function() {
-  'use strict';
+	'use strict';
 
-  /**
-   * @ngdoc function
-   * @name app.service:menuService
-   * @description
-   * # menuService
-   * Service of the app
-   */
+	/**
+	 * @ngdoc function
+	 * @name app.service:menuService
+	 * @description
+	 * # menuService
+	 * Service of the app
+	 */
 
-  angular
-    .module('builtright')
-    .factory('MenuService', Menu);
-  // Inject your dependencies as .$inject = ['$http', 'someSevide'];
-  // function Name ($http, someSevide) {...}
+  	angular
+		.module('builtright')
+		.factory('MenuService', Menu);
+		// Inject your dependencies as .$inject = ['$http', 'someSevide'];
+		// function Name ($http, someSevide) {...}
 
-  Menu.$inject = ['$http'];
+		Menu.$inject = ['$http'];
 
-  function Menu($http) {
+		function Menu ($http) {
 
-    var menu = [
+			var menu = [
+				
+					{
+						link: 'builds',
+							name: 'Builds'
+					},
+			    
+					{
+						link: 'login',
+							name: 'Login'
+					},
+			    
+		  	];
 
-      {
-        link: 'builds',
-        name: 'Builds'
-      },
+			return {
+				listMenu: function () {
+					return menu;
+				}
+		  	}
 
-    ];
-
-    return {
-      listMenu: function() {
-        return menu;
-      }
-    }
-
-  }
+		}
 
 })();
