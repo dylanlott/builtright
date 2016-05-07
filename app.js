@@ -95,7 +95,7 @@ app.post('/users/auth', passport.authenticate('local'), function(req, res) {
 });
 
 //Port
-var port = 4000;
+var port = 9000;
 app.listen(process.env.EXPRESS_PORT || port, function() {
   console.log("The Wolverine Pack is hunting on port ", port);
 });

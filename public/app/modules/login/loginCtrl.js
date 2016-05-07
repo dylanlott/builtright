@@ -25,6 +25,19 @@
 			/*jshint validthis: true */
 			var vm = this;
 
+			$log.log("LoginController running."); 
+
+			vm.loginUser = function(user){
+				$log.log("loginUser hit."); 
+				LoginService.loginUser(user)
+				.then(function(data){
+					$log.debug(data); 
+				})
+				.catch(function(err){
+					if(err) $log.error("Error logging in user: ", err); 
+				})
+			}
+
 		}
 
 })();

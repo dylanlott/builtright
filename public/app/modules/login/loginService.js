@@ -23,7 +23,11 @@
     }
 
     function loginUser(user) {
-      $http.post('/auth/user', user)
+    	var user = {
+    		"username": user.username, 
+    		"password": user.password
+    	}
+      return $http.post('/users/auth', user)
         .then(function(data, status, headers, config){
         	$log.log("Logged in user: ", data); 
         	return data; 

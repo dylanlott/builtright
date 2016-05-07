@@ -29,7 +29,7 @@
   .config(function($mdThemingProvider) {
     $mdThemingProvider.theme('default')
       .primaryPalette('teal')
-      .accentPalette('grey')
+      .accentPalette('deep-orange')
       .warnPalette('red');
   });
 
