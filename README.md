@@ -3,8 +3,9 @@ A build tracker for the auto enthusiast.
 
 ### Commands and Development
 
+[This](https://www.npmjs.com/package/generator-angm) is the yeoman generator the app is built off of. 
 * `grunt dev` builds a development environment and watches for changes. Sometimes `watch` doesn't work so using a LiveReload plugin may be necessary. 
-* `yo angm:
+* `yo angm:angm-module` and then enter the name of the module you want to add. 
 
 ### Style guide 
 
