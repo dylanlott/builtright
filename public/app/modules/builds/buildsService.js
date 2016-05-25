@@ -23,17 +23,26 @@
     }
 
     function getBuilds() {
-      return $http({ method: 'GET', url: '/builds' })
-        .then(function(data, status, headers, config) {
-          $log.info("Builds headers: ", headers);
-          $log.info("Builds status: ", status);
-          $log.info("Builds config: ", config);
-          $log.info("Builds: ", data);
-          return data;
-        })
-        .catch(function(err) {
-          if (err) $log.error("Error retrieving builds: ", err);
-        })
+      // return $http({ method: 'GET', url: '/builds' })
+      //   .then(function(data, status, headers, config) {
+      //     $log.info("Builds headers: ", headers);
+      //     $log.info("Builds status: ", status);
+      //     $log.info("Builds config: ", config);
+      //     $log.info("Builds: ", data);
+      //     return data;
+      //   })
+      //   .catch(function(err) {
+      //     if (err) $log.error("Error retrieving builds: ", err);
+      //   })
+      return {
+        "builds": [
+          {
+            "name":"test build",
+            "date": Date.now(),
+            "type":"in progress"
+          }
+        ]
+      }
     }
   }
 

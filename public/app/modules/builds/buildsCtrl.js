@@ -12,32 +12,19 @@
   angular
     .module('builds')
     .controller('BuildsCtrl', Builds)
-    .factory('Builds', function($firebase, firebaseUrl, builds_table) {
-      return $firebase(new Firebase(firebaseUrl + builds_table));
-    });
 
-	  Builds.$inject = ['BuildsService', 'firebaseUrl', '$http', '$log'];
+	  Builds.$inject = ['BuildsService', '$http', '$log'];
 
-	  function Builds(BuildsService, $http, firebaseUrl, $log) {
+	  function Builds(BuildsService, $http, $log) {
 	    /*jshint validthis: true */
 	    var vm = this;
-	    vm.addBuild = false;
-	    var ref = new Firebase(firebaseUrl + '/builds'); 
 
-	    $log.log(ref); 
 	    $log.log("BuildsCtrl running. ");
-	    // activate();
+	    activate();
 
-	    vm.createBuild = function(build) {
-	    	var buildsRef = ref.child("builds"); 
-	    	buildsRef.set({
-	    		
-	    	})
+	    function activate() {
+	      BuildsService.getBuilds();
 	    }
-
-	    // function activate() {
-	    //   BuildsService.getBuilds();
-	    // }
 
 	  }
 

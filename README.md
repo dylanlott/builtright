@@ -1,6 +1,11 @@
 # BUILTRIGHT
 A build tracker for the auto enthusiast. 
 
+### Commands and Development
+
+* `grunt dev` builds a development environment and watches for changes. Sometimes `watch` doesn't work so using a LiveReload plugin may be necessary. 
+* `yo angm:
+
 ### Style guide 
 
 #### Colors
