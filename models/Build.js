@@ -14,8 +14,8 @@ var buildSchema = new Schema({
   stage: {type: Number},
   swap: { type: String },
   date_added: { type: Date, default: Date.now },
-  parts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Part'}],
-  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment'}]
+  parts: [partSchema],
+  comments: [commentSchema]
 
 });
 
