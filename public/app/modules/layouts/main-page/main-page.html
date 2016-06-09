@@ -1,10 +1,15 @@
+<style>
+    .md-button {
+        min-width: 0px; 
+    }
+</style>
     <md-toolbar ng-show="!showSearch">
         <div class="md-toolbar-tools">
             <md-button ng-click="layout.toggleSidenav('left')" hide-gt-md aria-label="Menu">
                 <ng-md-icon icon="menu"></ng-md-icon>
             </md-button>
             <h3>
-                <a href="/">BuiltRight - The Car Build Tracking App</a>
+                <a href="/">BuiltRight</a>
             </h3>
             <span flex></span>
             <md-button aria-label="Search" ng-click="showSearch = !showSearch">
@@ -12,7 +17,7 @@
             </md-button>
             <md-menu>
                 <md-button aria-label="Open Settings" ng-click="layout.openMenu($mdOpenMenu, $event)">
-                            <md-icon> more_vert </md-icon>
+                    <md-icon> more_vert </md-icon>
                 </md-button>
                 <md-menu-content width="4">
                     <md-menu-item>

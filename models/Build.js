@@ -11,10 +11,11 @@ var buildSchema = new Schema({
   model: { type: String },
   trim: { type: String },
   options: { type: String },
+  stage: {type: Number},
   swap: { type: String },
   date_added: { type: Date, default: Date.now },
-  parts: [partSchema],
-  comments: [commentSchema]
+  parts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Part'}],
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment'}]
 
 });
 

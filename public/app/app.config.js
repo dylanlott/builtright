@@ -30,12 +30,19 @@
 			
 			}
 
-			runBlock.$inject = ['$rootScope'];
+			runBlock.$inject = ['$rootScope', 'LoginService', '$log', '$state'];
 
-			function runBlock($rootScope) {
+			function runBlock($rootScope, LoginService, $log, $state) {
 				'use strict';
 
 				console.log('AngularJS run() function...');
+
+				// LoginService.checkAuth()
+				// .then(function(data){
+				// 	if(data === null || data === ''){
+				// 		$state.go('home.login'); 
+				// 	}
+				// })
 			}
 
 

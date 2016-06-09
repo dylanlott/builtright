@@ -12,29 +12,34 @@
 	angular.module('builtright')
 		.factory('homeService', homeService);
 
-	homeService.$inject = ['$http'];
+	homeService.$inject = ['$http', '$log'];
 
-	function homeService($http) {
-
-		var list = [
-			{"feature": "Implemented Best Practices, following: John Papa's Guide"},
-			{"feature": "Using Controller AS syntax"},
-			{"feature": "Wrap Angular components in an Immediately Invoked Function Expression (IIFE)"},
-			{"feature": "Declare modules without a variable using the setter syntax"},
-			{"feature": "Using named functions"},
-			{"feature": "Including Unit test with Karma"},
-			{"feature": "Including UI options for Bootstrap or Angular-Material"},
-			{"feature": "Including Angular-Material-Icons for Angular-Material UI"},
-			{"feature": "Dynamic Menu generator for both themes"},
-			{"feature": "Grunt task for Production and Development"}
-		];
+	function homeService($http, $log) {
 
 		return {
-			getFeaturesList: getFeaturesList
+			getUser: getUser,
+			getBuilds: getBuilds
 		};
 
-		function getFeaturesList() {
-			return list;
+		function getUser(){
+			return $http.get('/user')
+				.then(function(data, status, headers, config){
+					$log.info("User data: ", data.data); 
+				})
+				.catch(function(err){
+					if(err) $log.error("Error getting current user: ", err); 
+				});
+		}
+
+		function getBuilds(){
+			return $http.get('/builds')
+			.then(function(data, status, headers, config){
+				$log.info("Builds: ", data.data); 
+				$log.info("Builds status: ", status); 	
+			})
+			.catch(function(err){
+				if(err) $log.error("Error retrieving builds. ", err); 
+			}); 
 		}
 
 	}

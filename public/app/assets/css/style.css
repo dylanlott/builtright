@@ -1,0 +1,5 @@
+@media(max-width: 550px) {
+  .md-menu .md-button {
+    min-width: 0px;
+  }
+}

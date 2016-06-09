@@ -88,14 +88,15 @@ passport.deserializeUser(function(id, done) {
  **********************************************************************/
 //Auth
 app.get('/user', UserCtrl.getUser);
-app.post('/users', UserCtrl.createUser);
+  app.post('/users', UserCtrl.createUser);
 app.post('/users/auth', passport.authenticate('local'), function(req, res) {
-  console.log("Logged In");
+  console.log("Endpoint hit: ", req); 
+  console.log("Logged In", req.user);
   return res.status(200).json(req.user).end();
 });
 
 //Port
-var port = 9000;
+var port = 4000;
 app.listen(process.env.EXPRESS_PORT || port, function() {
   console.log("The Wolverine Pack is hunting on port ", port);
 });

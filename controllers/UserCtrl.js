@@ -42,7 +42,11 @@ module.exports = {
 
   getUser: function(req, res){
     console.log("getUser activated"); 
-    res.status(200).json(req.user).end(); 
+    if(req.user){
+      res.status(200).json(req.user).end(); 
+    }else{
+      res.status(403).json({"auth":"unauthed"}).end(); 
+    }
   }
 
 }

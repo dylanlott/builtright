@@ -13,7 +13,7 @@
 		.module('login')
 		.controller('LoginCtrl', Login);
 
-		Login.$inject = ['LoginService', '$log'];
+		Login.$inject = ['LoginService', '$log', '$state'];
 
 		/*
 		* recommend
@@ -21,7 +21,7 @@
 		* and bindable members up top.
 		*/
 
-		function Login(LoginService, $log) {
+		function Login(LoginService, $log, $state) {
 			/*jshint validthis: true */
 			var vm = this;
 
@@ -32,6 +32,10 @@
 				LoginService.loginUser(user)
 				.then(function(data){
 					$log.debug(data); 
+					if(data.data._id !== null || data.data._id !== ""){
+						$log.log("Login successful."); 
+						$state.go('home.dashboard'); 
+					}
 				})
 				.catch(function(err){
 					if(err) $log.error("Error logging in user: ", err); 

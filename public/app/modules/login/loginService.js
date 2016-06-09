@@ -15,25 +15,41 @@
   // Inject your dependencies as .$inject = ['$http', 'someSevide'];
   // function Name ($http, someSevide) {...}
 
-  Login.$inject = ['$http', '$log'];
+  Login.$inject = ['$http', '$log', '$state', '$q'];
 
-  function Login($http, $log) {
+  function Login($http, $log, $state, $q) {
     return {
-      loginUser: loginUser
+      loginUser: loginUser,
+      checkAuth: checkAuth
     }
 
     function loginUser(user) {
-    	var user = {
-    		"username": user.username, 
-    		"password": user.password
-    	}
+      var user = {
+        "username": user.username,
+        "password": user.password
+      }
       return $http.post('/users/auth', user)
-        .then(function(data, status, headers, config){
-        	$log.log("Logged in user: ", data); 
-        	return data; 
+        .then(function(data, status, headers, config) {
+          return data;
         })
-        .catch(function(err){
-        	if(err) $log.error("Error logging in user: ", err);
+        .catch(function(err) {
+          if (err) {
+            $log.error("Error logging in user: ", err);
+          }
+        })
+    }
+
+    function checkAuth() {
+      return $http.get('/user')
+        .then(function(data) {
+          $log.log("checkAuth data: ", data); 
+          if(data.data === null || data.data === ""){
+            $log.error("UNAUTHED"); 
+            $state.go('home.login'); 
+          }
+        })
+        .catch(function(err) {
+          $log.error("Error check auth: ", err); 
         })
     }
   }

@@ -8,9 +8,9 @@ module.exports = function(){
   app.post('/', Build.create); 
   app.delete('/:id', Build.delete);
   // app.put('/:id', Build.update); Not tested yet 
-  
   app.post('/comment/:id', Build.addComment); 
-
   app.post('/parts/:id', Build.addPart); 
+  
   return app;
+
 }();

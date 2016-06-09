@@ -13,7 +13,7 @@
 		.module('builtright')
 		.controller('HomeCtrl', Home);
 
-	Home.$inject = ['homeService'];
+	Home.$inject = ['homeService', '$log', '$state'];
 
 	/*
 	* recommend
@@ -21,13 +21,15 @@
 	* and bindable members up top.
 	*/
 
-	function Home(homeService) {
+	function Home(homeService, $log, $state) {
 		/*jshint validthis: true */
 		var vm = this;
 		vm.title = "Hello, builtright!";
 		vm.version = "1.0.0";
-		vm.listFeatures = homeService.getFeaturesList();
 
+		function activate() {
+			homeService.getUser(); 
+		}
 	}
 
 })();

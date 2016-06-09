@@ -9,15 +9,15 @@
  */
 
 angular.module('login')
-	.config(['$stateProvider', function ($stateProvider) {
-		
-		$stateProvider
-			.state('home.login', {
-				url:'/login',
-				templateUrl: 'app/modules/login/login.html',
-				controller: 'LoginCtrl',
-				controllerAs: 'vm'
-			});
+  .config(['$stateProvider', function($stateProvider) {
 
-		
-	}]);
+    $stateProvider
+      .state('home.login', {
+        url: '/login',
+        templateUrl: 'app/modules/login/login.html',
+        controller: 'LoginCtrl',
+        controllerAs: 'vm'
+      });
+
+
+  }]);
