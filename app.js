@@ -15,6 +15,7 @@ var router = express.Router();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(__dirname + "/public"));
+app.use('*', express.static(__dirname + "/public"));
 
 app.use(cookieParser());
 app.use(session({
@@ -29,9 +30,9 @@ app.use(passport.session());
 var UserCtrl = require('./controllers/UserCtrl');
 
 //Routes 
-app.use('/users', require('./routes/UserRoutes'));
-app.use('/builds', require('./routes/BuildRoutes')); 
-app.use('/parts', require('./routes/PartRoutes')); 
+app.use('/api/users', require('./routes/UserRoutes'));
+app.use('/api/builds', require('./routes/BuildRoutes')); 
+app.use('/api/parts', require('./routes/PartRoutes')); 
 
 //Models
 var User = require('./models/User');
@@ -83,20 +84,21 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
+
 /* Endpoints 
- **********************************************************************/
-//Auth
-app.get('/user', UserCtrl.getUser);
-app.post('/users', UserCtrl.createUser);
-app.post('/users/auth', passport.authenticate('local'), function(req, res) {
+ *********************************************************************
+ */
+app.get('/api/user', requireAuth, UserCtrl.getUser);
+app.post('/api/users', UserCtrl.createUser);
+app.post('/api/users/auth', passport.authenticate('local'), function(req, res) {
   console.log("Logged In");
   return res.status(200).json(req.user).end();
 });
-
-app.get('/logout', function(req, res){
+app.get('/api/user/loggedin', requireAuth, UserCtrl.checkLoggedIn); 
+app.get('/api/logout', function(req, res){
   req.logout(); 
   res.status(200).redirect('/'); 
-})
+}); 
 
 //Port
 var port = 4000;

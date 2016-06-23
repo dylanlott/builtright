@@ -43,6 +43,14 @@ module.exports = {
   getUser: function(req, res){
     console.log("getUser activated"); 
     res.status(200).json(req.user).end(); 
+  },
+
+  checkLoggedIn: function(req, res){
+    console.log(req.user); 
+    var response = {
+      "status":"authenticated"
+    }
+    res.status(200).json(response).end(); 
   }
 
 }

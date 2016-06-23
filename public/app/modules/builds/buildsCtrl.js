@@ -20,7 +20,6 @@
 	    var vm = this;
 	    vm.addBuild = false;
 
-	    $log.log(ref); 
 	    $log.log("BuildsCtrl running. ");
 	    
 	  }
