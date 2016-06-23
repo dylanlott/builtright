@@ -53,8 +53,10 @@
     }
 
     function checkLoggedIn(){
-      return $http.get('/api/user/loggedin')
-        .then(success)
+      $http.get('/api/user/loggedin')
+        .then(function(res){
+          return res; 
+        })
         .catch(fail); 
     }
 

@@ -50,11 +50,12 @@ module.exports = {
   },
 
   checkLoggedIn: function(req, res){
-    console.log(req.user); 
-    var response = {
-      "status":"authenticated"
+    if(req.user){
+      res.status(200).json(req.user._id).end(); 
+    }else{
+      res.status(403).json({"status":"403", "message":"Unauthorized"}).end(); 
     }
-    res.status(200).json(response).end(); 
+    
   }
 
 }

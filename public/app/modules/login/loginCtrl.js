@@ -21,31 +21,41 @@
 
   Login.$inject = ['$mdToast', '$state', '$log', 'LoginService', '$rootScope'];
 
-  function Login($state, $log, $mdToast, LoginService, $rootScope) {
+  function Login($mdToast, $state, $log, LoginService, $rootScope) {
 
     var vm = this;
     vm.isLoggedIn = false;
 
-    vm.loginUser = function(user){
+    vm.loginUser = function(user) {
       LoginService.loginUser(user)
-        .then(success)
-        .catch(fail); 
+        .then(function(res){
+          $log.log(res); 
+          $state.go('home.dashboard'); 
+        })
+        .catch(fail);
     }
 
-    vm.createUser = function(user){
+    vm.createUser = function(user) {
       LoginService.registerUser()
-      .then(success)
-      .catch(fail); 
+        .then(function(res) {
+          if(res.status !== 409){
+            $state.go('home.dashboard'); 
+          }
+        })
+        .catch(fail)
+        .finally(function() {
+          user.email = "";
+          user.password = "";
+        });
     }
 
-    var success = function(res){
-      return res; 
+    var success = function(res) {
+      return res;
     }
 
-    var fail = function(err){
-      $log.log("Error Login Ctrl: ", err);
-      user.password = ""; 
-      user.email = ""; 
+    var fail = function(err) {
+      console.error(err); 
+
     }
 
   }
