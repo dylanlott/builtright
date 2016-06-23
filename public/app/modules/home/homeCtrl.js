@@ -29,7 +29,8 @@
 		vm.listFeatures = homeService.getFeaturesList();
 
 		vm.loggedIn = LoginService.checkLoggedIn(); 
-		$log.info("vm.loggedin: ", vm.loggedIn); 
+		$log.info("vm.loggedIn: ", vm.loggedIn); 
+
 	}
 
 })();

@@ -54,10 +54,13 @@
 
     function checkLoggedIn(){
       $http.get('/api/user/loggedin')
-        .then(function(res){
-          return res; 
-        })
-        .catch(fail); 
+      .then(function(res){
+        return res; 
+      })
+      .catch(function(err){
+        $log.log("LoginService checkLoggedIn: ", err); 
+        return err; 
+      });
     }
 
     function getUserInfo(){
