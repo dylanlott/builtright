@@ -8,10 +8,9 @@ module.exports = function() {
   var UserCtrl = require('./controllers/UserCtrl');
   var cookieParser = require('cookie-parser'); 
   var session = require('express-session'); 
-  
+
   app.use(passport.initialize());
   app.use(passport.session());
-
   app.use(cookieParser());
   app.use(session({
     secret: '1d5adg36s5vf2adr7vwefgv1e46b634',
@@ -59,15 +58,15 @@ module.exports = function() {
     });
   });
 
-  //Endpoints
-  app.get('/api/user', requireAuth, UserCtrl.getUser);
-  app.post('/api/users', UserCtrl.createUser);
-  app.post('/api/users/auth', passport.authenticate('local'), function(req, res) {
+  //Endpoints `/api/auth/` 
+  app.get('/user', requireAuth, UserCtrl.getUser);
+  app.post('/user', UserCtrl.createUser);
+  app.post('/', passport.authenticate('local'), function(req, res) {
     console.log("Logged In");
     return res.status(200).json(req.user).end();
   });
-  app.get('/api/user/loggedin', requireAuth, UserCtrl.checkLoggedIn);
-  app.get('/api/logout', function(req, res) {
+  app.get('/', requireAuth, UserCtrl.checkLoggedIn);
+  app.get('/logout', function(req, res) {
     req.logout();
     res.status(200).redirect('/');
   });

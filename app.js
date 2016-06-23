@@ -15,7 +15,6 @@ var router = express.Router();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(__dirname + "/public"));
-
 app.use(cookieParser());
 app.use(session({
   secret: '1d5adg36s5vf2adr7vwefgv1e46b634',
@@ -27,10 +26,10 @@ app.use(session({
 app.use('/api/users', require('./routes/UserRoutes'));
 app.use('/api/builds', require('./routes/BuildRoutes')); 
 app.use('/api/parts', require('./routes/PartRoutes')); 
-app.use(require('./passport.js')); 
+app.use('/api/auth', require('./passport.js')); 
 
 //Database
-var mongoUri = "mongodb://localhost:27017/builtright";
+var mongoUri = "mongodb://localhost:27017/builtright" || process.env.MONGO_URI;
 mongoose.connect(mongoUri);
 mongoose.connection.once('open', function() {
   console.log("Connected to db at " + mongoUri);
