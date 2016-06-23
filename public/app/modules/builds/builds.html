@@ -1,13 +1,11 @@
-<div class="md-padding" flex layout-sm="column">
+<div layout="column" ng-cloak class="md-inline-form">
   <md-card flex layout-padding ng-show="vm.addBuild">
     <md-card-content>
       <h2>Create A New Build</h2>
-
-    <md-input-container flex="100">
-      <label>Build Name</label>
-      <input type="text" ng-model="build.name">
-    </md-input-container>
-  
+      <md-input-container flex="100">
+        <label>Build Name</label>
+        <input type="text" ng-model="build.name">
+      </md-input-container>
     </md-card-content>
     <md-card-footer>
       <md-button ng-click="vm.createBuild(build)">Save build</md-button>
@@ -17,8 +15,8 @@
     <md-card-content>
       <h2 class="md-title">Builds</h2>
     </md-card-content>
+    <md-button ng-click="vm.addBuild = !vm.addBuild" aria-label="add build" class="md-fab md-primary" md-ripple-size="full" style="position: absolute; right: 35px; bottom: 35px; ">
+      <i class="fa fa-plus"></i>
+    </md-button>
   </md-card>
-  <md-button ng-click="vm.addBuild = !vm.addBuild" aria-label="add build" class="md-fab md-success" md-ripple-size="full" style="position: absolute; right: 35px; top: 35px; ">
-    <i class="fa fa-plus"></i>
-  </md-button>
 </div>

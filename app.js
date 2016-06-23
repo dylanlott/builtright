@@ -84,10 +84,7 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-
-/* Endpoints 
- *********************************************************************
- */
+//Endpoints
 app.get('/api/user', requireAuth, UserCtrl.getUser);
 app.post('/api/users', UserCtrl.createUser);
 app.post('/api/users/auth', passport.authenticate('local'), function(req, res) {

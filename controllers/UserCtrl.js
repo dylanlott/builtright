@@ -9,7 +9,11 @@ module.exports = {
       .then(function(user) {
         //if we found a user, it's a duplicate
         if (user) {
-          return res.status(400).json({message: "User with this email already exists."});
+          var response = {
+            "status":"409", 
+            "message":"User with this email already exists."
+          }
+          return res.status(409).json(response).end();
         }
         //if the user's password is too short ...
         if (req.body.password.length <= 4) {
