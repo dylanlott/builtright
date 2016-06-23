@@ -15,9 +15,9 @@
   // Inject your dependencies as .$inject = ['$http', 'someSevide'];
   // function Name ($http, someSevide) {...}
 
-  LoginService.$inject = ['firebaseUrl', '$firebaseAuth', '$log'];
+  LoginService.$inject = ['$log'];
 
-  function LoginService(firebaseUrl, $firebaseAuth, $log) {
+  function LoginService($log) {
     $log.log("LoginService called."); 
     var LoginService = {}
     return LoginService; 

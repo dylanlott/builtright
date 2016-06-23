@@ -15,16 +15,19 @@
     .config(configure)
     .run(runBlock);
 
-  configure.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider'];
+  configure.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider', '$mdThemingProvider'];
 
-  function configure($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+  function configure($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, $mdThemingProvider) {
 
     $locationProvider.hashPrefix('!');
 
     // This is required for Browser Sync to work poperly
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-
+    $mdThemingProvider.theme('default')
+      .primaryPalette('orange')
+      .accentPalette('grey');
+      
     $urlRouterProvider
       .otherwise('/dashboard');
 

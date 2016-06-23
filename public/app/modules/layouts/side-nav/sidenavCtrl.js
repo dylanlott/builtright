@@ -15,7 +15,7 @@
 
 	// Injecting Denpendencies
 
-	SidenavCtrl.$inject = ['$log', '$mdSidenav', 'firebaseUrl', '$state', '$mdBottomSheet', '$mdToast', 'MenuService', '$scope', 'LoginService'];
+	SidenavCtrl.$inject = ['$log', '$mdSidenav', '$state', '$mdBottomSheet', '$mdToast', 'MenuService', '$scope', 'LoginService'];
 	SettingsCtrl.$inject = ['$mdBottomSheet'];
 
 	/*
@@ -24,7 +24,7 @@
 	* and bindable members up top.
 	*/
 
-	function SidenavCtrl($log, firebaseUrl, $mdSidenav, $state, $mdBottomSheet, $mdToast, MenuService, $scope, LoginService) {
+	function SidenavCtrl($log, $mdSidenav, $state, $mdBottomSheet, $mdToast, MenuService, $scope, LoginService) {
 		/*jshint validthis: true */
 		var vm = this;
 
@@ -53,7 +53,6 @@
 		vm.navigateTo = function (target) {
 
 			var page = target;
-
 			$state.go(page);
 
 		};

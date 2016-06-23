@@ -24,9 +24,7 @@
     'home',
     'builds',
     'login',
-    'firebase'
   ])
-  .constant('firebaseUrl', 'https://builtright.firebaseio.com/')
   .config(function($locationProvider){
     $locationProvider.html5Mode(true);
   });
