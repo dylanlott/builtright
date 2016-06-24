@@ -30,6 +30,7 @@
       LoginService.loginUser(user)
         .then(function(res) {
           $rootScope.$broadcast("loginSuccess");
+          $scope.$digest(); 
           $state.go('home.dashboard');
         })
         .catch(fail);
@@ -38,11 +39,14 @@
     vm.createUser = function(user) {
       LoginService.registerUser()
         .then(function(res) {
-          if (res.status !== 409) {
-            $state.go('home.dashboard');
-          }
+          $log.log("register user: ", res); 
+          $mdToast.showSimple('Account created.'); 
+          $state.go('home.dashboard');  
         })
-        .catch(fail)
+        .catch(function(err){
+          $log.error("Error signing up: ", err); 
+          $mdToast.showSimple('Error signing up.'); 
+        })
         .finally(function() {
           user.email = "";
           user.password = "";

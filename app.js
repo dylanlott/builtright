@@ -29,7 +29,7 @@ app.use('/api/parts', require('./routes/PartRoutes'));
 app.use('/api/auth', require('./passport.js')); 
 
 //Database
-var mongoUri = process.env.MONGO_URL || "mongodb://localhost:27017/builtright";
+var mongoUri = process.env.MONGO_URI || "mongodb://localhost:27017/builtright";
 mongoose.connect(mongoUri);
 mongoose.connection.once('open', function() {
   console.log("Connected to db at " + mongoUri);

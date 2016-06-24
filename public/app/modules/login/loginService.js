@@ -15,9 +15,9 @@
   // Inject your dependencies as .$inject = ['$http', 'someSevide'];
   // function Name ($http, someSevide) {...}
 
-  LoginService.$inject = ['$log', '$http', '$mdToast'];
+  LoginService.$inject = ['$log', '$http', '$mdToast', '$state'];
 
-  function LoginService($log, $http, $mdToast) {
+  function LoginService($log, $http, $mdToast, $state) {
     // $log.log("LoginService called.");
 
     var LoginService = {
@@ -33,11 +33,7 @@
     function registerUser(user) {
       return $http.post('/api/auth/user', user)
         .then(success)
-        .catch(function(err) {
-          if (err.status === 409) {
-            $mdToast.show($mdToast.simple().textContent('User with that email already exists.'));
-          }
-        });
+        .catch(fail);
     }
 
     function loginUser(user) {
@@ -45,13 +41,16 @@
         .then(success)
         .then(function(res){
           $mdToast.showSimple('Logged in.');
+          $state.go('home.dashboard'); 
         })
         .catch(fail);
     }
 
     function logoutUser() {
       return $http.get('/api/auth/logout')
-        .then(success)
+        .then(function(res){
+          $mdToast.showSimple('Logged out.'); 
+        })
         .catch(fail);
     }
 
