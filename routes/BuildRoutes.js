@@ -3,8 +3,6 @@ module.exports = function(){
   var app = express();
   var Build = require('../controllers/BuildController.js');
   var Util = require('../controllers/Utilities.js'); 
-  
-  app.all('/*', Util.requireAuth); 
 
   // PREFIXED BY `/api/builds` 
   app.get('/', Build.getAll);

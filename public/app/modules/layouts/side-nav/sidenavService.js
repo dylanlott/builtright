@@ -26,11 +26,6 @@
         name: 'Builds'
       }
 
-      // {
-      //   link: 'login',
-      //   name: 'Login'
-      // },
-
     ];
 
     return {

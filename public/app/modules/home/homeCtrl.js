@@ -26,14 +26,14 @@
 		var vm = this;
 		vm.title = "Hello, BuiltRight!";
 		vm.version = "1.0.0";
+		vm.user = null; 
 
-		vm.loggedIn = LoginService.checkLoggedIn(); 
 		$log.info("vm.loggedIn: ", vm.loggedIn); 
 
 		activate(); 
 
 		function activate() {
-			return BuildsService.getBuilds()
+			BuildsService.getBuilds()
 				.then(function(res){
 					$log.log(res); 
 					vm.builds = res; 
@@ -41,7 +41,17 @@
 				})
 				.catch(function(err){
 					$log.error("Error retrieving builds: ", err); 
+				}); 
+
+			LoginService.getUserInfo()
+				.then(function(res){
+					$log.log("LoginService HomeCtrl: ", res); 
+					vm.user = res; 
+					return vm.user; 
 				})
+				.catch(function(err){
+					$log.error("Error getting user: ", err); 
+				});
 		}
 
 	}

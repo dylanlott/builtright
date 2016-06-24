@@ -1,61 +1,59 @@
 <md-card>
   <md-card-content>
-    <h2>Create A Build</h2>
+    <h2>Create A Build <i class="fa fa-car"></i></h2>
     <p>Start tracking your build by creating one here. Add parts, post some pictures, and then post your build to your profile.</p>
   </md-card-content>
-  <md-card-content>
-    <form ng-submit="">
+  <form layout-padding ng-submit="vm.createBuild(build)">
+    <md-card-content flex="100" class="md-inline-form">
       <p>Name your build.</p>
-      <md-input-container flex>
+      <md-input-container layout="column" flex-xs="100" flex-gt-xs="50">
         <label>Name</label>
         <input ng-model="build.name" type="text">
       </md-input-container>
       <p>What make is the car?</p>
-      <md-input-container>
+      <md-input-container layout="column" flex-xs="100" flex-gt-xs="50">
         <label>Vehicle make</label>
         <input type="text" ng-model="build.make">
       </md-input-container>
       <p>What model is it?</p>
-      <md-input-container>
+      <md-input-container layout="column" flex-xs="100" flex-gt-xs="50">
         <label>Vehicle Model</label>
         <input type="text" ng-model="build.model">
       </md-input-container>
       <p>Any special series or trim?</p>
-      <md-input-container>
+      <md-input-container layout="column" flex-xs="100" flex-gt-xs="50">
         <label>Trim</label>
         <input type="text" ng-model="build.trim">
       </md-input-container>
       <p>Tell us what color it is.</p>
-      <md-input-container>
+      <md-input-container layout="column" flex-xs="100" flex-gt-xs="50">
         <label>Color</label>
         <input type="text" ng-model="build.color">
       </md-input-container>
       <p>Does it have an engine swap? If so, what engine is currently in the car?</p>
-      <md-input-container>
+      <md-input-container layout="column" flex-xs="100" flex-gt-xs="50">
         <label>Options</label>
         <input type="text" ng-model="build.options">
       </md-input-container>
       <p>Does it have an engine swap? If so, what engine is currently in the car?</p>
-      <md-input-container>
+      <md-input-container layout="column" flex-xs="100" flex-gt-xs="50">
         <label>Swap</label>
         <input type="text" ng-model="build.swap">
       </md-input-container>
       <p>How many miles are on the car? </p>
-      <md-input-container>
+      <md-input-container layout="column" flex-xs="100" flex-gt-xs="50">
         <label>Mileage</label>
         <input type="text" ng-model="build.mileage">
       </md-input-container>
       <p>Almost finished! Anything else you want to note about the car?</p>
-      <md-input-container>
+      <md-input-container layout="column" flex-xs="100" flex-gt-xs="50">
         <label>Additional Notes</label>
         <textarea ng-model="build.notes">
+        </textarea>
       </md-input-container>
-    </form>
-
-     <md-button ng-click="vm.createBuild(build)" class="md-primary">create</md-button>
-
-  </md-card-content>
-  <div class="md-actions">
-    <md-button ng-click="vm.createBuild(build)" class="">create build</md-button>
+    </md-card-content>
+  </form>
+  <div class="md-actions" layout="row" layout-align="center end">
+    <md-button ng-click="vm.createBuild(build);" class="md-raised" aria-label="create" md-ripple-size="auto">create</md-button>
   </div>
 </md-card>

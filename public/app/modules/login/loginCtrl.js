@@ -28,9 +28,9 @@
 
     vm.loginUser = function(user) {
       LoginService.loginUser(user)
-        .then(function(res){
-          $log.log(res); 
-          $state.go('home.dashboard'); 
+        .then(function(res) {
+          $rootScope.$broadcast("loginSuccess");
+          $state.go('home.dashboard');
         })
         .catch(fail);
     }
@@ -38,8 +38,8 @@
     vm.createUser = function(user) {
       LoginService.registerUser()
         .then(function(res) {
-          if(res.status !== 409){
-            $state.go('home.dashboard'); 
+          if (res.status !== 409) {
+            $state.go('home.dashboard');
           }
         })
         .catch(fail)
@@ -49,18 +49,10 @@
         });
     }
 
-    var success = function(res) {
-      return res;
-    }
-
     var fail = function(err) {
-      console.error(err); 
-
+      console.error(err);
     }
 
   }
-
-
-
 
 })();

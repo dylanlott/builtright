@@ -13,9 +13,9 @@
     .module('builds')
     .controller('BuildsCtrl', Builds)
 
-	  Builds.$inject = ['BuildsService', '$http', '$log', '$mdToast'];
+	  Builds.$inject = ['BuildsService', '$http', '$log', '$mdToast', '$state'];
 
-	  function Builds(BuildsService, $http, $log, $mdToast) {
+	  function Builds(BuildsService, $http, $log, $mdToast, $state) {
 	    /*jshint validthis: true */
 	    var vm = this;
 	    vm.addBuild = false;
@@ -26,7 +26,7 @@
         BuildsService.createBuild(build)
           .then(function(data){
             $log.log("create build res: ", data); 
-            $mdToast.showSimple('Hello');
+            $mdToast.showSimple('Build submitted!');
             $state.go('home.builds'); 
           })
           .catch(function(err){
