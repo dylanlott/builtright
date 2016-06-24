@@ -21,16 +21,15 @@
     return {
       getBuilds: getBuilds,
       createBuild: createBuild,
-      getBuildDetails: getBuildDetails
+      getBuildDetails: getBuildDetails,
+      deleteBuild: deleteBuild, 
+      addCommentToBuild: addCommentToBuild, 
+      addPartToBuild: addPartToBuild
     }
 
     function getBuilds() {
-      return $http({ method: 'GET', url: '/api/builds' })
-        .then(function(data, status, headers, config) {
-          $log.info("Builds headers: ", headers);
-          $log.info("Builds status: ", status);
-          $log.info("Builds config: ", config);
-          $log.info("Builds: ", data);
+      return $http.get('/api/builds/')
+        .then(function(data) {
           return data.data;
         })
         .catch(function(err) {
@@ -39,7 +38,7 @@
     }
 
     function createBuild(build) {
-      return $http.post('/api/builds')
+      return $http.post('/api/builds/')
         .then(function(data, status, headers, config) {
           return data.data;
         })
@@ -71,7 +70,7 @@
         })
     }
 
-    function addComentToBuild(id, comment){
+    function addCommentToBuild(id, comment){
       var url = "/api/builds/comment/" + id; 
       return $http.post(url, comment)
         .then(function(data){

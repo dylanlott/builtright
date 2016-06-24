@@ -13,7 +13,7 @@
 		.module('builtright')
 		.controller('LayoutCtrl', Layout);
 
-	Layout.$inject = ['$mdSidenav', '$cookies', '$state', '$mdToast', '$mdDialog'];
+	Layout.$inject = ['$mdSidenav', '$cookies', '$state', '$mdToast', '$mdDialog', 'LoginService'];
 
 	/*
 	* recommend
@@ -21,7 +21,7 @@
 	* and bindable members up top.
 	*/
 
-	function Layout($mdSidenav, $cookies, $state, $mdToast, $mdDialog ) {
+	function Layout($mdSidenav, $cookies, $state, $mdToast, $mdDialog, LoginService) {
 		/*jshint validthis: true */
 		var vm = this;
 
@@ -81,9 +81,19 @@
 
 		vm.logOut = function () {
 
-			alert('Implement your Function Here');
+			// alert('Implement your Function Here');
 			// $cookies.put('dev_appserver_login', ' ');
 			//$state.go('out', {}, {reload: true});
+
+			LoginService.logoutUser()
+				.then(function(success){
+					$mdToast.simple()
+						.content('Sorry to see you go!'); 
+					$state.go('login')
+				})
+				.catch(function(err){
+					$log.error("Error logging out: ", err); 
+				})
 
 		};
 

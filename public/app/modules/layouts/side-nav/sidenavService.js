@@ -24,12 +24,12 @@
       {
         link: 'builds',
         name: 'Builds'
-      },
+      }
 
-      {
-        link: 'login',
-        name: 'Login'
-      },
+      // {
+      //   link: 'login',
+      //   name: 'Login'
+      // },
 
     ];
 

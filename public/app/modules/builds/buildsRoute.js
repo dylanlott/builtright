@@ -16,7 +16,10 @@ angular.module('builds')
         url: '/builds',
         templateUrl: 'app/modules/builds/builds.html',
         controller: 'BuildsCtrl',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        resolve: {
+          checkAuth: checkLoggedIn
+        }
       })
       .state('home.create_build', {
         url: '/builds/create',

@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + "/public"));
 app.use(cookieParser());
 app.use(session({
-  secret: '1d5adg36s5vf2adr7vwefgv1e46b634',
+  secret: process.env.SESSION_SECRET || 'builtright',
   resave: false,
   saveUninitialized: true
 }));
@@ -29,7 +29,7 @@ app.use('/api/parts', require('./routes/PartRoutes'));
 app.use('/api/auth', require('./passport.js')); 
 
 //Database
-var mongoUri = "mongodb://localhost:27017/builtright" || process.env.MONGO_URI;
+var mongoUri = process.env.MONGO_URL || "mongodb://localhost:27017/builtright";
 mongoose.connect(mongoUri);
 mongoose.connection.once('open', function() {
   console.log("Connected to db at " + mongoUri);

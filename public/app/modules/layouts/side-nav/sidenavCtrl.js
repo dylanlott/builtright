@@ -36,6 +36,15 @@
       $mdSidenav('left').close();
     };
 
+    LoginService.getUserInfo().then(function(res){
+      $log.info("vm.user: ", res);
+      if(vm.user === undefined){
+        vm.loggedIn = false; 
+      }else{
+        vm.loggedIn = true; 
+      }
+      vm.user = res; 
+    })
     // Close menu on small screen after click on menu item.
     // Only use $scope in controllerAs when necessary; for example, publishing and subscribing events using $emit, $broadcast, $on or $watch.
     $scope.$on('$stateChangeSuccess', vm.closeSidenav);
