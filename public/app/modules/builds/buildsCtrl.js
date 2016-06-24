@@ -22,6 +22,9 @@
 
 	    $log.log("BuildsCtrl running. ");
 	    
+      vm.createBuild = function(build){
+        BuildsService.createBuild(build)
+      }
 	  }
 
 })();

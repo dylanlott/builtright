@@ -25,7 +25,7 @@
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
     $mdThemingProvider.theme('default')
-      .primaryPalette('orange')
+      .primaryPalette('deep-orange')
       .accentPalette('grey');
       
     $urlRouterProvider
@@ -37,8 +37,9 @@
 
   function runBlock($rootScope) {
     'use strict';
+    
+    console.log('Builtright is online.'); 
 
-    console.log('AngularJS run() function...');
   }
 
 

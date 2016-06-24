@@ -18,7 +18,7 @@
   LoginService.$inject = ['$log', '$http', '$mdToast'];
 
   function LoginService($log, $http, $mdToast) {
-    $log.log("LoginService called.");
+    // $log.log("LoginService called.");
 
     var LoginService = {
       registerUser: registerUser,
@@ -45,7 +45,6 @@
         .then(success)
         .then(function(res){
           $mdToast.showSimple('Logged in.');
-
         })
         .catch(fail);
     }
@@ -62,7 +61,7 @@
           return res;
         })
         .catch(function(err) {
-          $log.log("LoginService checkLoggedIn: ", err);
+          // $log.log("LoginService checkLoggedIn: ", err);
           return err;
         });
     }

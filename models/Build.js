@@ -16,7 +16,8 @@ var buildSchema = new Schema({
   date_added: { type: Date, default: Date.now },
   mileage: { type: Number },
   parts: [partSchema],
-  comments: [commentSchema]
+  comments: [commentSchema],
+  notes: { type: String }
 
 });
 

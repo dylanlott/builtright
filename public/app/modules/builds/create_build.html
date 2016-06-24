@@ -1,0 +1,74 @@
+<md-card>
+  <md-card-content>
+    <h2>Create A Build</h2>
+    <p>Start tracking your build by creating one here. Add parts, post some pictures, and then post your build to your profile.</p>
+  </md-card-content>
+
+  <md-card-content>
+    <form ng-submit="">
+
+      <p>Name your build.</p>
+      <md-input-container flex>
+        <label>Name</label>
+        <input ng-model="build.name" type="text">
+      </md-input-container>
+
+      <p>What make is the car?</p>
+      <md-input-container>
+        <label>Vehicle make</label>
+        <input type="text" ng-model="build.make">
+      </md-input-container>
+
+      <p>What model is it?</p>
+      <md-input-container>
+        <label>Vehicle Model</label>
+        <input type="text" ng-model="build.model">
+      </md-input-container>
+      
+      <p>Any special series or trim?</p>
+      <md-input-container>
+        <label>Trim</label>
+        <input type="text" ng-model="build.trim">
+      </md-input-container>
+      
+      <p>Tell us what color it is.</p>
+      <md-input-container>
+        <label>Color</label>
+        <input type="text" ng-model="build.color">
+      </md-input-container>
+      
+      <p>Does it have an engine swap? If so, what engine is currently in the car?</p>
+      <md-input-container>
+        <label>Options</label>
+        <input type="text" ng-model="build.options">
+      </md-input-container>
+
+      <p>Does it have an engine swap? If so, what engine is currently in the car?</p>
+      <md-input-container>
+        <label>Swap</label>
+        <input type="text" ng-model="build.swap">
+      </md-input-container>
+
+      <p>How many miles are on the car? </p>
+      <md-input-container>
+        <label>Mileage</label>
+        <input type="text" ng-model="build.mileage">
+      </md-input-container>
+      
+      <p>Almost finished! Anything else you want to note about the car?</p>
+      <md-input-container>
+        <label>Additional Notes</label>
+        <textarea ng-model="build.notes">
+      </md-input-container>
+    </form>
+    
+  </md-card-content>
+  
+  <md-card-footer>
+  <!-- Card Footer --> 
+  </md-card-footer>
+
+  <div class="md-actions" layout="row" layout-align="center end">
+     <md-button ng-click="" class="md-warn">create build</md-button>
+   </div>
+</md-card>

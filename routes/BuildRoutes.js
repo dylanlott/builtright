@@ -6,6 +6,7 @@ module.exports = function(){
   
   app.all('/*', Util.requireAuth); 
 
+  // PREFIXED BY `/api/builds` 
   app.get('/', Build.getAll);
   app.get('/:id', Build.getOne); 
   app.post('/', Build.create); 
