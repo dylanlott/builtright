@@ -20,6 +20,8 @@
 	    var vm = this;
 	    vm.addBuild = false;
 
+      activate(); 
+
 	    $log.log("BuildsCtrl running. ");
 	    
       vm.createBuild = function(build){
@@ -31,6 +33,13 @@
           })
           .catch(function(err){
             $mdToast.showSimple('Error creating build: ', err); 
+          })
+      }
+
+      function activate() {
+        BuildsService.getBuilds()
+          .then(function(res){
+            vm.builds = res;
           })
       }
 	  }

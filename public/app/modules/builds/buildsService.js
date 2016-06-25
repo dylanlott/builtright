@@ -38,7 +38,8 @@
     }
 
     function createBuild(build) {
-      return $http.post('/api/builds/')
+      $log.log('create build object: ', build); 
+      return $http.post('/api/builds/', build)
         .then(function(data, status, headers, config) {
           return data.data;
         })

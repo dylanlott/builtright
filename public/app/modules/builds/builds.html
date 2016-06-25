@@ -12,11 +12,22 @@
     </md-card-footer>
   </md-card>
   <md-card>
-    <md-card-content>
-      <h2 class="md-title">Builds</h2>
-    </md-card-content>
-    <md-button ui-sref="home.create_build" aria-label="add build" class="md-fab md-primary" md-ripple-size="full" style="position: absolute; right: 35px; bottom: 35px; ">
-      <i class="fa fa-plus"></i>
-    </md-button>
+    <h1 class="md-title text-center" style="font-size: 30px;">Builds</h1>
   </md-card>
+  <md-card ng-repeat="build in vm.builds" flex="30">
+    <!-- <img class="md-card-image" src="http://placehold.it/600x300" alt="{{build.owner}}'s {{build.name}}"> -->
+    <md-card-content>
+      <h2>{{build.name}}</h2>
+    </md-card-content>
+    <md-card-footer>
+      {{build.year}} {{build.make}} {{build.model}}
+    </md-card-footer>
+    <div class="md-actions" layout="row" layout-align="start start">
+      <md-button>see more</md-button>
+    </div>
+  </md-card>
+  <!-- </md-card-content> -->
+  <md-button ui-sref="home.create_build" aria-label="add build" class="md-fab md-primary" md-ripple-size="full" style="position: absolute; right: 35px; bottom: 35px; ">
+    <i class="fa fa-plus"></i>
+  </md-button>
 </div>

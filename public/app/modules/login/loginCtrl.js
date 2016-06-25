@@ -19,9 +19,9 @@
    * and bindable members up top.
    */
 
-  Login.$inject = ['$mdToast', '$state', '$log', 'LoginService', '$rootScope'];
+  Login.$inject = ['$mdToast', '$state', '$log', 'LoginService'];
 
-  function Login($mdToast, $state, $log, LoginService, $rootScope) {
+  function Login($mdToast, $state, $log, LoginService) {
 
     var vm = this;
     vm.isLoggedIn = false;
@@ -29,8 +29,7 @@
     vm.loginUser = function(user) {
       LoginService.loginUser(user)
         .then(function(res) {
-          $rootScope.$broadcast("loginSuccess");
-          $scope.$digest(); 
+          LoginService.broadcastLogin(); 
           $state.go('home.dashboard');
         })
         .catch(fail);
@@ -40,6 +39,7 @@
       LoginService.registerUser()
         .then(function(res) {
           $log.log("register user: ", res); 
+          LoginService.broadcastLogin(); 
           $mdToast.showSimple('Account created.'); 
           $state.go('home.dashboard');  
         })

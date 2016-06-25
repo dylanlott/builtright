@@ -9,14 +9,14 @@ module.exports = function() {
   var cookieParser = require('cookie-parser'); 
   var session = require('express-session'); 
 
-  app.use(passport.initialize());
-  app.use(passport.session());
   app.use(cookieParser());
   app.use(session({
     secret: 'thisappsecret',
     resave: false,
     saveUninitialized: true
   }));
+  app.use(passport.initialize());
+  app.use(passport.session());
 
   //Local Login
   passport.use(new LocalStrategy({

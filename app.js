@@ -7,26 +7,29 @@ var session = require('express-session');
 var mongoose = require('mongoose');
 var cookieParser = require('cookie-parser');
 var bson = require('bson');
-var path = require('path'); 
+var path = require('path');
 var app = express();
 var router = express.Router();
 
 //Middleware
-app.use(cors());
-app.use(bodyParser.json());
 app.use(express.static(__dirname + "/public"));
 app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(cors());
 app.use(session({
-  secret: process.env.SESSION_SECRET || 'builtright',
+  secret: 'thisappsecret',
   resave: false,
   saveUninitialized: true
 }));
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 //Routes 
 app.use('/api/users', require('./routes/UserRoutes'));
-app.use('/api/builds', require('./routes/BuildRoutes')); 
-app.use('/api/parts', require('./routes/PartRoutes')); 
-app.use('/api/auth', require('./passport.js')); 
+app.use('/api/builds', require('./routes/BuildRoutes'));
+app.use('/api/parts', require('./routes/PartRoutes'));
+app.use('/api/auth', require('./passport.js'));
 
 //Database
 var mongoUri = process.env.MONGO_URI || "mongodb://localhost:27017/builtright";

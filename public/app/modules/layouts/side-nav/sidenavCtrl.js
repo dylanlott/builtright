@@ -15,7 +15,7 @@
 
   // Injecting Denpendencies
 
-  SidenavCtrl.$inject = ['$log', '$mdSidenav', '$state', '$mdBottomSheet', '$mdToast', 'MenuService', '$scope', 'LoginService'];
+  SidenavCtrl.$inject = ['$log', '$mdSidenav', '$state', '$mdBottomSheet', '$mdToast', 'MenuService', '$scope', 'LoginService', '$rootScope'];
   SettingsCtrl.$inject = ['$mdBottomSheet'];
 
   /*
@@ -24,7 +24,7 @@
    * and bindable members up top.
    */
 
-  function SidenavCtrl($log, $mdSidenav, $state, $mdBottomSheet, $mdToast, MenuService, $scope, LoginService) {
+  function SidenavCtrl($log, $mdSidenav, $state, $mdBottomSheet, $mdToast, MenuService, $scope, LoginService, $rootScope) {
     /*jshint validthis: true */
     var vm = this;
 
@@ -36,15 +36,19 @@
       $mdSidenav('left').close();
     };
 
-    LoginService.getUserInfo().then(function(res){
-      $log.info("vm.user: ", res);
-      if(vm.user === undefined){
-        vm.loggedIn = false; 
-      }else{
-        vm.loggedIn = true; 
-      }
-      vm.user = res; 
+    LoginService.getUserInfo()
+      .then(function(res){
+        vm.user = res; 
+      })
+
+    $rootScope.$on('user-login', function(){
+      LoginService.getUserInfo()
+        .then(function(res){
+          $mdToast.showSimple('User Updated.'); 
+          vm.user = res; 
+        })
     })
+
     // Close menu on small screen after click on menu item.
     // Only use $scope in controllerAs when necessary; for example, publishing and subscribing events using $emit, $broadcast, $on or $watch.
     $scope.$on('$stateChangeSuccess', vm.closeSidenav);

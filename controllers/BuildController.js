@@ -6,9 +6,9 @@ module.exports = {
   create: function(req, res){
     console.log("Create Build activated.", req.body); 
     var newBuild = new Build(req.body); 
-    newBuild.owner = req.user._id; 
+    newBuild.owner = req.user.id; 
+    console.log("newBuild owner: ", newBuild.owner)
     newBuild.save(function(err, data){
-      console.log("create build: ", data); 
       if(err){
         res.status(500).send(err).end(); 
       }else{

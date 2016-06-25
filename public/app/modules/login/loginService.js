@@ -15,9 +15,9 @@
   // Inject your dependencies as .$inject = ['$http', 'someSevide'];
   // function Name ($http, someSevide) {...}
 
-  LoginService.$inject = ['$log', '$http', '$mdToast', '$state'];
+  LoginService.$inject = ['$log', '$http', '$mdToast', '$state', '$rootScope'];
 
-  function LoginService($log, $http, $mdToast, $state) {
+  function LoginService($log, $http, $mdToast, $state, $rootScope) {
     // $log.log("LoginService called.");
 
     var LoginService = {
@@ -25,7 +25,8 @@
       loginUser: loginUser,
       logoutUser: logoutUser,
       checkLoggedIn: checkLoggedIn,
-      getUserInfo: getUserInfo
+      getUserInfo: getUserInfo,
+      broadcastLogin: broadcastLogin
     }
 
     return LoginService;
@@ -39,17 +40,17 @@
     function loginUser(user) {
       return $http.post('/api/auth/', user)
         .then(success)
-        .then(function(res){
+        .then(function(res) {
           $mdToast.showSimple('Logged in.');
-          $state.go('home.dashboard'); 
+          $state.go('home.dashboard');
         })
         .catch(fail);
     }
 
     function logoutUser() {
       return $http.get('/api/auth/logout')
-        .then(function(res){
-          $mdToast.showSimple('Logged out.'); 
+        .then(function(res) {
+          $mdToast.showSimple('Logged out.');
         })
         .catch(fail);
     }
@@ -69,6 +70,16 @@
       return $http.get('/api/auth/user')
         .then(success)
         .catch(fail);
+    }
+
+    function broadcastLogin() {
+      $rootScope.$broadcast('user-login');
+      $log.log("$rootscope.$broadcast user-login");
+    }
+
+    function broadcastLogout() {
+      $rootScope.$broadcast('user-logout');
+      $log.log("$rootscope.$broadcast user-logout");
     }
 
     function success(res) {
