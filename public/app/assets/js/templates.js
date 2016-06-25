@@ -1,31 +1,114 @@
 angular.module('builtright').run(['$templateCache', function($templateCache) {
   'use strict';
 
+  $templateCache.put('app/modules/builds/builds.html',
+    "<div layout=\"column\" ng-cloak class=\"md-inline-form\">\n" +
+    "  <md-card flex layout-padding ng-show=\"vm.addBuild\">\n" +
+    "    <md-card-content>\n" +
+    "      <h2>Create A New Build</h2>\n" +
+    "      <md-input-container flex=\"100\">\n" +
+    "        <label>Build Name</label>\n" +
+    "        <input type=\"text\" ng-model=\"build.name\">\n" +
+    "      </md-input-container>\n" +
+    "    </md-card-content>\n" +
+    "    <md-card-footer>\n" +
+    "      <md-button ng-click=\"vm.createBuild(build)\">Save build</md-button>\n" +
+    "    </md-card-footer>\n" +
+    "  </md-card>\n" +
+    "  <md-card>\n" +
+    "    <md-card-content>\n" +
+    "      <h2 class=\"md-title\">Builds</h2>\n" +
+    "    </md-card-content>\n" +
+    "    <md-button ui-sref=\"home.create_build\" aria-label=\"add build\" class=\"md-fab md-primary\" md-ripple-size=\"full\" style=\"position: absolute; right: 35px; bottom: 35px; \">\n" +
+    "      <i class=\"fa fa-plus\"></i>\n" +
+    "    </md-button>\n" +
+    "  </md-card>\n" +
+    "</div>\n"
+  );
+
+
+  $templateCache.put('app/modules/builds/create_build.html',
+    "<md-card>\n" +
+    "  <md-card-content>\n" +
+    "    <h2>Create A Build <i class=\"fa fa-car\"></i></h2>\n" +
+    "    <p>Start tracking your build by creating one here. Add parts, post some pictures, and then post your build to your profile.</p>\n" +
+    "  </md-card-content>\n" +
+    "  <form layout-padding ng-submit=\"vm.createBuild(build)\">\n" +
+    "    <md-card-content flex=\"100\" class=\"md-inline-form\">\n" +
+    "      <p>Name your build.</p>\n" +
+    "      <md-input-container layout=\"column\" flex-xs=\"100\" flex-gt-xs=\"50\">\n" +
+    "        <label>Name</label>\n" +
+    "        <input ng-model=\"build.name\" type=\"text\">\n" +
+    "      </md-input-container>\n" +
+    "      <p>What make is the car?</p>\n" +
+    "      <md-input-container layout=\"column\" flex-xs=\"100\" flex-gt-xs=\"50\">\n" +
+    "        <label>Vehicle make</label>\n" +
+    "        <input type=\"text\" ng-model=\"build.make\">\n" +
+    "      </md-input-container>\n" +
+    "      <p>What model is it?</p>\n" +
+    "      <md-input-container layout=\"column\" flex-xs=\"100\" flex-gt-xs=\"50\">\n" +
+    "        <label>Vehicle Model</label>\n" +
+    "        <input type=\"text\" ng-model=\"build.model\">\n" +
+    "      </md-input-container>\n" +
+    "      <p>Any special series or trim?</p>\n" +
+    "      <md-input-container layout=\"column\" flex-xs=\"100\" flex-gt-xs=\"50\">\n" +
+    "        <label>Trim</label>\n" +
+    "        <input type=\"text\" ng-model=\"build.trim\">\n" +
+    "      </md-input-container>\n" +
+    "      <p>Tell us what color it is.</p>\n" +
+    "      <md-input-container layout=\"column\" flex-xs=\"100\" flex-gt-xs=\"50\">\n" +
+    "        <label>Color</label>\n" +
+    "        <input type=\"text\" ng-model=\"build.color\">\n" +
+    "      </md-input-container>\n" +
+    "      <p>Does it have an engine swap? If so, what engine is currently in the car?</p>\n" +
+    "      <md-input-container layout=\"column\" flex-xs=\"100\" flex-gt-xs=\"50\">\n" +
+    "        <label>Options</label>\n" +
+    "        <input type=\"text\" ng-model=\"build.options\">\n" +
+    "      </md-input-container>\n" +
+    "      <p>Does it have an engine swap? If so, what engine is currently in the car?</p>\n" +
+    "      <md-input-container layout=\"column\" flex-xs=\"100\" flex-gt-xs=\"50\">\n" +
+    "        <label>Swap</label>\n" +
+    "        <input type=\"text\" ng-model=\"build.swap\">\n" +
+    "      </md-input-container>\n" +
+    "      <p>How many miles are on the car? </p>\n" +
+    "      <md-input-container layout=\"column\" flex-xs=\"100\" flex-gt-xs=\"50\">\n" +
+    "        <label>Mileage</label>\n" +
+    "        <input type=\"text\" ng-model=\"build.mileage\">\n" +
+    "      </md-input-container>\n" +
+    "      <p>Almost finished! Anything else you want to note about the car?</p>\n" +
+    "      <md-input-container layout=\"column\" flex-xs=\"100\" flex-gt-xs=\"50\">\n" +
+    "        <label>Additional Notes</label>\n" +
+    "        <textarea ng-model=\"build.notes\">\n" +
+    "        </textarea>\n" +
+    "      </md-input-container>\n" +
+    "    </md-card-content>\n" +
+    "  <div class=\"md-actions\" layout=\"row\" layout-align=\"center end\">\n" +
+    "    <md-button ng-click=\"vm.createBuild(build);\" class=\"md-raised\" aria-label=\"create\" md-ripple-size=\"auto\">create</md-button>\n" +
+    "  </div>\n" +
+    "  </form>\n" +
+    "</md-card>\n"
+  );
+
+
   $templateCache.put('app/modules/home/dashboard.html',
     "<div class=\"md-padding\" flex layout-sm=\"column\">\n" +
     "    <md-card class=\"text-center\">\n" +
     "        <md-card-content>\n" +
-    "            <h1>{{ vm.title }}</h1>\n" +
-    "            <h3>{{ vm.version }}</h3>\n" +
-    "            <p>This is a template for a simple home screen website. Use it as a starting point to create something more unique.</p>\n" +
-    "            <code>app/modules/home/home.html</code>\n" +
-    "            <br>\n" +
-    "            <p><a href=\"http://www.github.com/newaeonweb/generator-angm\" class=\"btn btn-primary\" role=\"button\">Learn more »</a></p>\n" +
-    "            <md-divider class=\"margin-top-20\"></md-divider>\n" +
-    "            <h1 class=\"margin-top-50\">Features</h1>\n" +
-    "            <ul>\n" +
-    "                <li class=\" text-center\" ng-repeat=\"item in vm.listFeatures\">\n" +
-    "                    <p><ng-md-icon icon=\"check\"></ng-md-icon> {{item.feature}}</p>\n" +
-    "                </li>\n" +
-    "            </ul>\n" +
+    "        \n" +
+    "            <!-- List of Users Builds --> \n" +
+    "            <h2>Dashboard</h2>\n" +
     "\n" +
+    "            <md-card>\n" +
+    "              <md-card-content>\n" +
+    "                <h2>You don't have any builds</h2>\n" +
+    "                <p>Try creating one.</p>\n" +
+    "              </md-card-content>\n" +
+    "              <div class=\"md-actions\" layout=\"row\" layout-align=\"center end\">\n" +
+    "                 <md-button ui-sref=\"home.create_build\">Create Your First Build</md-button>\n" +
+    "               </div>\n" +
+    "            </md-card>\n" +
     "\n" +
-    "            asdf\n" +
-    "            asdf\n" +
-    "            asdf\n" +
-    "            asdf\n" +
-    "            asdf\n" +
-    "            asdf\n" +
+    "           <!-- <code> {{ vm.builds }} </code> -->\n" +
     "            \n" +
     "        </md-card-content>\n" +
     "    </md-card>\n" +
@@ -35,97 +118,108 @@ angular.module('builtright').run(['$templateCache', function($templateCache) {
 
   $templateCache.put('app/modules/home/home.html',
     "<md-sidenav layout=\"column\" class=\"md-sidenav-left md-whiteframe-z2\" md-component-id=\"left\" md-is-locked-open=\"$mdMedia('gt-md')\">\n" +
-    "    <div ng-controller=\"SidenavCtrl as vm\" ng-cloak>\n" +
-    "        <md-toolbar class=\"md-tall md-hue-2\">\n" +
-    "            <div layout=\"column\" class=\"md-toolbar-tools-bottom inset\">\n" +
-    "                <div layout=\"row\">\n" +
-    "                    <div flex=\"80\" style=\"margin-top: 10px;\">\n" +
-    "                        <div>builtright</div>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "        </md-toolbar>\n" +
-    "        <md-list>\n" +
-    "            <md-list-item ui-sref=\"home.dashboard\">\n" +
-    "                <div class=\"inset\">\n" +
-    "                    <ng-md-icon icon=\"apps\"></ng-md-icon>\n" +
-    "                </div>\n" +
-    "                <p> Dashboard </p>\n" +
-    "            </md-list-item>\n" +
-    "            <md-list-item ng-repeat=\"item in vm.menu\" ng-click=\"vm.navigateTo('home.' + item.link)\">\n" +
+    "  <div ng-controller=\"SidenavCtrl as vm\" ng-cloak>\n" +
+    "    <md-toolbar class=\"md-tall md-hue-2\">\n" +
+    "      <div layout=\"column\" class=\"md-toolbar-tools-bottom inset\">\n" +
+    "        <div layout=\"row\">\n" +
+    "          <div flex=\"80\" style=\"margin-top: 10px;\">\n" +
+    "            <div>BuiltRight</div>\n" +
+    "          </div>\n" +
+    "        </div>\n" +
+    "      </div>\n" +
+    "    </md-toolbar>\n" +
+    "    <md-list>\n" +
+    "      <md-list-item>\n" +
+    "        <div class=\"inset\"> \n" +
+    "          <ng-md-icon icon=\"person\"></ng-md-icon> \n" +
+    "        </div>\n" +
+    "        <p> {{vm.user.email}} </p>\n" +
+    "      </md-list-item>\n" +
+    "      <md-list-item ui-sref=\"home.dashboard\">\n" +
+    "        <div class=\"inset\">\n" +
+    "          <ng-md-icon icon=\"apps\"></ng-md-icon>\n" +
+    "        </div>\n" +
+    "        <p> Dashboard </p>\n" +
+    "      </md-list-item>\n" +
+    "      <md-list-item ui-sref=\"home.builds\">\n" +
+    "        <div class=\"inset\">\n" +
+    "          <ng-md-icon icon=\"directions_car\"></ng-md-icon>\n" +
+    "        </div>\n" +
+    "        <p> Builds </p>\n" +
+    "      </md-list-item>\n" +
+    "      <!--    <md-list-item ng-repeat=\"item in vm.menu\" ng-click=\"vm.navigateTo('home.' + item.link)\">\n" +
     "                <div class=\"inset\" ng-show=\"item.icon\">\n" +
     "                    <ng-md-icon icon=\"{{item.icon}}\"></ng-md-icon>\n" +
     "                </div>\n" +
     "                <p > {{ item.name }}</p>\n" +
-    "            </md-list-item>\n" +
-    "            <md-divider></md-divider>\n" +
-    "            <md-subheader>Admin</md-subheader>\n" +
-    "            <md-list-item ng-repeat=\"item in vm.admin\" ng-click=\"vm.showSettingsBottom($event)\" >\n" +
+    "            </md-list-item> -->\n" +
+    "      <!-- <md-divider></md-divider> -->\n" +
+    "      <!-- <md-subheader>Admin</md-subheader> -->\n" +
+    "      <!--     <md-list-item ng-repeat=\"item in vm.admin\" ng-click=\"vm.showSettingsBottom($event)\" >\n" +
     "                <div class=\"inset\">\n" +
     "                    <ng-md-icon icon=\"{{item.icon}}\"></ng-md-icon>\n" +
     "                </div>\n" +
     "                <p> {{ item.title }}</p>\n" +
-    "            </md-list-item>\n" +
-    "        </md-list>\n" +
-    "    </div>\n" +
+    "            </md-list-item> -->\n" +
+    "    </md-list>\n" +
+    "  </div>\n" +
     "</md-sidenav>\n" +
-    "\n" +
     "<div layout=\"column\" class=\"relative\" layout-fill role=\"main\" ng-controller=\"LayoutCtrl as layout\" ng-cloak>\n" +
-    "    <md-toolbar ng-show=\"!showSearch\">\n" +
-    "        <div class=\"md-toolbar-tools\">\n" +
-    "            <md-button ng-click=\"layout.toggleSidenav('left')\" hide-gt-md aria-label=\"Menu\">\n" +
-    "                <ng-md-icon icon=\"menu\"></ng-md-icon>\n" +
+    "  <md-toolbar ng-show=\"!showSearch\">\n" +
+    "    <div class=\"md-toolbar-tools\">\n" +
+    "      <md-button ng-click=\"layout.toggleSidenav('left')\" hide-gt-md aria-label=\"Menu\">\n" +
+    "        <ng-md-icon icon=\"menu\"></ng-md-icon>\n" +
+    "      </md-button>\n" +
+    "      <!-- <h3 show-xs>BuiltRight</h3> -->\n" +
+    "      <!--       <span flex></span>\n" +
+    "      <md-button hide-xs hide-sm aria-label=\"Search\" ng-click=\"showSearch = !showSearch\">\n" +
+    "        <ng-md-icon icon=\"search\"></ng-md-icon>\n" +
+    "      </md-button> -->\n" +
+    "      <md-menu>\n" +
+    "        <md-button aria-label=\"Open Settings\" ng-click=\"layout.openMenu($mdOpenMenu, $event)\">\n" +
+    "          <md-icon> more_vert </md-icon>\n" +
+    "        </md-button>\n" +
+    "        <md-menu-content width=\"4\">\n" +
+    "          <!--  <md-menu-item>\n" +
+    "            <md-button ng-click=\"layout.changeProfile($event)\">\n" +
+    "              <md-icon>face</md-icon>\n" +
+    "              Profile\n" +
     "            </md-button>\n" +
-    "            <h3>builtright</h3>\n" +
-    "            <span flex></span>\n" +
-    "            <md-button aria-label=\"Search\" ng-click=\"showSearch = !showSearch\">\n" +
-    "                <ng-md-icon icon=\"search\"></ng-md-icon>\n" +
+    "          </md-menu-item> -->\n" +
+    "          <!-- <md-menu-item>\n" +
+    "            <md-button ng-click=\"layout.changePassword()\">\n" +
+    "              <md-icon>lock</md-icon>\n" +
+    "              Password\n" +
     "            </md-button>\n" +
-    "            <md-menu>\n" +
-    "                <md-button aria-label=\"Open Settings\" ng-click=\"layout.openMenu($mdOpenMenu, $event)\">\n" +
-    "                    <md-icon> more_vert </md-icon>\n" +
-    "                </md-button>\n" +
-    "                <md-menu-content width=\"4\">\n" +
-    "                    <md-menu-item>\n" +
-    "                        <md-button ng-click=\"layout.changeProfile($event)\">\n" +
-    "                            <md-icon>face</md-icon>\n" +
-    "                            Profile\n" +
-    "                        </md-button>\n" +
-    "                    </md-menu-item>\n" +
-    "                    <md-menu-item>\n" +
-    "                        <md-button ng-click=\"layout.changePassword()\">\n" +
-    "                            <md-icon>lock</md-icon>\n" +
-    "                            Password\n" +
-    "                        </md-button>\n" +
-    "                    </md-menu-item>\n" +
-    "                    <md-menu-divider></md-menu-divider>\n" +
-    "                    <md-menu-item>\n" +
-    "                        <md-button ng-click=\"layout.logOut()\">\n" +
-    "                            <md-icon>power_settings_new</md-icon>\n" +
-    "                            Logout\n" +
-    "                        </md-button>\n" +
-    "                    </md-menu-item>\n" +
-    "                </md-menu-content>\n" +
-    "            </md-menu>\n" +
-    "        </div>\n" +
-    "    </md-toolbar>\n" +
-    "    <md-toolbar class=\"md-hue-1\" ng-show=\"showSearch\">\n" +
-    "        <div class=\"md-toolbar-tools\">\n" +
-    "            <md-button ng-click=\"showSearch = !showSearch\" aria-label=\"Back\">\n" +
-    "                <ng-md-icon icon=\"arrow_back\"></ng-md-icon>\n" +
+    "          </md-menu-item> -->\n" +
+    "          <!-- <md-menu-divider></md-menu-divider> -->\n" +
+    "          <md-menu-item>\n" +
+    "            <md-button ng-click=\"layout.logOut()\">\n" +
+    "              <md-icon>power_settings_new</md-icon>\n" +
+    "              Logout\n" +
     "            </md-button>\n" +
-    "            <h3 flex=\"10\">\n" +
+    "          </md-menu-item>\n" +
+    "        </md-menu-content>\n" +
+    "      </md-menu>\n" +
+    "    </div>\n" +
+    "  </md-toolbar>\n" +
+    "  <md-toolbar class=\"md-hue-1\" ng-show=\"showSearch\">\n" +
+    "    <div class=\"md-toolbar-tools\">\n" +
+    "      <md-button ng-click=\"showSearch = !showSearch\" aria-label=\"Back\">\n" +
+    "        <ng-md-icon icon=\"arrow_back\"></ng-md-icon>\n" +
+    "      </md-button>\n" +
+    "      <h3 flex=\"10\">\n" +
     "                Back\n" +
     "            </h3>\n" +
-    "            <md-input-container md-theme=\"input\" flex>\n" +
-    "                <label>&nbsp;</label>\n" +
-    "                <input ng-model=\"search.who\" placeholder=\"Search ...\">\n" +
-    "            </md-input-container>\n" +
-    "        </div>\n" +
-    "    </md-toolbar>\n" +
-    "    <md-content layout=\"column\" flex md-scroll-y style=\"background-color:#DCDCDC\">\n" +
-    "        <div ui-view></div>\n" +
-    "    </md-content>\n" +
+    "      <md-input-container md-theme=\"input\" flex>\n" +
+    "        <label>&nbsp;</label>\n" +
+    "        <input ng-model=\"search.who\" placeholder=\"Search ...\">\n" +
+    "      </md-input-container>\n" +
+    "    </div>\n" +
+    "  </md-toolbar>\n" +
+    "  <md-content layout=\"column\" flex md-scroll-y style=\"background-color:#DCDCDC\">\n" +
+    "    <div ui-view></div>\n" +
+    "  </md-content>\n" +
     "</div>\n"
   );
 
@@ -137,7 +231,7 @@ angular.module('builtright').run(['$templateCache', function($templateCache) {
     "                <ng-md-icon icon=\"menu\"></ng-md-icon>\n" +
     "            </md-button>\n" +
     "            <h3>\n" +
-    "                <a href=\"/\">builtright</a>\n" +
+    "                <a href=\"/\">BuiltRight - The Car Build Tracking App</a>\n" +
     "            </h3>\n" +
     "            <span flex></span>\n" +
     "            <md-button aria-label=\"Search\" ng-click=\"showSearch = !showSearch\">\n" +
@@ -196,37 +290,75 @@ angular.module('builtright').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/layouts/side-nav/sidenav.html',
-    "        <md-toolbar class=\"md-tall md-hue-2\">\n" +
-    "            <div layout=\"column\" class=\"md-toolbar-tools-bottom inset\">\n" +
-    "                <div layout=\"row\">\n" +
-    "                    <div flex=\"20\">\n" +
-    "                        <img style=\"width: 36px; height: 36px; border-radius: 50%\"\n" +
-    "                             actual-src=\"data:image/jpeg;base64,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\"\n" +
-    "                             showloader=\"\" loader-class=\"preload\" loader-src=\"app/assets/images/loader.gif\"\n" +
-    "                             src=\"data:image/jpeg;base64,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\">\n" +
-    "                    </div>\n" +
-    "                    <div flex=\"80\" style=\"margin-top: 10px;font-size: 1em;\">\n" +
-    "                        <div>Fernando Monteiro</div>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "        </md-toolbar>\n" +
-    "        <md-list>\n" +
-    "            <md-list-item ng-repeat=\"item in vm.menu\" ng-click=\"vm.navigateTo(item.link)\" >\n" +
-    "                <div class=\"inset\" ng-show=\"item.icon\">\n" +
-    "                    <ng-md-icon icon=\"{{item.icon}}\"></ng-md-icon>\n" +
-    "                </div>\n" +
-    "                <p> {{ item.name }}</p>\n" +
-    "            </md-list-item>\n" +
-    "            <md-divider></md-divider>\n" +
-    "            <md-subheader>Admin</md-subheader>\n" +
-    "            <md-list-item ng-repeat=\"item in vm.admin\" ng-click=\"vm.showSettingsBottom($event)\" >\n" +
-    "                <div class=\"inset\">\n" +
-    "                    <ng-md-icon icon=\"{{item.icon}}\"></ng-md-icon>\n" +
-    "                </div>\n" +
-    "                <p> {{ item.title }}</p>\n" +
-    "            </md-list-item>\n" +
-    "        </md-list>\n"
+    "<md-toolbar class=\"md-tall md-hue-2\">\n" +
+    "  <div layout=\"column\" class=\"md-toolbar-tools-bottom inset\">\n" +
+    "  </div>\n" +
+    "</md-toolbar>\n" +
+    "<md-list>\n" +
+    "  <md-list-item ng-if=\"\" ng-repeat=\"item in vm.menu\" ng-click=\"vm.navigateTo(item.link)\">\n" +
+    "    <div class=\"inset\" ng-show=\"item.icon\">\n" +
+    "      <ng-md-icon icon=\"{{item.icon}}\"></ng-md-icon>\n" +
+    "    </div>\n" +
+    "    <p> {{ item.name }}</p>\n" +
+    "  </md-list-item>\n" +
+    "  <md-divider></md-divider>\n" +
+    "  <!-- <md-subheader ng-show=\"vm.user.admin\">Admin</md-subheader> -->\n" +
+    "<!--   <md-list-item ng-repeat=\"item in vm.admin\" ng-click=\"vm.showSettingsBottom($event)\">\n" +
+    "    <div class=\"inset\">\n" +
+    "      <ng-md-icon icon=\"{{item.icon}}\"></ng-md-icon>\n" +
+    "    </div>\n" +
+    "    <p> {{ item.title }}</p>\n" +
+    "  </md-list-item> -->\n" +
+    "</md-list>\n"
+  );
+
+
+  $templateCache.put('app/modules/login/login.html',
+    "<div layout=\"column\" ng-cloak class=\"md-inline-form\">\n" +
+    "  <md-content md-theme=\"docs-dark\" layout-gt-sm=\"row\" layout-padding layout-align=\"center center\">\n" +
+    "    <div layout=\"column\" flex-xs=\"100\" flex-gt-xs=\"50\">\n" +
+    "      <h1 class=\"text-center\">Login</h1>\n" +
+    "      <form ng-submit=\"vm.loginUser(user);\" layout=\"column\" flex=\"100\">\n" +
+    "        <md-input-container flex>\n" +
+    "          <label>Email</label>\n" +
+    "          <input ng-model=\"user.username\" type=\"email\">\n" +
+    "        </md-input-container>\n" +
+    "        <md-input-container flex>\n" +
+    "          <label>Password</label>\n" +
+    "          <input ng-model=\"user.password\" type=\"password\" minlength=\"6\">\n" +
+    "        </md-input-container>\n" +
+    "        <md-button class=\"md-raised\" aria-label=\"description\" ng-click=\"vm.loginUser(user)\" md-ripple-size=\"full\">Login</md-button>\n" +
+    "      </form>\n" +
+    "    </div>\n" +
+    "    <div class=\"md-actions\" layout=\"row\" layout-align=\"center end\">\n" +
+    "      <md-button ui-sref=\"home.register\">Not a user? Sign up here.</md-button>\n" +
+    "    </div>\n" +
+    "  </md-content>\n" +
+    "</div>\n"
+  );
+
+
+  $templateCache.put('app/modules/login/register.html',
+    "<div layout=\"column\" ng-cloak class=\"md-inline-form\">\n" +
+    "  <md-content md-theme=\"docs-dark\" layout-gt-sm=\"row\" layout-padding>\n" +
+    "    <div layout=\"column\" class=\"loginForm\">\n" +
+    "      <h1 class=\"text-center\">Sign up for BuiltRight</h1>\n" +
+    "      <md-input-container>\n" +
+    "        <label>Email</label>\n" +
+    "        <input ng-model=\"user.email\" type=\"email\">\n" +
+    "      </md-input-container>\n" +
+    "      <md-input-container>\n" +
+    "        <label>Password</label>\n" +
+    "        <input ng-model=\"user.password\" type=\"password\" minlength=\"6\">\n" +
+    "      </md-input-container>\n" +
+    "      <md-button class=\"md-raised\" aria-label=\"description\" ng-click=\"vm.createUser(user)\" md-ripple-size=\"full\">Sign up </md-button>\n" +
+    "    </div>\n" +
+    "    <div class=\"md-actions\" layout=\"row\" layout-align=\"center end\">\n" +
+    "      <md-button ui-sref=\"home.login\">Already a user? Login.</md-button>\n" +
+    "    </div>\n" +
+    "\n" +
+    "  </md-content>\n" +
+    "</div>"
   );
 
 }]);

@@ -54,7 +54,10 @@ module.exports = function (grunt) {
 				src: [
 					// Angular Project Dependencies,
 					'app/assets/libs/angular/angular.js',
-					'app/assets/libs/**/*.js'
+					'app/assets/libs/**/*.js',
+					'src/bower_components/**/*.js', 
+					'src/plugins/**/*.js',
+					'node_modules/**/*.js'
 
 				],
 				dest: 'app/assets/js/<%= pkg.name %>-angularbundle.js'
