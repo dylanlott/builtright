@@ -13,7 +13,7 @@ module.exports = function() {
   app.use(passport.session());
   app.use(cookieParser());
   app.use(session({
-    secret: '1d5adg36s5vf2adr7vwefgv1e46b634',
+    secret: 'thisappsecret',
     resave: false,
     saveUninitialized: true
   }));
@@ -61,6 +61,8 @@ module.exports = function() {
   //Endpoints `/api/auth/` 
   app.get('/user', requireAuth, UserCtrl.getUser);
   app.post('/user', UserCtrl.createUser);
+
+  //Login
   app.post('/', passport.authenticate('local'), function(req, res) {
     console.log("Logged In");
     return res.status(200).json(req.user).end();
