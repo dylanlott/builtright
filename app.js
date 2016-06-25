@@ -17,13 +17,12 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(cors());
 app.use(session({
-  secret: 'thisappsecret',
+  secret: process.env.SESSION_SECRET || 'thisappsecret',
   resave: false,
   saveUninitialized: true
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 //Routes 
 app.use('/api/users', require('./routes/UserRoutes'));
@@ -37,7 +36,6 @@ mongoose.connect(mongoUri);
 mongoose.connection.once('open', function() {
   console.log("Connected to db at " + mongoUri);
 });
-
 
 //Port
 var port = 4000;
