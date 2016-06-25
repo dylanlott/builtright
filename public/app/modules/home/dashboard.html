@@ -1,30 +1,16 @@
-<divclass="md-padding" flex layout-sm="column">
-  <md-card class="text-center">
-    <md-card-content>
-      <!-- List of Users Builds -->
-      <h2>Dashboard</h2>
-      <md-card ng-if="!vm.builds">
-        <md-card-content>
-          <h2>You don't have any builds</h2>
-          <p>Try creating one.</p>
-        </md-card-content>
-        <div class="md-actions" layout="row" layout-align="center end">
-          <md-button ui-sref="home.create_build">Create Your First Build</md-button>
-        </div>
-      </md-card>
-      <md-card>
-        <md-card-content>
-          <h2>Add A Build</h2>
-        </md-card-content>
-        <div class="md-actions" layout="row" layout-align="center center">
-           <md-button>content</md-button>
-         </div>
-      </md-card>
-      <md-card ng-repeat="build in vm.builds">
-        <md-card-content>
-          <h2>{{build.name}}</h2>
-        </md-card-content>
-      </md-card>
-    </md-card-content>
-  </md-card>
-</div>
+<md-content class="md-padding">
+  <md-card-content>
+    <h2>Dashboard</h2>
+  </md-card-content>
+  <div layout="row" layout-xs="column">
+    <md-card flex flex-gt-xs="30" class="md-padding">
+      <h2>View Your Builds</h2>
+    </md-card>
+    <md-card flex flex-gt-xs="30" class="md-padding">
+      <h2>Add A Build</h2>
+    </md-card>
+    <md-card flex flex-gt-xs="30" class="md-padding">
+      <h2>Share Your Build</h2>
+    </md-card>
+  </div>
+</md-content>

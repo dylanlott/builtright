@@ -29,6 +29,15 @@ angular.module('builds')
         resolve: {
           checkAuth: checkLoggedIn
         }
+      })
+      .state('home.build_detail', {
+        url: '/builds/:id', 
+        templateUrl: 'app/modules/builds/build_detail.html', 
+        controller: 'BuildDetailCtrl', 
+        controllerAs: 'vm', 
+        resolve: {
+          checkAuth: checkLoggedIn
+        }
       });
 
 
