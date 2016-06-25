@@ -34,6 +34,7 @@
     "gulp-plumber": "^1.1.0",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-util": "^3.0.7",
+    "helmet": "^2.1.1",
     "jshint": "^2.9.2",
     "less-middleware": "^2.1.0",
     "mongoose": "^4.4.14",

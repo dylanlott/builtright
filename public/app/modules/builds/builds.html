@@ -1,33 +1,30 @@
-<div layout="column" ng-cloak class="md-inline-form">
-  <md-card flex layout-padding ng-show="vm.addBuild">
-    <md-card-content>
-      <h2>Create A New Build</h2>
-      <md-input-container flex="100">
-        <label>Build Name</label>
-        <input type="text" ng-model="build.name">
-      </md-input-container>
-    </md-card-content>
-    <md-card-footer>
-      <md-button ng-click="vm.createBuild(build)">Save build</md-button>
-    </md-card-footer>
-  </md-card>
+<div layout="column" ng-cloak class="md-inline-form" layout-padding>
   <md-card>
     <h1 class="md-title text-center" style="font-size: 30px;">Builds</h1>
   </md-card>
-  <md-card ng-repeat="build in vm.builds" flex="30">
-    <!-- <img class="md-card-image" src="http://placehold.it/600x300" alt="{{build.owner}}'s {{build.name}}"> -->
-    <md-card-content>
-      <h2>{{build.name}}</h2>
-    </md-card-content>
-    <md-card-footer>
-      {{build.year}} {{build.make}} {{build.model}}
-    </md-card-footer>
-    <div class="md-actions" layout="row" layout-align="start start">
-      <md-button>see more</md-button>
-    </div>
+  <md-card>
+    <md-content layout-xs="column" layout="row">
+      <div flex-xs flex-gt-xs="50" layout="column">
+        <md-card ng-repeat="build in vm.builds" flex>
+          <!-- <img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out"> -->
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">{{ build.name }}</span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            {{ build.year }} / {{build.make}} / {{build.model}}
+          </md-card-content>
+          <md-card-actions layout="row" layout-align="end center">
+            <md-button>View More</md-button>
+            <!-- <md-button>Action 2</md-button> -->
+          </md-card-actions>
+        </md-card>
+      </div>
+    </md-content>
+    <!-- </md-card-content> -->
+    <md-button ui-sref="home.create_build" aria-label="add build" class="md-fab md-primary" md-ripple-size="full" style="position: absolute; right: 35px; top: 28px; ">
+      <i class="fa fa-plus"></i>
+    </md-button>
   </md-card>
-  <!-- </md-card-content> -->
-  <md-button ui-sref="home.create_build" aria-label="add build" class="md-fab md-primary" md-ripple-size="full" style="position: absolute; right: 35px; bottom: 35px; ">
-    <i class="fa fa-plus"></i>
-  </md-button>
 </div>

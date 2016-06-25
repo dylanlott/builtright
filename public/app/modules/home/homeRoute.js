@@ -22,6 +22,8 @@ angular.module('builtright')
       .state('home.dashboard', {
         url: '/dashboard',
         templateUrl: 'app/modules/home/dashboard.html',
+        controller: 'HomeCtrl', 
+        controllerAs: 'vm',
         resolve: {
           checkAuth: checkLoggedIn
         }
