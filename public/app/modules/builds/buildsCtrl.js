@@ -39,7 +39,7 @@
       function activate() {
         BuildsService.getBuilds()
           .then(function(res){
-            vm.builds = res;
+            vm.builds = res; 
           })
       }
 	  }
