@@ -39,7 +39,7 @@ mongoose.connection.once('open', function() {
 });
 
 //Port
-var port = 4000;
+var port = 8080;
 app.listen(process.env.EXPRESS_PORT || port, function() {
   console.log("The Wolverine Pack is hunting on port ", port);
 });
