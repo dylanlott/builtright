@@ -3,6 +3,7 @@ var User = require('../models/User.js');
 module.exports = {
 
   createUser: function(req, res) {
+    console.log("createUser: ", req.body);
     User.findOne({ email: req.body.email })
       .exec()
       .then(function(user) {
