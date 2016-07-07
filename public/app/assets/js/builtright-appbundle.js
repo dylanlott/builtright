@@ -1,5 +1,5 @@
 /*!
-* builtright - v0.0.1 - MIT LICENSE 2016-06-24. 
+* builtright - v0.0.1 - MIT LICENSE 2016-07-07. 
 * @author Hivemind Apps
 */
 (function() {
@@ -154,6 +154,15 @@ angular.module('builds')
         resolve: {
           checkAuth: checkLoggedIn
         }
+      })
+      .state('home.build_detail', {
+        url: '/builds/:id', 
+        templateUrl: 'app/modules/builds/build_detail.html', 
+        controller: 'BuildDetailCtrl', 
+        controllerAs: 'vm', 
+        resolve: {
+          checkAuth: checkLoggedIn
+        }
       });
 
 
@@ -196,6 +205,8 @@ angular.module('builtright')
       .state('home.dashboard', {
         url: '/dashboard',
         templateUrl: 'app/modules/home/dashboard.html',
+        controller: 'HomeCtrl', 
+        controllerAs: 'vm',
         resolve: {
           checkAuth: checkLoggedIn
         }
@@ -251,6 +262,53 @@ angular.module('login')
 
   /**
    * @ngdoc function
+   * @name app.controller:BuildDetailCtrl
+   * @description
+   * # BuildDetailCtrl
+   * Controller of the app
+   */
+
+  angular
+    .module('builds')
+    .controller('BuildDetailCtrl', BuildDetails)
+
+	  BuildDetails.$inject = ['BuildsService', '$log', '$mdToast', '$state', '$stateParams'];
+
+	  function BuildDetails(BuildsService, $log, $mdToast, $state, $stateParams) {
+	    /*jshint validthis: true */
+	    var vm = this;
+
+      $log.info("state params: ", $stateParams.id);
+      var id = $stateParams.id; 
+	    
+      $log.log("BuildDetailCtrl running."); 
+
+      activate(); 
+
+      function activate() {
+        BuildsService.getBuildDetails(id)
+          .then(function(res){
+            $log.log("build info: ", res); 
+            vm.build = res; 
+          })
+          .catch(function(err){
+            if(err){
+              $log.error("Error retrieving build info: "); 
+              $mdToast.showSimple("Error retrieving build information."); 
+            }
+          })
+      }
+
+
+	  }
+
+})();
+
+(function() {
+  'use strict';
+
+  /**
+   * @ngdoc function
    * @name app.controller:buildsCtrl
    * @description
    * # buildsCtrl
@@ -268,6 +326,8 @@ angular.module('login')
 	    var vm = this;
 	    vm.addBuild = false;
 
+      activate(); 
+
 	    $log.log("BuildsCtrl running. ");
 	    
       vm.createBuild = function(build){
@@ -281,67 +341,87 @@ angular.module('login')
             $mdToast.showSimple('Error creating build: ', err); 
           })
       }
+
+      function activate() {
+        BuildsService.getBuilds()
+          .then(function(res){
+            vm.builds = res;
+          })
+      }
 	  }
 
 })();
 
-(function () {
-	'use strict';
+(function() {
+  'use strict';
 
-	/**
-	* @ngdoc function
-	* @name app.controller:HomeCtrl
-	* @description
-	* # HomeCtrl
-	* Controller of the app
-	*/
+  /**
+   * @ngdoc function
+   * @name app.controller:HomeCtrl
+   * @description
+   * # HomeCtrl
+   * Controller of the app
+   */
 
-	angular
-		.module('builtright')
-		.controller('HomeCtrl', Home);
+  angular
+    .module('builtright')
+    .controller('HomeCtrl', Home);
 
-	Home.$inject = ['homeService', 'LoginService', '$log', 'BuildsService'];
+  Home.$inject = ['homeService', 'LoginService', '$log', 'BuildsService', '$rootScope'];
 
-	/*
-	* recommend
-	* Using function declarations
-	* and bindable members up top.
-	*/
+  /*
+   * recommend
+   * Using function declarations
+   * and bindable members up top.
+   */
 
-	function Home(homeService, LoginService, $log, BuildsService) {
-		/*jshint validthis: true */
-		var vm = this;
-		vm.title = "Hello, BuiltRight!";
-		vm.version = "1.0.0";
-		vm.user = null; 
+  function Home(homeService, LoginService, $log, BuildsService, $rootScope) {
+    /*jshint validthis: true */
+    var vm = this;
+    vm.title = "Hello, BuiltRight!";
+    vm.version = "1.0.0";
+    vm.user = null;
 
-		$log.info("vm.loggedIn: ", vm.loggedIn); 
+    $log.info("vm.loggedIn: ", vm.loggedIn);
 
-		activate(); 
+    activate();
 
-		function activate() {
-			BuildsService.getBuilds()
-				.then(function(res){
-					$log.log(res); 
-					vm.builds = res; 
-					return vm.builds; 
-				})
-				.catch(function(err){
-					$log.error("Error retrieving builds: ", err); 
-				}); 
+    LoginService.getUserInfo()
+      .then(function(res) {
+        vm.user = res;
+      })
 
-			LoginService.getUserInfo()
-				.then(function(res){
-					$log.log("LoginService HomeCtrl: ", res); 
-					vm.user = res; 
-					return vm.user; 
-				})
-				.catch(function(err){
-					$log.error("Error getting user: ", err); 
-				});
-		}
+    $rootScope.$on('user-login', function() {
+      LoginService.getUserInfo()
+        .then(function(res) {
+          vm.user = res;
+        })
+    })
 
-	}
+
+    function activate() {
+      BuildsService.getBuilds()
+      	.then(function(res){
+      		$log.log(res); 
+      		vm.builds = res; 
+      		return vm.builds; 
+      	})
+      	.catch(function(err){
+      		$log.error("Error retrieving builds: ", err); 
+      	}); 
+
+      LoginService.getUserInfo()
+        .then(function(res) {
+          $log.log("LoginService HomeCtrl: ", res);
+          vm.user = res;
+          return vm.user;
+        })
+        .catch(function(err) {
+          $log.error("Error getting user: ", err);
+        });
+    }
+
+  }
 
 })();
 
@@ -470,7 +550,7 @@ angular.module('login')
 
   // Injecting Denpendencies
 
-  SidenavCtrl.$inject = ['$log', '$mdSidenav', '$state', '$mdBottomSheet', '$mdToast', 'MenuService', '$scope', 'LoginService'];
+  SidenavCtrl.$inject = ['$log', '$mdSidenav', '$state', '$mdBottomSheet', '$mdToast', 'MenuService', '$scope', 'LoginService', '$rootScope'];
   SettingsCtrl.$inject = ['$mdBottomSheet'];
 
   /*
@@ -479,7 +559,7 @@ angular.module('login')
    * and bindable members up top.
    */
 
-  function SidenavCtrl($log, $mdSidenav, $state, $mdBottomSheet, $mdToast, MenuService, $scope, LoginService) {
+  function SidenavCtrl($log, $mdSidenav, $state, $mdBottomSheet, $mdToast, MenuService, $scope, LoginService, $rootScope) {
     /*jshint validthis: true */
     var vm = this;
 
@@ -491,15 +571,19 @@ angular.module('login')
       $mdSidenav('left').close();
     };
 
-    LoginService.getUserInfo().then(function(res){
-      $log.info("vm.user: ", res);
-      if(vm.user === undefined){
-        vm.loggedIn = false; 
-      }else{
-        vm.loggedIn = true; 
-      }
-      vm.user = res; 
+    LoginService.getUserInfo()
+      .then(function(res){
+        vm.user = res; 
+      })
+
+    $rootScope.$on('user-login', function(){
+      LoginService.getUserInfo()
+        .then(function(res){
+          $mdToast.showSimple('User Updated.'); 
+          vm.user = res; 
+        })
     })
+
     // Close menu on small screen after click on menu item.
     // Only use $scope in controllerAs when necessary; for example, publishing and subscribing events using $emit, $broadcast, $on or $watch.
     $scope.$on('$stateChangeSuccess', vm.closeSidenav);
@@ -578,9 +662,9 @@ angular.module('login')
    * and bindable members up top.
    */
 
-  Login.$inject = ['$mdToast', '$state', '$log', 'LoginService', '$rootScope'];
+  Login.$inject = ['$mdToast', '$state', '$log', 'LoginService'];
 
-  function Login($mdToast, $state, $log, LoginService, $rootScope) {
+  function Login($mdToast, $state, $log, LoginService) {
 
     var vm = this;
     vm.isLoggedIn = false;
@@ -588,17 +672,17 @@ angular.module('login')
     vm.loginUser = function(user) {
       LoginService.loginUser(user)
         .then(function(res) {
-          $rootScope.$broadcast("loginSuccess");
-          $scope.$digest(); 
+          LoginService.broadcastLogin(); 
           $state.go('home.dashboard');
         })
         .catch(fail);
     }
 
     vm.createUser = function(user) {
-      LoginService.registerUser()
+      LoginService.registerUser(user)
         .then(function(res) {
           $log.log("register user: ", res); 
+          LoginService.broadcastLogin(); 
           $mdToast.showSimple('Account created.'); 
           $state.go('home.dashboard');  
         })
@@ -660,7 +744,8 @@ angular.module('login')
     }
 
     function createBuild(build) {
-      return $http.post('/api/builds/')
+      $log.log('create build object: ', build); 
+      return $http.post('/api/builds/', build)
         .then(function(data, status, headers, config) {
           return data.data;
         })
@@ -858,9 +943,9 @@ angular.module('login')
   // Inject your dependencies as .$inject = ['$http', 'someSevide'];
   // function Name ($http, someSevide) {...}
 
-  LoginService.$inject = ['$log', '$http', '$mdToast', '$state'];
+  LoginService.$inject = ['$log', '$http', '$mdToast', '$state', '$rootScope'];
 
-  function LoginService($log, $http, $mdToast, $state) {
+  function LoginService($log, $http, $mdToast, $state, $rootScope) {
     // $log.log("LoginService called.");
 
     var LoginService = {
@@ -868,7 +953,8 @@ angular.module('login')
       loginUser: loginUser,
       logoutUser: logoutUser,
       checkLoggedIn: checkLoggedIn,
-      getUserInfo: getUserInfo
+      getUserInfo: getUserInfo,
+      broadcastLogin: broadcastLogin
     }
 
     return LoginService;
@@ -882,17 +968,17 @@ angular.module('login')
     function loginUser(user) {
       return $http.post('/api/auth/', user)
         .then(success)
-        .then(function(res){
+        .then(function(res) {
           $mdToast.showSimple('Logged in.');
-          $state.go('home.dashboard'); 
+          $state.go('home.dashboard');
         })
         .catch(fail);
     }
 
     function logoutUser() {
       return $http.get('/api/auth/logout')
-        .then(function(res){
-          $mdToast.showSimple('Logged out.'); 
+        .then(function(res) {
+          $mdToast.showSimple('Logged out.');
         })
         .catch(fail);
     }
@@ -912,6 +998,16 @@ angular.module('login')
       return $http.get('/api/auth/user')
         .then(success)
         .catch(fail);
+    }
+
+    function broadcastLogin() {
+      $rootScope.$broadcast('user-login');
+      $log.log("$rootscope.$broadcast user-login");
+    }
+
+    function broadcastLogout() {
+      $rootScope.$broadcast('user-logout');
+      $log.log("$rootscope.$broadcast user-logout");
     }
 
     function success(res) {

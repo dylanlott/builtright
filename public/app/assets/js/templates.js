@@ -1,29 +1,76 @@
 angular.module('builtright').run(['$templateCache', function($templateCache) {
   'use strict';
 
+  $templateCache.put('app/modules/builds/build_detail.html',
+    "<md-card class=\"md-padding\">\n" +
+    "  <h1>Build Detail</h1>\n" +
+    "</md-card>\n" +
+    "<md-card>\n" +
+    "  <md-card-content>\n" +
+    "    <h2>Build Info</h2>\n" +
+    "    <p>Make / Model / Year / Trim</p>\n" +
+    "  </md-card-content>\n" +
+    "  <md-card-footer>\n" +
+    "  Card footer\n" +
+    "  </md-card-footer>\n" +
+    "  <div class=\"md-actions\" layout=\"row|column\" layout-align=\"start|end|center start|end|center\">\n" +
+    "     <md-button>content</md-button>\n" +
+    "   </div>\n" +
+    "</md-card>\n" +
+    "\n" +
+    "<md-card>\n" +
+    "  <md-card-content>\n" +
+    "    <h2>Parts</h2>\n" +
+    "    <p>Upgrades and Parts</p>\n" +
+    "  </md-card-content>\n" +
+    "  <md-card-footer>\n" +
+    "  Card footer\n" +
+    "  </md-card-footer>\n" +
+    "  <div class=\"md-actions\" layout=\"row|column\" layout-align=\"start|end|center start|end|center\">\n" +
+    "     <md-button>content</md-button>\n" +
+    "   </div>\n" +
+    "</md-card>\n" +
+    "\n" +
+    "<md-card>\n" +
+    "  <md-card-content>\n" +
+    "    <h2>Timeline</h2>\n" +
+    "    <p>Series of Events</p>\n" +
+    "  </md-card-content>\n" +
+    "  <md-card-footer>\n" +
+    "  Card footer\n" +
+    "  </md-card-footer>\n" +
+    "  <div class=\"md-actions\" layout=\"row|column\" layout-align=\"start|end|center start|end|center\">\n" +
+    "     <md-button>content</md-button>\n" +
+    "   </div>\n" +
+    "</md-card>"
+  );
+
+
   $templateCache.put('app/modules/builds/builds.html',
-    "<div layout=\"column\" ng-cloak class=\"md-inline-form\">\n" +
-    "  <md-card flex layout-padding ng-show=\"vm.addBuild\">\n" +
-    "    <md-card-content>\n" +
-    "      <h2>Create A New Build</h2>\n" +
-    "      <md-input-container flex=\"100\">\n" +
-    "        <label>Build Name</label>\n" +
-    "        <input type=\"text\" ng-model=\"build.name\">\n" +
-    "      </md-input-container>\n" +
-    "    </md-card-content>\n" +
-    "    <md-card-footer>\n" +
-    "      <md-button ng-click=\"vm.createBuild(build)\">Save build</md-button>\n" +
-    "    </md-card-footer>\n" +
-    "  </md-card>\n" +
-    "  <md-card>\n" +
-    "    <md-card-content>\n" +
-    "      <h2 class=\"md-title\">Builds</h2>\n" +
-    "    </md-card-content>\n" +
-    "    <md-button ui-sref=\"home.create_build\" aria-label=\"add build\" class=\"md-fab md-primary\" md-ripple-size=\"full\" style=\"position: absolute; right: 35px; bottom: 35px; \">\n" +
+    "<md-content class=\"md-padding\">\n" +
+    "  <md-card-content>\n" +
+    "    <h2>Builds</h2>\n" +
+    "  </md-card-content>\n" +
+    "  <div layout=\"row\" layout-xs=\"column\">\n" +
+    "    <md-card ng-repeat=\"build in vm.builds\" flex flex-gt-xs=\"30\" class=\"md-padding\">\n" +
+    "      <md-card-title>\n" +
+    "        <md-card-title-text>\n" +
+    "          <span class=\"md-headline\">{{ build.name }}</span>\n" +
+    "        </md-card-title-text>\n" +
+    "      </md-card-title>\n" +
+    "      <md-card-content>\n" +
+    "        {{ build.year }} {{build.make}} {{build.model}}\n" +
+    "      </md-card-content>\n" +
+    "      <md-card-actions layout=\"row\" layout-align=\"end center\">\n" +
+    "        <md-button ui-sref=\"home.build_detail({ id: build._id })\">View More</md-button>\n" +
+    "        <!-- <md-button>Action 2</md-button> -->\n" +
+    "      </md-card-actions>\n" +
+    "    </md-card>\n" +
+    "    <md-button ui-sref=\"home.create_build\" aria-label=\"add build\" class=\"md-fab md-primary\" md-ripple-size=\"full\" style=\"position: absolute; right: 35px; top: 10px; \">\n" +
     "      <i class=\"fa fa-plus\"></i>\n" +
     "    </md-button>\n" +
-    "  </md-card>\n" +
-    "</div>\n"
+    "  </div>\n" +
+    "</md-content>\n"
   );
 
 
@@ -91,28 +138,22 @@ angular.module('builtright').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/home/dashboard.html',
-    "<div class=\"md-padding\" flex layout-sm=\"column\">\n" +
-    "    <md-card class=\"text-center\">\n" +
-    "        <md-card-content>\n" +
-    "        \n" +
-    "            <!-- List of Users Builds --> \n" +
-    "            <h2>Dashboard</h2>\n" +
-    "\n" +
-    "            <md-card>\n" +
-    "              <md-card-content>\n" +
-    "                <h2>You don't have any builds</h2>\n" +
-    "                <p>Try creating one.</p>\n" +
-    "              </md-card-content>\n" +
-    "              <div class=\"md-actions\" layout=\"row\" layout-align=\"center end\">\n" +
-    "                 <md-button ui-sref=\"home.create_build\">Create Your First Build</md-button>\n" +
-    "               </div>\n" +
-    "            </md-card>\n" +
-    "\n" +
-    "           <!-- <code> {{ vm.builds }} </code> -->\n" +
-    "            \n" +
-    "        </md-card-content>\n" +
+    "<md-content class=\"md-padding\">\n" +
+    "  <md-card-content>\n" +
+    "    <h2>Dashboard</h2>\n" +
+    "  </md-card-content>\n" +
+    "  <div layout=\"row\" layout-xs=\"column\">\n" +
+    "    <md-card flex flex-gt-xs=\"30\" class=\"md-padding\">\n" +
+    "      <h2>View Your Builds</h2>\n" +
     "    </md-card>\n" +
-    "</div>\n"
+    "    <md-card flex flex-gt-xs=\"30\" class=\"md-padding\">\n" +
+    "      <h2>Add A Build</h2>\n" +
+    "    </md-card>\n" +
+    "    <md-card flex flex-gt-xs=\"30\" class=\"md-padding\">\n" +
+    "      <h2>Share Your Build</h2>\n" +
+    "    </md-card>\n" +
+    "  </div>\n" +
+    "</md-content>\n"
   );
 
 
@@ -129,7 +170,7 @@ angular.module('builtright').run(['$templateCache', function($templateCache) {
     "      </div>\n" +
     "    </md-toolbar>\n" +
     "    <md-list>\n" +
-    "      <md-list-item>\n" +
+    "      <md-list-item ng-if=\"vm.user\">\n" +
     "        <div class=\"inset\"> \n" +
     "          <ng-md-icon icon=\"person\"></ng-md-icon> \n" +
     "        </div>\n" +
@@ -314,51 +355,42 @@ angular.module('builtright').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/modules/login/login.html',
-    "<div layout=\"column\" ng-cloak class=\"md-inline-form\">\n" +
-    "  <md-content md-theme=\"docs-dark\" layout-gt-sm=\"row\" layout-padding layout-align=\"center center\">\n" +
-    "    <div layout=\"column\" flex-xs=\"100\" flex-gt-xs=\"50\">\n" +
-    "      <h1 class=\"text-center\">Login</h1>\n" +
-    "      <form ng-submit=\"vm.loginUser(user);\" layout=\"column\" flex=\"100\">\n" +
-    "        <md-input-container flex>\n" +
-    "          <label>Email</label>\n" +
-    "          <input ng-model=\"user.username\" type=\"email\">\n" +
-    "        </md-input-container>\n" +
-    "        <md-input-container flex>\n" +
-    "          <label>Password</label>\n" +
-    "          <input ng-model=\"user.password\" type=\"password\" minlength=\"6\">\n" +
-    "        </md-input-container>\n" +
-    "        <md-button class=\"md-raised\" aria-label=\"description\" ng-click=\"vm.loginUser(user)\" md-ripple-size=\"full\">Login</md-button>\n" +
-    "      </form>\n" +
-    "    </div>\n" +
-    "    <div class=\"md-actions\" layout=\"row\" layout-align=\"center end\">\n" +
-    "      <md-button ui-sref=\"home.register\">Not a user? Sign up here.</md-button>\n" +
-    "    </div>\n" +
-    "  </md-content>\n" +
-    "</div>\n"
+    "<md-content flex-gt-xs=\"50\" flex-offset-gt-sm=\"25\" layout-padding md-whiteframe=\"3\" style=\"padding: 25px 25px; margin-top: 25px;\">\n" +
+    "  <h1 class=\"text-center\">Login</h1>\n" +
+    "  <form ng-submit=\"vm.loginUser(user);\" layout=\"column\" flex=\"100\">\n" +
+    "    <md-input-container flex>\n" +
+    "      <label>Email</label>\n" +
+    "      <input ng-model=\"user.username\" type=\"email\">\n" +
+    "    </md-input-container>\n" +
+    "    <md-input-container flex>\n" +
+    "      <label>Password</label>\n" +
+    "      <input ng-model=\"user.password\" type=\"password\" minlength=\"6\">\n" +
+    "    </md-input-container>\n" +
+    "    <md-button class=\"md-raised\" aria-label=\"description\" ng-click=\"vm.loginUser(user)\" md-ripple-size=\"full\">Login</md-button>\n" +
+    "  </form>\n" +
+    "  <div class=\"md-actions\" layout=\"column\" layout-align=\"center center\">\n" +
+    "    <md-button ui-sref=\"home.register\">Not a user? Sign up here.</md-button>\n" +
+    "  </div>\n" +
+    "</md-content>\n"
   );
 
 
   $templateCache.put('app/modules/login/register.html',
-    "<div layout=\"column\" ng-cloak class=\"md-inline-form\">\n" +
-    "  <md-content md-theme=\"docs-dark\" layout-gt-sm=\"row\" layout-padding>\n" +
-    "    <div layout=\"column\" class=\"loginForm\">\n" +
-    "      <h1 class=\"text-center\">Sign up for BuiltRight</h1>\n" +
-    "      <md-input-container>\n" +
-    "        <label>Email</label>\n" +
-    "        <input ng-model=\"user.email\" type=\"email\">\n" +
-    "      </md-input-container>\n" +
-    "      <md-input-container>\n" +
-    "        <label>Password</label>\n" +
-    "        <input ng-model=\"user.password\" type=\"password\" minlength=\"6\">\n" +
-    "      </md-input-container>\n" +
-    "      <md-button class=\"md-raised\" aria-label=\"description\" ng-click=\"vm.createUser(user)\" md-ripple-size=\"full\">Sign up </md-button>\n" +
-    "    </div>\n" +
-    "    <div class=\"md-actions\" layout=\"row\" layout-align=\"center end\">\n" +
+    "<md-content md-whiteframe=\"3\" flex=\"50\" flex-offset=\"25\" flex-xs=\"100\" flex-offset-xs=\"0\" layout-gt-sm=\"column\" layout-padding style=\"padding: 25px 25px; margin-top: 25px;\">\n" +
+    "    <h1 class=\"text-center\">Sign up for BuiltRight</h1>\n" +
+    "    <md-input-container>\n" +
+    "      <label>Email</label>\n" +
+    "      <input ng-model=\"user.email\" type=\"email\">\n" +
+    "    </md-input-container>\n" +
+    "    <md-input-container>\n" +
+    "      <label>Password</label>\n" +
+    "      <input ng-model=\"user.password\" type=\"password\" minlength=\"6\">\n" +
+    "    </md-input-container>\n" +
+    "    <md-button class=\"md-raised\" aria-label=\"description\" ng-click=\"vm.createUser(user)\" md-ripple-size=\"full\">Sign up </md-button>\n" +
+    "    <div class=\"md-actions\" layout=\"column\" layout-align=\"center center\">\n" +
     "      <md-button ui-sref=\"home.login\">Already a user? Login.</md-button>\n" +
     "    </div>\n" +
-    "\n" +
-    "  </md-content>\n" +
-    "</div>"
+    "</md-content>\n"
   );
 
 }]);

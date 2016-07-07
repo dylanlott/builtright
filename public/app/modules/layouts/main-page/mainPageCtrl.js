@@ -13,7 +13,7 @@
 		.module('builtright')
 		.controller('LayoutCtrl', Layout);
 
-	Layout.$inject = ['$mdSidenav', '$cookies', '$state', '$mdToast', '$mdDialog', 'LoginService', '$log'];
+	Layout.$inject = ['$mdSidenav', '$cookies', '$state', '$mdToast', '$mdDialog', 'LoginService', '$log', '$rootScope'];
 
 	/*
 	* recommend
@@ -21,10 +21,22 @@
 	* and bindable members up top.
 	*/
 
-	function Layout($mdSidenav, $cookies, $state, $mdToast, $mdDialog, LoginService, $log) {
+	function Layout($mdSidenav, $cookies, $state, $mdToast, $mdDialog, LoginService, $log, $rootScope) {
 		/*jshint validthis: true */
 		var vm = this;
 
+		LoginService.getUserInfo()
+		.then(function(user){
+			vm.user = user; 
+		})
+		
+		$rootScope.$on('user-login', function(){
+			LoginService.getUserInfo()
+			.then(function(res){
+				vm.user = res; 
+			})
+		})
+		
 		vm.toggleSidenav = function (menuId) {
 			$mdSidenav(menuId).toggle();
 		};
