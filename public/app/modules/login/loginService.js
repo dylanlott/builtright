@@ -32,16 +32,17 @@
     return LoginService;
 
     function registerUser(user) {
+      $log.debug("registerUser: ", user); 
       return $http.post('/api/auth/user', user)
         .then(success)
         .catch(fail);
     }
 
     function loginUser(user) {
+      $log.debug("loginUser: ", user); 
       return $http.post('/api/auth/', user)
         .then(success)
         .then(function(res) {
-          $mdToast.showSimple('Logged in.');
           $state.go('home.dashboard');
         })
         .catch(fail);
