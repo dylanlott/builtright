@@ -27,12 +27,7 @@
     vm.isLoggedIn = false;
 
     vm.loginUser = function(user) {
-      var newUser = {
-        username: user.username; 
-        password: user.password; 
-      }
-      $log.debug("loginuser: ", user); 
-      LoginService.loginUser(newUser)
+      LoginService.loginUser(user)
         .then(function(res) {
           LoginService.broadcastLogin(); 
           $state.go('home.dashboard');
@@ -61,7 +56,7 @@
     }
 
     var fail = function(err) {
-      console.error("LoginController error: ", err);
+      console.error(err);
     }
 
   }
