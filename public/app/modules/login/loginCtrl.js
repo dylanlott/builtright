@@ -36,21 +36,23 @@
     }
 
     vm.createUser = function(user) {
+      var login = {
+        username: user.email, 
+        password: user.password
+      }
       LoginService.registerUser(user)
         .then(function(res) {
-          $log.log("register user: ", res); 
-          LoginService.broadcastLogin(); 
-          $mdToast.showSimple('Account created.'); 
-          $state.go('home.dashboard');  
+          LoginService.loginUser(login)
+            .then(function(res){
+              LoginService.broadcastLogin(); 
+              $mdToast.showSimple('Account created.');
+              $state.go('home.dashboard'); 
+            })
         })
         .catch(function(err){
           $log.error("Error signing up: ", err); 
           $mdToast.showSimple('Error signing up.'); 
         })
-        .finally(function() {
-          user.email = "";
-          user.password = "";
-        });
     }
 
     var fail = function(err) {
