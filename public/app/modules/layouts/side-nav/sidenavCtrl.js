@@ -44,7 +44,6 @@
     $rootScope.$on('user-login', function(){
       LoginService.getUserInfo()
         .then(function(res){
-          $mdToast.showSimple('User Updated.'); 
           vm.user = res; 
         })
     })

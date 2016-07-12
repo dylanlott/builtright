@@ -36,7 +36,7 @@
     }
 
     vm.createUser = function(user) {
-      LoginService.registerUser()
+      LoginService.registerUser(user)
         .then(function(res) {
           $log.log("register user: ", res); 
           LoginService.broadcastLogin(); 

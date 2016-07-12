@@ -3,12 +3,13 @@ var User = require('../models/User.js');
 module.exports = {
 
   createUser: function(req, res) {
+    console.log("createUser: ", req.body);
     User.findOne({ email: req.body.email })
       .exec()
       .then(function(user) {
         //if we found a user, it's a duplicate
         if (user) {
-          return res.status(409).json({ message: "User with that email already exists." }).end();
+          return res.status(409).json({ message: "User with that email already exists.", email: user }).end();
         }
         //if the user's password is too short ...
         if (req.body.password.length <= 4) {

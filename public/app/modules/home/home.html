@@ -56,7 +56,7 @@
       <md-button hide-xs hide-sm aria-label="Search" ng-click="showSearch = !showSearch">
         <ng-md-icon icon="search"></ng-md-icon>
       </md-button> -->
-      <md-menu>
+      <md-menu ng-if="layout.user">
         <md-button aria-label="Open Settings" ng-click="layout.openMenu($mdOpenMenu, $event)">
           <md-icon> more_vert </md-icon>
         </md-button>
