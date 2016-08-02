@@ -1,73 +1,67 @@
 # BUILTRIGHT
-A build tracker for the auto enthusiast. 
 
-### Style guide 
+A build tracker for the auto enthusiast. Track your build timelines, parts, costs, maintenance intervals, and share your build thread with friends.
 
-#### Colors
+# API Documentation
 
+## POST `/users`
 
-### POST `/users` 
+```
+    {
+        "username":"lott.dylan@gmail.com",
+        "password":"password"
+    }
+```
 
-````
-	{
-	    "username":"lott.dylan@gmail.com", 
-	    "password":"password"
-	} 
-````
+## POST `/users/auth`
 
-
-### POST `/users/auth` 
-
-````
+```
 {
-    "username":"lott.dylan@gmail.com", 
+    "username":"lott.dylan@gmail.com",
     "password":"password"
 }
-````
+```
 
+## GET `/builds`
 
-### GET `/builds`
+Returns all builds for the logged in user.
 
-Returns all builds for the logged in user. 
+## GET `/builds/:id`
 
+Returns details of one build with ID of `:id`
 
-### GET `/builds/:id` 
-Returns details of one build with ID of `:id` 
+## PUT `/builds/:id`
 
+Updates the build with ID of `:id`
 
-### PUT `/builds/:id` 
-Updates the build with ID of `:id` 
+## POST `/builds/comment/:id`
 
+Adds a comment to the build. Takes an object with property "body".
 
-### POST `/builds/comment/:id` 
+```
+    {
+        "body":"comment body"
+    }
+```
 
-Adds a comment to the build. Takes an object with property "body". 
+## GET `/parts`
 
-````
-	{
-		"body":"comment body"
-	}
-````
+Returns all parts for the current user.
 
-
-### GET `/parts` 
-
-Returns all parts for the current user. 
-
-### POST `/parts` 
+## POST `/parts`
 
 Creates a new Part
 
-Takes an object of 
+Takes an object of
 
-````
-	{
-		"name": part.name,
-		"url": part.url,
-		"price": part.price
-	}
-````
+```
+    {
+        "name": part.name,
+        "url": part.url,
+        "price": part.price
+    }
+```
 
-### GET `/builds/:id/cost`
+## GET `/builds/:id/cost`
 
 Return an object with the `total_cost` of the build as well as the build `name` and `build_id`
