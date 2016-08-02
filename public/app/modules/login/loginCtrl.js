@@ -29,7 +29,7 @@
     vm.loginUser = function(user) {
       LoginService.loginUser(user)
         .then(function(res) {
-          LoginService.broadcastLogin(); 
+          LoginService.broadcastLogin();
           $state.go('home.dashboard');
         })
         .catch(fail);
@@ -37,21 +37,21 @@
 
     vm.createUser = function(user) {
       var login = {
-        username: user.email, 
+        username: user.email,
         password: user.password
       }
-      LoginService.registerUser(user)
+      LoginService.registerUser(login)
         .then(function(res) {
+          $log.log("register user response: ", res); 
           LoginService.loginUser(login)
             .then(function(res){
-              LoginService.broadcastLogin(); 
+              LoginService.broadcastLogin();
               $mdToast.showSimple('Account created.');
-              $state.go('home.dashboard'); 
             })
         })
         .catch(function(err){
-          $log.error("Error signing up: ", err); 
-          $mdToast.showSimple('Error signing up.'); 
+          $log.error("Error signing up: ", err);
+          $mdToast.showSimple('Error signing up.');
         })
     }
 

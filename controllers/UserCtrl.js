@@ -22,7 +22,7 @@ module.exports = {
           if (err) {
             console.log("can't create user", err);
           }
-          res.json(new_user);
+          res.status(201).json(new_user).end();
         })
       })
   },

@@ -25,7 +25,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-//Routes 
+//Routes
 app.use('/api/users', require('./routes/UserRoutes'));
 app.use('/api/builds', require('./routes/BuildRoutes'));
 app.use('/api/parts', require('./routes/PartRoutes'));
@@ -39,7 +39,7 @@ mongoose.connection.once('open', function() {
 });
 
 //Port
-var port = 8080;
+var port = 4000;
 app.listen(process.env.EXPRESS_PORT || port, function() {
   console.log("The Wolverine Pack is hunting on port ", port);
 });

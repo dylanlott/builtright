@@ -2,6 +2,16 @@
 
 A build tracker for the auto enthusiast. Track your build timelines, parts, costs, maintenance intervals, and share your build thread with friends.
 
+# To Do List
+
+- Add documentation generation with jsDoc
+- Create add part functionality on front end
+- Fix login issues
+- Visual touch ups
+- Add comment to build functionality
+- Share build functionality on each build detail page
+-
+
 # API Documentation
 
 ## POST `/users`
