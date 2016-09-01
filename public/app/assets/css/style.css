@@ -1,0 +1,16 @@
+/*
+* CUSTOM CSS STYLES 
+* BUILTRIGHT 
+* COPYRIGHT 2016
+* HIVEMINDAPPS.COM
+*/
+
+.md-success {
+  background-color: #00C853;
+  color: #fff;
+}
+
+.md-danger {
+  background-color: #D32F2F;
+  color: #fff;
+}

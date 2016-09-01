@@ -1,0 +1,24 @@
+<md-content class="md-padding">
+  <md-card-content>
+    <h2>Builds</h2>
+  </md-card-content>
+  <div layout="row" layout-xs="column">
+    <md-card ng-repeat="build in vm.builds" flex flex-gt-xs="30" class="md-padding">
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">{{ build.name }}</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+        {{ build.year }} {{build.make}} {{build.model}}
+      </md-card-content>
+      <md-card-actions layout="row" layout-align="end center">
+        <md-button ui-sref="home.build_detail({ id: build._id })">View More</md-button>
+        <!-- <md-button>Action 2</md-button> -->
+      </md-card-actions>
+    </md-card>
+    <md-button ui-sref="home.create_build" aria-label="add build" class="md-fab md-primary" md-ripple-size="full" style="position: absolute; right: 35px; top: 10px; ">
+      <i class="fa fa-plus"></i>
+    </md-button>
+  </div>
+</md-content>

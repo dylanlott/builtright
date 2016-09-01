@@ -1,0 +1,28 @@
+{
+  "generator-angm": {
+    "appName": "builtright",
+    "angularCookies": true,
+    "angularAnimate": true,
+    "angularSanitize": true,
+    "angularBootstrap": true,
+    "angularMaterial": true,
+    "modules": [
+      {
+        "name": "builds"
+      },
+      {
+        "name": "login"
+      }
+    ],
+    "menu": [
+      {
+        "link": "builds",
+        "title": "Builds"
+      },
+      {
+        "link": "login",
+        "title": "Login"
+      }
+    ]
+  }
+}

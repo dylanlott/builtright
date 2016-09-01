@@ -1,0 +1,5 @@
+node_modules
+public/node_modules
+public/src/bower_components
+public/src/plugins
+db_info.md

@@ -1,0 +1,15 @@
+{
+  "generator-angm": {
+    "modules": [
+      {
+        "name": "login"
+      }
+    ],
+    "menu": [
+      {
+        "link": "login",
+        "title": "Login"
+      }
+    ]
+  }
+}
