@@ -78,7 +78,6 @@ module.exports = function() {
   app.post('/login',
     passport.authenticate('local'),
     function(req, res) {
-      console.log("passport got here");
       // res.redirect('/users/' + req.user.username);
       res.status(200).json(req.user).end();
     });

@@ -18,7 +18,6 @@
   LoginService.$inject = ['$log', '$http', '$mdToast', '$state', '$rootScope'];
 
   function LoginService($log, $http, $mdToast, $state, $rootScope) {
-    // $log.log("LoginService called.");
 
     var LoginService = {
       registerUser: registerUser,
@@ -60,7 +59,6 @@
           return res;
         })
         .catch(function(err) {
-          // $log.log("LoginService checkLoggedIn: ", err);
           return err;
         });
     }

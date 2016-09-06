@@ -32,7 +32,9 @@
           LoginService.broadcastLogin();
           $state.go('home.dashboard');
         })
-        .catch(fail);
+        .catch(function(err){
+          $mdToast.showSimple('Couldn\'t login.');
+        });
     }
 
     vm.createUser = function(user) {
@@ -50,13 +52,8 @@
             })
         })
         .catch(function(err){
-          $log.error("Error signing up: ", err);
           $mdToast.showSimple('Error signing up.');
         })
-    }
-
-    var fail = function(err) {
-      console.error(err);
     }
 
   }
