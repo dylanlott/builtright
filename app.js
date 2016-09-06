@@ -29,7 +29,7 @@ app.use(passport.session());
 app.use('/api/users', require('./routes/UserRoutes'));
 app.use('/api/builds', require('./routes/BuildRoutes'));
 app.use('/api/parts', require('./routes/PartRoutes'));
-app.use('/api/auth', require('./passport.js'));
+app.use('/api/auth/', require('./passport.js'));
 
 
 //Auth

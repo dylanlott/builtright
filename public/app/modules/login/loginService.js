@@ -32,15 +32,13 @@
     return LoginService;
 
     function registerUser(user) {
-      $log.debug("registerUser: ", user); 
       return $http.post('/api/auth/user', user)
         .then(success)
         .catch(fail);
     }
 
     function loginUser(user) {
-      $log.debug("loginUser: ", user); 
-      return $http.post('/api/auth/', user)
+      return $http.post('/api/auth/login', user)
         .then(success)
         .then(function(res) {
           $state.go('home.dashboard');
