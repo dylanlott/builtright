@@ -36,15 +36,12 @@
     }
 
     vm.createUser = function(user) {
-      $log.debug('createUser: ', user);
       var login = {
         email: user.email,
         password: user.password
       }
       LoginService.registerUser(login)
         .then(function(res) {
-          $log.log('login is: ', login);
-          $log.log('register user response: ', res);
           LoginService.loginUser(login)
             .then(function(res){
               LoginService.broadcastLogin();
