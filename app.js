@@ -38,7 +38,7 @@ var UserCtrl = require('./controllers/UserCtrl');
 
 app.use(cookieParser());
 app.use(session({
-    secret: 'thisappsecret',
+    secret: process.env.APP_SECRET || 'thisappsecret',
     resave: false,
     saveUninitialized: true
 }));
