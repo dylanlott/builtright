@@ -4,7 +4,7 @@
   "description": "Car build tracker app ",
   "main": "app.js",
   "scripts": {
-    "start": "pm2 start app.js",
+    "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -40,6 +40,7 @@
     "jshint": "^2.9.2",
     "less-middleware": "^2.1.0",
     "mongoose": "^4.4.14",
+    "nodemon": "^1.10.2",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "pm2": "^2.0.15",
