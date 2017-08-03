@@ -9,6 +9,7 @@ const socketEvents = require('./socketEvents');
 const config = require('./config/main');
 const cluster = require('cluster');
 const os = require('os');
+const helmet = require('helmet');
 
 let server;
 
@@ -33,7 +34,7 @@ if(cluster.isMaster) {
 } else {
   if (process.env.NODE_ENV !== config.test_env) {
     server = app.listen(config.port);
-    console.log(`Your server is running on port ${config.port}.`);
+    console.log(`builtright API is running on port ${config.port}.`);
   } else {
     server = app.listen(config.test_port);
   }
@@ -46,13 +47,13 @@ const io = require('socket.io').listen(server);
 socketEvents(io);
 
 // Set static file location for production
-// app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public'));
 
 // Setting up basic middleware for all Express requests
 app.use(bodyParser.urlencoded({ extended: false })); // Parses urlencoded bodies
 app.use(bodyParser.json()); // Send JSON responses
 app.use(logger('dev')); // Log requests to API using morgan
-
+app.use(helmet());
 // Enable CORS from client-side
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
