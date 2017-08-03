@@ -1,25 +1,45 @@
 // Importing Node modules and initializing Express
-const express = require('express'),
-  app = express(),
-  bodyParser = require('body-parser'),
-  logger = require('morgan'),
-  router = require('./router'),
-  mongoose = require('mongoose'),
-  socketEvents = require('./socketEvents'),
-  config = require('./config/main');
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const logger = require('morgan');
+const router = require('./router');
+const mongoose = require('mongoose');
+const socketEvents = require('./socketEvents');
+const config = require('./config/main');
+const cluster = require('cluster');
+const os = require('os');
 
-// Database Setup
-mongoose.connect(config.database);
-
-// Start the server
 let server;
-if (process.env.NODE_ENV != config.test_env) {
-  server = app.listen(config.port);
-  console.log(`Your server is running on port ${config.port}.`);
-} else{
-  server = app.listen(config.test_port);
+
+if(cluster.isMaster) {
+  var numWorkers = require('os').cpus().length;
+
+  console.log('Master cluster setting up ' + numWorkers + ' workers...');
+
+  for(var i = 0; i < numWorkers; i++) {
+      cluster.fork();
+  }
+
+  cluster.on('online', function(worker) {
+      console.log('Worker ' + worker.process.pid + ' is online');
+  });
+
+  cluster.on('exit', function(worker, code, signal) {
+    console.log('Worker ' + worker.process.pid + ' died with code: ' + code + ', and signal: ' + signal);
+    console.log('Starting a new worker');
+    cluster.fork();
+  });
+} else {
+  if (process.env.NODE_ENV !== config.test_env) {
+    server = app.listen(config.port);
+    console.log(`Your server is running on port ${config.port}.`);
+  } else {
+    server = app.listen(config.test_port);
+  }
 }
 
+mongoose.connect(config.database);
 
 const io = require('socket.io').listen(server);
 

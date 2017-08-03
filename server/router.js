@@ -10,9 +10,9 @@ const ROLE_CLIENT = require('./constants').ROLE_CLIENT;
 const ROLE_OWNER = require('./constants').ROLE_OWNER;
 const ROLE_ADMIN = require('./constants').ROLE_ADMIN;
 
+//require in passport config
 const passportService = require('./config/passport');
 
-// Middleware to require login/auth
 const requireAuth = passport.authenticate('jwt', { session: false });
 const requireLogin = passport.authenticate('local', { session: false });
 
