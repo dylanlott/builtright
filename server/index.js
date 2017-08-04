@@ -1,4 +1,4 @@
-// Importing Node modules and initializing Express
+'use strict';
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -34,7 +34,7 @@ if(cluster.isMaster) {
 } else {
   if (process.env.NODE_ENV !== config.test_env) {
     server = app.listen(config.port);
-    console.log(`builtright API is running on port ${config.port}.`);
+    console.log(`builtright api is running on port ${config.port}.`);
   } else {
     server = app.listen(config.test_port);
   }
