@@ -40,7 +40,7 @@ if(cluster.isMaster) {
   }
 }
 
-mongoose.connect(config.database);
+mongoose.connect(config.database, { useMongoClient: true });
 
 const io = require('socket.io').listen(server);
 
