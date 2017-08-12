@@ -3,6 +3,8 @@ const UserController = require('./controllers/user');
 const ChatController = require('./controllers/chat');
 const CommunicationController = require('./controllers/communication');
 const StripeController = require('./controllers/stripe');
+const PartsController = require('./controllers/part');
+const restful = require('restful-mongoose');
 const express = require('express');
 const passport = require('passport');
 const ROLE_MEMBER = require('./constants').ROLE_MEMBER;
@@ -23,7 +25,8 @@ module.exports = function (app) {
     userRoutes = express.Router(),
     chatRoutes = express.Router(),
     payRoutes = express.Router(),
-    communicationRoutes = express.Router();
+    communicationRoutes = express.Router(),
+    partsRoutes = express.Router();
 
   //= ========================
   // Auth Routes
@@ -113,6 +116,13 @@ module.exports = function (app) {
   // Send email from contact form
   communicationRoutes.post('/contact', CommunicationController.sendContactForm);
 
-  // Set url for API group routes
+  // parts
+  apiRoutes.use('/parts', partsRoutes);
+  partsRoutes.get('/', PartsController.listParts);
+  partsRoutes.post('/', PartsController.createPart);
+  partsRoutes.get('/:id', PartsController.getPart);
+  partsRoutes.put('/:id', PartsController.updatePart);
+  partsRoutes.delete('/:id', PartsController.deletePart);
+
   app.use('/api', apiRoutes);
 };
