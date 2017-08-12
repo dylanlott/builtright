@@ -2,12 +2,16 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import menuModule from 'vuex-store/modules/menu'
+import signup from '../components/auth/signup/Signup.vue'
+import login from '../components/auth/login/Login.vue'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     ...generateRoutesFromMenu(menuModule.state.items),
+    {path: '/signup', name: 'Login', component: login},
+    {path: '/signup', name: 'Signup', component: signup},
     {path: '*', redirect: { name: getDefaultRoute(menuModule.state.items).name }}
   ]
 })

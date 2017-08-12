@@ -33,6 +33,14 @@
 <script>
   export default {
     name: 'signup',
+    data () {
+      return {
+        user: {
+          email: '',
+          password: ''
+        }
+      }
+    },
     methods: {
       register () {
         this.$store.dispatch('register', this.user)
