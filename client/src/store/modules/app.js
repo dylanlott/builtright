@@ -23,7 +23,8 @@ const state = {
       lighterGray: '#ddd'
     }
   },
-  isLoading: true
+  isLoading: true,
+  notifications: []
 }
 
 const mutations = {

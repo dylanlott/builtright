@@ -1,27 +1,27 @@
 <template>
   <div class="signup">
     <h2>Create New Account</h2>
-    <form method="post" action="/auth/signup" name="signup">
+    <form name="signup">
       <div class="form-group">
         <div class="input-group">
           <input type="text" id="email" required="required"/>
-          <label class="control-label" for="email">Email</label><i class="bar"></i>
+          <label class="control-label" v-model="user.email" for="email">Email</label><i class="bar"></i>
         </div>
       </div>
       <div class="form-group">
         <div class="input-group">
-          <input type="password" id="password" required="required"/>
+          <input type="password" v-model="user.password" id="password" required="required"/>
           <label class="control-label" for="password">Password</label><i class="bar"></i>
         </div>
       </div>
       <div class="abc-checkbox abc-checkbox-primary">
-        <input id="checkbox1" type="checkbox" checked>
+        <input id="checkbox1" type="checkbox" v-model="user.tos" checked>
         <label for="checkbox1">
           <span class="abc-label-text">I agree to <router-link to="">Terms of Use.</router-link></span>
         </label>
       </div>
       <div class="d-flex flex-column flex-lg-row align-items-center justify-content-between down-container">
-        <button class="btn btn-primary" type="submit">
+        <button class="btn btn-primary" @click="register()">
           Sign Up
         </button>
         <router-link class='link' :to="{name: 'Login'}">Already joined?</router-link>
@@ -32,7 +32,12 @@
 
 <script>
   export default {
-    name: 'signup'
+    name: 'signup',
+    methods: {
+      register () {
+        this.$store.dispatch('register', this.user)
+      }
+    }
   }
 </script>
 

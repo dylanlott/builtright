@@ -1,6 +1,10 @@
 <template>
   <div class="auth-layout">
-    <div class="nav hidden-lg-up"><router-link class="i-vuestic" :to="{path: '/'}"></router-link></div>
+    <div class="nav hidden-lg-up">
+      <router-link :to="{path: '/'}">
+        <h2 style="margin-top: 30px;">Battlestations</h2>
+      </router-link>
+    </div>
     <div class="main row">
       <div class="auth-content col-lg-6 col-12">
         <router-view></router-view>

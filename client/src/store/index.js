@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import menu from './modules/menu'
 import app from './modules/app'
+import users from './modules/users'
 
 import * as getters from './getters'
 
@@ -13,7 +14,8 @@ const store = new Vuex.Store({
   getters,
   modules: {
     menu,
-    app
+    app,
+    users
   },
   state: {},
   mutations: {}

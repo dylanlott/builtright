@@ -1,23 +1,23 @@
 <template>
   <div class="login">
     <h2>Welcome!</h2>
-    <form method="post" action="/auth/login" name="login">
+    <form name="login">
       <div class="form-group">
         <div class="input-group">
-          <input type="text" id="email" required="required"/>
+          <input type="text" id="email" v-model="email" required="required"/>
           <label class="control-label" for="email">Email</label><i class="bar"></i>
         </div>
       </div>
       <div class="form-group">
         <div class="input-group">
-          <input type="password" id="password" required="required"/>
+          <input type="password" v-model="password" id="password" required="required"/>
           <label class="control-label" for="password">Password</label><i class="bar"></i>
         </div>
       </div>
       <div class="d-flex flex-column flex-lg-row align-items-center justify-content-between down-container">
-        <button class="btn btn-primary" type="submit">
+        <button class="btn btn-primary" @click="login()">
           Log In
-        </button>
+        </button> 
         <router-link class='link' :to="{name: 'Signup'}">Create account</router-link>
       </div>
     </form>
@@ -26,7 +26,22 @@
 
 <script>
   export default {
-    name: 'login'
+    name: 'login',
+    data () {
+      return {
+        email: this.email,
+        password: this.password
+      }
+    },
+    methods: {
+      login () {
+        const user = {
+          email: this.email,
+          password: this.password
+        }
+        this.$store.dispatch('login', user)
+      }
+    }
   }
 </script>
 
