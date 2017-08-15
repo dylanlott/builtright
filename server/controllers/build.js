@@ -1,4 +1,6 @@
 const Build = require('../models/build.js');
+const textSearch = require('mongoose-text-search');
+const logger = require('morgan');
 
 exports.create = (req, res) => {
   const build = new Build(req.body);
@@ -34,10 +36,7 @@ exports.delete = (req, res) => Build.findByIdAndRemove(req.params.id)
   .then(data => res.status(200).json(data))
   .catch(err => res.status(500).send(err));
 
-exports.search = (req, res) => Build.find({ $text: { $search: req.params.name } })
-  .skip(req.params.skip)
-  .limit(req.params.limit)
-  .exec((err, docs) => {
-    console.log('searching builds');
-    return res.status(200).json(err || docs);
-  });
+exports.search = (req, res) => Build.search(req.params.name, (err, docs) => {
+  if (err) res.status(500).send(err);
+  return res.status(200).send(docs);
+});

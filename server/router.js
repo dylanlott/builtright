@@ -5,6 +5,7 @@ const CommunicationController = require('./controllers/communication');
 const StripeController = require('./controllers/stripe');
 const PartsController = require('./controllers/part');
 const BuildsController = require('./controllers/build.js');
+const CommentsController = require('./controllers/comment.js');
 const express = require('express');
 const passport = require('passport');
 const ROLE_MEMBER = require('./constants').ROLE_MEMBER;
@@ -19,7 +20,6 @@ const requireAuth = passport.authenticate('jwt', { session: false });
 const requireLogin = passport.authenticate('local', { session: false });
 
 module.exports = function (app) {
-  // Initializing route groups
   const apiRoutes = express.Router(),
     authRoutes = express.Router(),
     userRoutes = express.Router(),
@@ -27,6 +27,7 @@ module.exports = function (app) {
     payRoutes = express.Router(),
     communicationRoutes = express.Router(),
     partRoutes = express.Router(),
+    commentRoutes = express.Router(),
     buildRoutes = express.Router();
 
   //= ========================
@@ -35,30 +36,17 @@ module.exports = function (app) {
 
   // Set auth routes as subgroup/middleware to apiRoutes
   apiRoutes.use('/auth', authRoutes);
-
-  // Registration route
   authRoutes.post('/register', AuthenticationController.register);
-
-  // Login route
   authRoutes.post('/login', requireLogin, AuthenticationController.login);
-
-  // Password reset request route (generate/send token)
   authRoutes.post('/forgot-password', AuthenticationController.forgotPassword);
-
-  // Password reset route (change password using token)
   authRoutes.post('/reset-password/:token', AuthenticationController.verifyToken);
 
   //= ========================
   // User Routes
   //= ========================
 
-  // Set user routes as a subgroup/middleware to apiRoutes
   apiRoutes.use('/user', userRoutes);
-
-  // View user profile route
   userRoutes.get('/:userId', requireAuth, UserController.viewProfile);
-
-  // Test protected route
   apiRoutes.get('/protected', requireAuth, (req, res) => {
     res.send({ content: 'The protected test route is functional!' });
   });
@@ -71,7 +59,6 @@ module.exports = function (app) {
   // Chat Routes
   //= ========================
 
-  // Set chat routes as a subgroup/middleware to apiRoutes
   apiRoutes.use('/chat', chatRoutes);
 
   // View messages to and from authenticated user
@@ -132,6 +119,13 @@ module.exports = function (app) {
   buildRoutes.put('/:id', BuildsController.update);
   buildRoutes.delete('/:id', BuildsController.delete);
   buildRoutes.get('/search', BuildsController.search);
+
+  apiRoutes.use('/comments', commentRoutes);
+  commentRoutes.get('/', CommentsController.list);
+  commentRoutes.post('/', CommentsController.create);
+  commentRoutes.get('/:id', CommentsController.detail);
+  commentRoutes.put('/:id', CommentsController.update);
+  commentRoutes.delete('/:id', CommentsController.delete);
 
   app.use('/api', apiRoutes);
 };

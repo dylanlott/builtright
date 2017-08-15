@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const slug = require('slug');
+const searchable = require('mongoose-searchable');
 
 const Schema = mongoose.Schema;
 
@@ -14,11 +15,11 @@ const BuildSchema = new Schema({
   slug: { type: String }
 });
 
-BuildSchema.pre('save', function(next) {
+BuildSchema.plugin(searchable);
+
+BuildSchema.pre('save', function (next) {
   this.slug = slug(this.title);
   next();
 });
-
-BuildSchema.index({'$**': 'text'});
 
 module.exports = mongoose.model('Build', BuildSchema);

@@ -1,6 +1,4 @@
-'use strict';
 const express = require('express');
-const app = express();
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const router = require('./router');
@@ -10,42 +8,44 @@ const config = require('./config/main');
 const cluster = require('cluster');
 const os = require('os');
 const helmet = require('helmet');
+const bluebird = require('bluebird');
+
+const app = express();
+mongoose.Promise = bluebird;
 
 let server;
 
 function connect() {
-  if(cluster.isMaster) {
-    var numWorkers = require('os').cpus().length;
+  if (cluster.isMaster) {
+    const numWorkers = os.cpus().length;
 
-    console.log('master cluster setting up ' + numWorkers + ' workers...');
+    console.log(`master cluster setting up ${numWorkers} workers...`);
 
-    for(var i = 0; i < numWorkers; i++) {
-        cluster.fork();
+    for (let i = 0; i < numWorkers; i++) {
+      cluster.fork();
     }
 
-    cluster.on('online', function(worker) {
-        console.log('worker ' + worker.process.pid + ' is online');
+    cluster.on('online', (worker) => {
+      console.log(`worker ${worker.process.pid} is online`);
     });
 
-    cluster.on('exit', function(worker, code, signal) {
-      console.log('worker ' + worker.process.pid + ' died with code: ' + code + ', and signal: ' + signal);
+    cluster.on('exit', (worker, code, signal) => {
+      console.log(`worker ${worker.process.pid} died with code: ${code}, and signal: ${signal}`);
       console.log('starting a new worker');
       cluster.fork();
     });
+  } else if (process.env.NODE_ENV !== config.test_env) {
+    server = app.listen(config.port);
+    console.log(`builtright api is running on port ${config.port}.`);
   } else {
-    if (process.env.NODE_ENV !== config.test_env) {
-      server = app.listen(config.port);
-      console.log(`builtright api is running on port ${config.port}.`);
-    } else {
-      server = app.listen(config.test_port);
-    }
+    server = app.listen(config.test_port);
   }
 }
 
-mongoose.connect(config.database, { useMongoClient: true }, function (err) {
+mongoose.connect(config.database, { useMongoClient: true }, (err) => {
   if (err) console.log('error connecting to mongo: ', err);
   console.log('connected to Mongoose');
-  connect(); 
+  connect();
 });
 
 const io = require('socket.io').listen(server);
@@ -53,7 +53,7 @@ const io = require('socket.io').listen(server);
 socketEvents(io);
 
 // Set static file location for production
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(`${__dirname  }/public`));
 
 // Setting up basic middleware for all Express requests
 app.use(bodyParser.urlencoded({ extended: false })); // Parses urlencoded bodies
