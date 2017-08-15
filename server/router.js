@@ -4,7 +4,7 @@ const ChatController = require('./controllers/chat');
 const CommunicationController = require('./controllers/communication');
 const StripeController = require('./controllers/stripe');
 const PartsController = require('./controllers/part');
-const restful = require('restful-mongoose');
+const BuildsController = require('./controllers/build.js');
 const express = require('express');
 const passport = require('passport');
 const ROLE_MEMBER = require('./constants').ROLE_MEMBER;
@@ -12,7 +12,7 @@ const ROLE_CLIENT = require('./constants').ROLE_CLIENT;
 const ROLE_OWNER = require('./constants').ROLE_OWNER;
 const ROLE_ADMIN = require('./constants').ROLE_ADMIN;
 
-//require in passport config
+// require in passport config
 const passportService = require('./config/passport');
 
 const requireAuth = passport.authenticate('jwt', { session: false });
@@ -26,7 +26,8 @@ module.exports = function (app) {
     chatRoutes = express.Router(),
     payRoutes = express.Router(),
     communicationRoutes = express.Router(),
-    partsRoutes = express.Router();
+    partRoutes = express.Router(),
+    buildRoutes = express.Router();
 
   //= ========================
   // Auth Routes
@@ -117,12 +118,19 @@ module.exports = function (app) {
   communicationRoutes.post('/contact', CommunicationController.sendContactForm);
 
   // parts
-  apiRoutes.use('/parts', partsRoutes);
-  partsRoutes.get('/', PartsController.listParts);
-  partsRoutes.post('/', PartsController.createPart);
-  partsRoutes.get('/:id', PartsController.getPart);
-  partsRoutes.put('/:id', PartsController.updatePart);
-  partsRoutes.delete('/:id', PartsController.deletePart);
+  apiRoutes.use('/parts', partRoutes);
+  partRoutes.get('/', PartsController.listParts);
+  partRoutes.post('/', PartsController.createPart);
+  partRoutes.get('/:id', PartsController.getPart);
+  partRoutes.put('/:id', PartsController.updatePart);
+  partRoutes.delete('/:id', PartsController.deletePart);
+
+  apiRoutes.use('/builds', buildRoutes);
+  buildRoutes.get('/', BuildsController.list);
+  buildRoutes.post('/', BuildsController.create);
+  buildRoutes.get('/:id', BuildsController.detail);
+  buildRoutes.put('/:id', BuildsController.update);
+  buildRoutes.delete('/:id', BuildsController.delete);
 
   app.use('/api', apiRoutes);
 };
