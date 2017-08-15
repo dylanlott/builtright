@@ -19,6 +19,6 @@ BuildSchema.pre('save', function(next) {
   next();
 });
 
-BuildSchema.index({ name: 'text', 'title': 'text' });
+BuildSchema.index({'$**': 'text'});
 
 module.exports = mongoose.model('Build', BuildSchema);

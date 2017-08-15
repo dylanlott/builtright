@@ -6,9 +6,9 @@ plan.target('prod', {
     host: '165.227.67.146',
     username: username,
     agent: process.env.SSH_AUTH_SOCK,
-    webRoot: '/var/www/battlestations.builtrightapp.com/server',
+    webRoot: '/var/www/battlestations.builtrightapp.com/battlestations/server',
     ownerUser: 'dylan',
-    repository: 'https://github.com/dylanlott/battlestations-api.git',
+    repository: 'https://github.com/dylanlott/battlestations.git',
     branchName: 'master',
     maxDeploys: 10
 });

@@ -1,10 +1,10 @@
 module.exports = {
   // Secret key for JWT signing and encryption
-  secret: 'super secret passphrase',
+  secret: process.env.BATTLESTATIONS_JWT_SECRET || 'super secret passphrase',
   // Database connection information
-  database: 'mongodb://localhost:27017/battlestations',
+  database: process.env.BATTLESTATIONS_MONGO || 'mongodb://localhost:27017/battlestations',
   // Setting port for server
-  port: 3000,
+  port: process.env.BATTLESTATIONS_PORT || 3000,
   // Configuring Mailgun API for sending transactional email
   mailgun_priv_key: 'mailgun private key here',
   // Configuring Mailgun domain for sending transactional email
@@ -17,6 +17,6 @@ module.exports = {
   stripeApiKey: 'stripe api key goes here',
   // necessary in order to run tests in parallel of the main app
   test_port: 3001,
-  test_db: 'mern-starter-test',
+  test_db: 'battlestations_test_db',
   test_env: 'test'
 };

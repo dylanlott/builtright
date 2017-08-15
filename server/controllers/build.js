@@ -38,6 +38,6 @@ exports.search = (req, res) => Build.find({ $text: { $search: req.params.name } 
   .skip(req.params.skip)
   .limit(req.params.limit)
   .exec((err, docs) => {
-    if (err) res.status(500).send(err);
-    return res.status(200).json(docs);
+    console.log('searching builds');
+    return res.status(200).json(err || docs);
   });
