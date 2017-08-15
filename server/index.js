@@ -13,34 +13,40 @@ const helmet = require('helmet');
 
 let server;
 
-if(cluster.isMaster) {
-  var numWorkers = require('os').cpus().length;
+function connect() {
+  if(cluster.isMaster) {
+    var numWorkers = require('os').cpus().length;
 
-  console.log('Master cluster setting up ' + numWorkers + ' workers...');
+    console.log('master cluster setting up ' + numWorkers + ' workers...');
 
-  for(var i = 0; i < numWorkers; i++) {
+    for(var i = 0; i < numWorkers; i++) {
+        cluster.fork();
+    }
+
+    cluster.on('online', function(worker) {
+        console.log('worker ' + worker.process.pid + ' is online');
+    });
+
+    cluster.on('exit', function(worker, code, signal) {
+      console.log('worker ' + worker.process.pid + ' died with code: ' + code + ', and signal: ' + signal);
+      console.log('starting a new worker');
       cluster.fork();
-  }
-
-  cluster.on('online', function(worker) {
-      console.log('Worker ' + worker.process.pid + ' is online');
-  });
-
-  cluster.on('exit', function(worker, code, signal) {
-    console.log('Worker ' + worker.process.pid + ' died with code: ' + code + ', and signal: ' + signal);
-    console.log('Starting a new worker');
-    cluster.fork();
-  });
-} else {
-  if (process.env.NODE_ENV !== config.test_env) {
-    server = app.listen(config.port);
-    console.log(`builtright api is running on port ${config.port}.`);
+    });
   } else {
-    server = app.listen(config.test_port);
+    if (process.env.NODE_ENV !== config.test_env) {
+      server = app.listen(config.port);
+      console.log(`builtright api is running on port ${config.port}.`);
+    } else {
+      server = app.listen(config.test_port);
+    }
   }
 }
 
-mongoose.connect(config.database, { useMongoClient: true });
+mongoose.connect(config.database, { useMongoClient: true }, function (err) {
+  if (err) console.log('error connecting to mongo: ', err);
+  console.log('connected to Mongoose');
+  connect(); 
+});
 
 const io = require('socket.io').listen(server);
 
