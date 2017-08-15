@@ -19,4 +19,6 @@ BuildSchema.pre('save', function(next) {
   next();
 });
 
+BuildSchema.index({ name: 'text', 'title': 'text' });
+
 module.exports = mongoose.model('Build', BuildSchema);

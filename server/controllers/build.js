@@ -33,3 +33,11 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => Build.findByIdAndRemove(req.params.id)
   .then(data => res.status(200).json(data))
   .catch(err => res.status(500).send(err));
+
+exports.search = (req, res) => Build.find({ $text: { $search: req.params.name } })
+  .skip(req.params.skip)
+  .limit(req.params.limit)
+  .exec((err, docs) => {
+    if (err) res.status(500).send(err);
+    return res.status(200).json(docs);
+  });

@@ -3,7 +3,7 @@ var appName = 'battlestations';
 var username = 'dylan';
 
 plan.target('prod', {
-    host: '159.203.106.53',
+    host: '165.227.67.146',
     username: username,
     agent: process.env.SSH_AUTH_SOCK,
     webRoot: '/var/www/battlestations.builtrightapp.com/server',

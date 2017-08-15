@@ -131,6 +131,7 @@ module.exports = function (app) {
   buildRoutes.get('/:id', BuildsController.detail);
   buildRoutes.put('/:id', BuildsController.update);
   buildRoutes.delete('/:id', BuildsController.delete);
+  buildRoutes.get('/search', BuildsController.search);
 
   app.use('/api', apiRoutes);
 };
