@@ -7,7 +7,9 @@ const CommentsSchema = new Schema({
   text: { type: String, required: true },
   _user: { type: Schema.Types.ObjectId, ref: 'User' },
   hidden: { type: Boolean, default: false },
-  timestamp: { type: Date, default: Date.now }
+  votes: { type: Number, default: 0 }
+}, {
+  timestamps: true
 });
 
 module.exports = mongoose.model('Comment', CommentsSchema);

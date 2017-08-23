@@ -36,7 +36,7 @@ function connect() {
     });
   } else if (process.env.NODE_ENV !== config.test_env) {
     server = app.listen(config.port);
-    console.log(`builtright api is running on port ${config.port}.`);
+    console.log(`battlestations api is running on port ${config.port}.`);
   } else {
     server = app.listen(config.test_port);
   }

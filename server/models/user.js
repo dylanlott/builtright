@@ -24,7 +24,9 @@ const UserSchema = new Schema({
   },
   profile: {
     firstName: { type: String },
-    lastName: { type: String }
+    lastName: { type: String },
+    location: { type: String },
+    flair: [{ type: String }]
   },
   role: {
     type: String,
@@ -41,9 +43,9 @@ const UserSchema = new Schema({
   resetPasswordToken: { type: String },
   resetPasswordExpires: { type: Date }
 },
-  {
-    timestamps: true
-  });
+{
+  timestamps: true
+});
 
 //= ===============================
 // User ORM Methods
