@@ -47,6 +47,10 @@ plan.remote('deploy', function(remote) {
 });
 
 plan.remote('check', function(remote) {
-    remote.exec('pm2 list');
-    remote.exec('pm2 logs battlestations');
+  remote.exec('pm2 list');
+  remote.exec('pm2 logs battlestations');
+});
+
+plan.remote('monitor', function(remote) {
+  remote.exec('pm2 monit');
 });

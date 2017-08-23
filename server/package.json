@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha -S --ui bdd --require ./tests/spec_helper.js --recursive ./tests --reporter spec",
     "dev": "nodemon index.js",
-    "start": "node"
+    "start": "node",
+    "dashboard": "fly dashboard:prod"
   },
   "keywords": [
     "mern",
