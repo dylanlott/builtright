@@ -12,14 +12,14 @@ const PartSchema = new Schema({
   price: { type: Number },
   trim: { type: Schema.Types.Mixed },
   options: [{ type: String }],
-  _user: { type: Schema.Types.ObjectId, ref: 'User' },
-},
-{
+  _user: { type: Schema.Types.ObjectId, ref: 'User' }
+}, {
   timestamps: true
 });
 
-PartSchema.pre('save', function(next) {
+PartSchema.pre('save', function (next) {
   this.slug = slug(this.title);
+  next();
 });
 
 module.exports = mongoose.model('Part', PartSchema);

@@ -1,6 +1,5 @@
 const Build = require('../models/build.js');
-const textSearch = require('mongoose-text-search');
-const logger = require('morgan');
+const Comment = require('../models/comment.js');
 
 exports.create = (req, res) => {
   const build = new Build(req.body);
@@ -40,3 +39,32 @@ exports.search = (req, res) => Build.search(req.params.name, (err, docs) => {
   if (err) res.status(500).send(err);
   return res.status(200).send(docs);
 });
+
+exports.addComment = (req, res) => {
+  const newComment = new Comment(req.body);
+  newComment._parent = req.params.id;
+
+  newComment.save((err, comment) => {
+    console.log('comment: ', comment);
+
+    Build.findById(req.params.id, (error, build) => {
+      build._comments.push(comment._id);
+      build.save((saveError, updatedBuild) => {
+        if (err) {
+          res.status(500).send(saveError);
+        }
+        return res.status(200).send(updatedBuild);
+      });
+    });
+  });
+
+  
+  // Build.findByIdAndUpdate(req.params.id, { $push: { _comments: req.body._id } }, (err, comment) => {
+  //   console.log('err: ', err);
+  //   console.log('comment: ', comment);
+
+  //   if (err) res.status(500).send(err);
+
+  //   return res.status(200).send(comment);
+  // });
+};

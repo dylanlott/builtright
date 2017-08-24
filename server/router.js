@@ -6,6 +6,7 @@ const StripeController = require('./controllers/stripe');
 const PartsController = require('./controllers/part');
 const BuildsController = require('./controllers/build.js');
 const CommentsController = require('./controllers/comment.js');
+const HealthController = require('./controllers/health.js');
 const express = require('express');
 const passport = require('passport');
 const ROLE_MEMBER = require('./constants').ROLE_MEMBER;
@@ -119,6 +120,7 @@ module.exports = function (app) {
   buildRoutes.put('/:id', BuildsController.update);
   buildRoutes.delete('/:id', BuildsController.delete);
   buildRoutes.get('/search', BuildsController.search);
+  buildRoutes.post('/:id/comment', BuildsController.addComment);
 
   apiRoutes.use('/comments', commentRoutes);
   commentRoutes.get('/', CommentsController.list);
@@ -126,6 +128,10 @@ module.exports = function (app) {
   commentRoutes.get('/:id', CommentsController.detail);
   commentRoutes.put('/:id', CommentsController.update);
   commentRoutes.delete('/:id', CommentsController.delete);
+
+  // health check
+  apiRoutes.use('/health', HealthController.check);
+  apiRoutes.use('/info', HealthController.info);
 
   app.use('/api', apiRoutes);
 };
