@@ -10,9 +10,11 @@ const BuildSchema = new Schema({
   _comments: [{ type: Schema.Types.ObjectId, ref: 'Comment'}],
   _parts: [{ type: Schema.Types.ObjectId, ref: 'Part' }],
   _user: { type: Schema.Types.ObjectId, ref: 'User' },
-  created: { type: Date, default: Date.now },
-  updated: { type: Date, default: Date.now },
-  slug: { type: String }
+  slug: { type: String },
+  reddit: { type: String }, // corresponding reddit link,
+  imgur: { type: String } // imgur album link
+}, {
+  timestamps: true
 });
 
 BuildSchema.plugin(searchable);

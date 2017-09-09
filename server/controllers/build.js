@@ -1,5 +1,6 @@
 const Build = require('../models/build.js');
 const Comment = require('../models/comment.js');
+const Part = require('../models/part.js');
 
 exports.create = (req, res) => {
   const build = new Build(req.body);
@@ -17,10 +18,12 @@ exports.list = (req, res) => Build.find(req.params)
     return res.status(200).json(data);
   });
 
-exports.detail = (req, res) => Build.findById(req.params.id)
-  .populate('_user')
-  .then(data => res.status(200).json(data))
-  .catch(err => res.status(500).json(err));
+exports.detail = (req, res) => {
+  return Build.findById(req.params.id)
+    .populate('_user _comments _parts')
+    .then(data => res.status(200).json(data))
+    .catch(err => res.status(500).json(err));
+}
 
 exports.update = (req, res) => {
   const newBuild = req.body;
@@ -57,14 +60,32 @@ exports.addComment = (req, res) => {
       });
     });
   });
-
-  
-  // Build.findByIdAndUpdate(req.params.id, { $push: { _comments: req.body._id } }, (err, comment) => {
-  //   console.log('err: ', err);
-  //   console.log('comment: ', comment);
-
-  //   if (err) res.status(500).send(err);
-
-  //   return res.status(200).send(comment);
-  // });
 };
+
+exports.addPart = (req, res) => {
+  const part = new Part(req.body)
+  return part.save()
+    .then(part => {
+      Build.findById(req.params.id)
+        .then((build) => {
+          console.log('found build: ', build);
+          build._parts.push(part._id)
+          build.save()
+            .then((build) => {
+              res.status(201).json(build);
+            })
+        })
+    })
+    .catch((err) => res.status(500).send(err));
+}
+
+exports.addExistingPart = (req, res) => {
+  return Build.findById(req.params.id)
+    .then((build) => {
+      build._parts.push(req.body.id);
+      console.log('pushed to builds parts', build);
+      build.save()
+        .then((build) => res.status(203).json(build))
+    })
+    .catch(err => res.status(500).send(err));
+}

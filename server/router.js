@@ -115,12 +115,14 @@ module.exports = function (app) {
 
   apiRoutes.use('/builds', buildRoutes);
   buildRoutes.get('/', BuildsController.list);
-  buildRoutes.post('/', BuildsController.create);
+  buildRoutes.post('/', requireAuth, BuildsController.create);
   buildRoutes.get('/:id', BuildsController.detail);
-  buildRoutes.put('/:id', BuildsController.update);
-  buildRoutes.delete('/:id', BuildsController.delete);
+  buildRoutes.put('/:id', requireAuth, BuildsController.update);
+  buildRoutes.delete('/:id', requireAuth, BuildsController.delete);
   buildRoutes.get('/search', BuildsController.search);
   buildRoutes.post('/:id/comment', BuildsController.addComment);
+  buildRoutes.post('/:id/new', BuildsController.addPart);
+  buildRoutes.post('/:id/existing', BuildsController.addExistingPart);
 
   apiRoutes.use('/comments', commentRoutes);
   commentRoutes.get('/', CommentsController.list);

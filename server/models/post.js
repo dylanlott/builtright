@@ -11,6 +11,8 @@ const PostSchema = new Schema({
   _comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
   slug: { type: String },
   tags: [{ type: String }]
+}, {
+  timestamps: true
 });
 
 PostSchema.pre('save', function(next) {
