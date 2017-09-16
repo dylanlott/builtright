@@ -104,10 +104,7 @@ exports.upvote = (req, res) => {
     .then(build => {
       console.log('upvote build: ', build);
 
-      const found = build._votes.map(n => n === req.user._id);
-      console.log('found: ', found);
-
-      if (found) {
+      if (build._votes.indexOf(req.user._id) > -1) {
         return res.status(200).send({ message: 'user has already upvoted this post' });
       }
 
@@ -120,7 +117,10 @@ exports.upvote = (req, res) => {
 exports.downvote = (req, res) => {
   return Build.findById(req.params.id)
     .then(build => {
-      if (build._votes.indexOf(req.user._id)) {
+      console.log('downvote build: ', build);
+      console.log('user downvoting: ', req.user._id);
+
+      if (build._votes.indexOf(req.user._id) > -1) {
         build._votes.splice(build._votes.indexOf(req.user._id), 1);
         console.log('build._votes: ', build._votes);
         build.save()
