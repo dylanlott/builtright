@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 const PartSchema = new Schema({
   title: { type: String, required: true },
   description: { type: String },
+  slug: { type: String },
   make: { type: String },
   model: { type: String },
   price: { type: Number },
@@ -20,6 +21,7 @@ const PartSchema = new Schema({
 });
 
 PartSchema.pre('save', function (next) {
+  console.log('pre save slug part');
   this.slug = slug(this.title);
   next();
 });

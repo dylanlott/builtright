@@ -16,10 +16,15 @@ exports.listParts = (req, res) => Part.find(req.params)
     return res.status(200).json(data);
   });
 
-exports.getPart = (req, res) => Part.findById(req.params.id)
-  .populate('_user')
-  .then(data => res.status(200).json(data))
-  .catch(err => res.status(500).json(err));
+exports.getPart = (req, res) => {
+  return Part.findOne({ slug: req.params.id }, (err, part) => {
+    if (!part) {
+      return Part.findById(req.params.id, (err, idPart) => res.status(200).send(idPart))
+    }
+
+    return res.status(200).send(err || part)
+  });
+}
 
 exports.updatePart = (req, res) => {
   const newPart = req.body;
