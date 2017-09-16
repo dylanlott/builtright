@@ -4,9 +4,9 @@ const slug = require('slug');
 const Schema = mongoose.Schema;
 
 const PartSchema = new Schema({
-  title: { type: String, required: true },
+  title: { type: String, unique: true, required: true },
   description: { type: String },
-  slug: { type: String },
+  slug: { type: String, unique: true },
   make: { type: String },
   model: { type: String },
   price: { type: Number },
@@ -15,6 +15,7 @@ const PartSchema = new Schema({
   source: { type: String },
   notes: { type: String },
   options: [{ type: String }],
+  _comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
   _user: { type: Schema.Types.ObjectId, ref: 'User' }
 }, {
   timestamps: true

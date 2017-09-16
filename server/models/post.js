@@ -4,13 +4,14 @@ const slug = require('slug');
 const Schema = mongoose.Schema;
 
 const PostSchema = new Schema({
-  title: { type: String, required: true },
+  title: { type: String, unique: true, required: true },
   body: { type: String, required: true },
   link: { type: String },
+  group: { type: String },
+  slug: { type: String, unique: true },
+  tags: [{ type: String }],
   _user: { type: Schema.Types.ObjectId, ref: 'User' },
   _comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
-  slug: { type: String },
-  tags: [{ type: String }]
 }, {
   timestamps: true
 });

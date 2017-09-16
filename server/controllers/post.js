@@ -1,22 +1,19 @@
 const _ = require('lodash');
-const Build = require('../models/build.js');
+const Post = require('../models/post.js');
 const Comment = require('../models/comment.js');
-const Part = require('../models/part.js');
 
 exports.create = (req, res) => {
-  const build = new Build(req.body);
-  build.save()
+  const post = new Post(req.body);
+  post.save()
     .then(data => res.status(200).json(data))
     .catch(err => res.status(500).json(err));
 };
 
-exports.list = (req, res) => Build.find(req.query)
+exports.list = (req, res) => Post.find(req.query)
   .limit(req.query.limit || 50)
   .skip(req.query.skip || 0)
   .populate('_user')
   .then((data) => {
-    console.log('req.query: ', req.query);
-    console.log('List Builds: ', data);
     return res.status(200).json(data);
   });
 

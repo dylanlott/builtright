@@ -6,6 +6,7 @@ const StripeController = require('./controllers/stripe');
 const PartsController = require('./controllers/part');
 const BuildsController = require('./controllers/build.js');
 const CommentsController = require('./controllers/comment.js');
+const PostsController = require('./controllers/post.js');
 const HealthController = require('./controllers/health.js');
 const express = require('express');
 const passport = require('passport');
@@ -29,7 +30,8 @@ module.exports = function (app) {
     communicationRoutes = express.Router(),
     partRoutes = express.Router(),
     commentRoutes = express.Router(),
-    buildRoutes = express.Router();
+    buildRoutes = express.Router(),
+    postRoutes = express.Router();
 
   //= ========================
   // Auth Routes
@@ -134,6 +136,15 @@ module.exports = function (app) {
   commentRoutes.post('/:id/upvote', CommentsController.upvote);
   commentRoutes.post('/:id/downvote', CommentsController.downvote);
   commentRoutes.delete('/:id', CommentsController.delete);
+
+  apiRoutes.use('/posts', postRoutes);
+  postRoutes.get('/', PostsController.list);
+  postRoutes.post('/', PostsController.create);
+  postRoutes.get('/:id', PostsController.detail);
+  postRoutes.put('/:id', PostsController.update);
+  postRoutes.delete('/:id', PostsController.delete);
+  postRoutes.post('/:id/upvote', PostsController.upvote);
+  postRoutes.post('/:id/downvote', PostsController.downvote);
 
   // health check
   apiRoutes.use('/health', HealthController.check);
