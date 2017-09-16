@@ -33,6 +33,9 @@ const UserSchema = new Schema({
     enum: [ROLE_MEMBER, ROLE_CLIENT, ROLE_OWNER, ROLE_ADMIN],
     default: ROLE_MEMBER
   },
+  flair: [{
+    type: String
+  }],
   stripe: {
     customerId: { type: String },
     subscriptionId: { type: String },

@@ -30,6 +30,33 @@ exports.update = (req, res) => {
   });
 };
 
+exports.upvote = (req, res) => {
+  return Comment.findById(req.params.id)
+    .then(comment => {
+      if (comment._votes.indexOf(req.user._id) > -1) {
+        return res.status(200).send({ message: 'user has already upvoted this comment' });
+      }
+
+      comment._votes.push(req.user._id);
+      comment.save().then(updated => res.status(201).json(build))
+    })
+    .catch(err => console.log('error upvoting build: ', err));
+}
+
+exports.downvote = (req, res) => {
+  return Comment.findById(req.params.id)
+    .then(comment => {
+      if (comment._votes.indexOf(req.user._id) > -1) {
+        comment._votes.splice(build._votes.indexOf(req.user._id), 1);
+        comment.save()
+          .then(upvoted => res.status(203).send(upvoted));
+      }
+
+      return res.status(200).send(build);
+    })
+    .catch(err => res.status(500).send(err));
+}
+
 exports.delete = (req, res) => Comment.findByIdAndRemove(req.params.id)
   .then(data => res.status(200).json(data))
   .catch(err => res.status(500).send(err));

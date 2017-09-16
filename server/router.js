@@ -131,6 +131,8 @@ module.exports = function (app) {
   commentRoutes.post('/', CommentsController.create);
   commentRoutes.get('/:id', CommentsController.detail);
   commentRoutes.put('/:id', CommentsController.update);
+  commentRoutes.post('/:id/upvote', CommentsController.upvote);
+  commentRoutes.post('/:id/downvote', CommentsController.downvote);
   commentRoutes.delete('/:id', CommentsController.delete);
 
   // health check

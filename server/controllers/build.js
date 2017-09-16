@@ -71,6 +71,7 @@ exports.addComment = (req, res) => {
   });
 };
 
+// create a new Part and add it to the build
 exports.addPart = (req, res) => {
   const part = new Part(req.body)
   return part.save()
@@ -86,6 +87,25 @@ exports.addPart = (req, res) => {
         })
     })
     .catch((err) => res.status(500).send(err));
+}
+
+// for adding a part that already exists in our part database to the build
+exports.addExistingPart = (req, res) => {
+  Part.findById(req.body.partId, (err, part) => {
+    if (err) res.status(500).send(err);
+
+    console.log('adding existing part to build', part);
+    Build.findById(req.params.id)
+      .then(build => {
+        if (build._parts.indexOf(req.body.partId) > -1) {
+          return res.status(200).send({ message: 'part already added to build' });
+        }
+
+        build._parts.push(req.body.partId);
+        return build.save().then(updated => res.status(201).json(updated))
+      })
+      .catch(err => res.status(500).send(err));
+  })
 }
 
 exports.addExistingPart = (req, res) => {
