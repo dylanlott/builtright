@@ -12,7 +12,9 @@ const BuildSchema = new Schema({
   _user: { type: Schema.Types.ObjectId, ref: 'User' },
   slug: { type: String },
   reddit: { type: String }, // corresponding reddit link,
-  imgur: { type: String } // imgur album link
+  imgur: { type: String }, // imgur album link
+  _votes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  hidden: { type: Boolean, default: false }
 }, {
   timestamps: true
 });

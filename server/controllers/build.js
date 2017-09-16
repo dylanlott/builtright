@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const Build = require('../models/build.js');
 const Comment = require('../models/comment.js');
 const Part = require('../models/part.js');
@@ -19,9 +20,17 @@ exports.list = (req, res) => Build.find(req.params)
   });
 
 exports.detail = (req, res) => {
-  return Build.findById(req.params.id)
+  return Build.find({ slug: req.params.id })
     .populate('_user _comments _parts')
-    .then(data => res.status(200).json(data))
+    .then(data => {
+      if (data.length === 0) {
+        return Build.findById(req.params.id)
+          .populate('_user _comments _parts')
+          .then(data => res.status(200).json(data))
+      }
+
+      return res.status(200).json(data)
+    })
     .catch(err => res.status(500).json(err));
 }
 
@@ -86,6 +95,39 @@ exports.addExistingPart = (req, res) => {
       console.log('pushed to builds parts', build);
       build.save()
         .then((build) => res.status(203).json(build))
+    })
+    .catch(err => res.status(500).send(err));
+}
+
+exports.upvote = (req, res) => {
+  return Build.findById(req.params.id)
+    .then(build => {
+      console.log('upvote build: ', build);
+
+      const found = build._votes.map(n => n === req.user._id);
+      console.log('found: ', found);
+
+      if (found) {
+        return res.status(200).send({ message: 'user has already upvoted this post' });
+      }
+
+      build._votes.push(req.user._id);
+      build.save().then(updated => res.status(201).json(build))
+    })
+    .catch(err => console.log('error upvoting build: ', err));
+}
+
+exports.downvote = (req, res) => {
+  return Build.findById(req.params.id)
+    .then(build => {
+      if (build._votes.indexOf(req.user._id)) {
+        build._votes.splice(build._votes.indexOf(req.user._id), 1);
+        console.log('build._votes: ', build._votes);
+        build.save()
+          .then(upvoted => res.status(203).send(upvoted));
+      }
+
+      return res.status(200).send(build);
     })
     .catch(err => res.status(500).send(err));
 }

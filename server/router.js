@@ -120,9 +120,11 @@ module.exports = function (app) {
   buildRoutes.put('/:id', requireAuth, BuildsController.update);
   buildRoutes.delete('/:id', requireAuth, BuildsController.delete);
   buildRoutes.get('/search', BuildsController.search);
-  buildRoutes.post('/:id/comment', BuildsController.addComment);
-  buildRoutes.post('/:id/new', BuildsController.addPart);
-  buildRoutes.post('/:id/existing', BuildsController.addExistingPart);
+  buildRoutes.post('/:id/comment', requireAuth, BuildsController.addComment);
+  buildRoutes.post('/:id/new', requireAuth, BuildsController.addPart);
+  buildRoutes.post('/:id/existing', requireAuth, BuildsController.addExistingPart);
+  buildRoutes.post('/:id/upvote', requireAuth, BuildsController.upvote);
+  buildRoutes.post('/:id/downvote', requireAuth, BuildsController.downvote);
 
   apiRoutes.use('/comments', commentRoutes);
   commentRoutes.get('/', CommentsController.list);
