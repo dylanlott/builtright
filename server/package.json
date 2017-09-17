@@ -20,6 +20,8 @@
     "bcrypt-nodejs": "0.0.3",
     "bluebird": "^3.5.0",
     "body-parser": "^1.15.0",
+    "bunyan": "^1.8.12",
+    "bunyan-mongodb-logger": "0.0.2",
     "express": "^4.13.4",
     "helmet": "^3.8.1",
     "jsonwebtoken": "^5.7.0",

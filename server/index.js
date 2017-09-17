@@ -9,6 +9,7 @@ const cluster = require('cluster');
 const os = require('os');
 const helmet = require('helmet');
 const bluebird = require('bluebird');
+const log = require('./logger');
 
 const app = express();
 mongoose.Promise = bluebird;
@@ -18,6 +19,7 @@ let server;
 function connect() {
   if (cluster.isMaster) {
     const numWorkers = os.cpus().length;
+    log.info('this is working');
 
     console.log(`master cluster setting up ${numWorkers} workers...`);
 
@@ -45,6 +47,7 @@ function connect() {
 mongoose.connect(config.database, { useMongoClient: true }, (err) => {
   if (err) console.log('error connecting to mongo: ', err);
   console.log('connected to Mongoose');
+  log.info('connected to mongoose');
   connect();
 });
 
