@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
@@ -10,7 +11,6 @@ const os = require('os');
 const helmet = require('helmet');
 const bluebird = require('bluebird');
 const log = require('./logger');
-
 const app = express();
 mongoose.Promise = bluebird;
 
@@ -19,34 +19,31 @@ let server;
 function connect() {
   if (cluster.isMaster) {
     const numWorkers = os.cpus().length;
-    log.info('this is working');
-
-    console.log(`master cluster setting up ${numWorkers} workers...`);
+    log.info(`master cluster setting up ${numWorkers} workers...`);
 
     for (let i = 0; i < numWorkers; i++) {
       cluster.fork();
     }
 
     cluster.on('online', (worker) => {
-      console.log(`worker ${worker.process.pid} is online`);
+      log.info(`worker ${worker.process.pid} is online`);
     });
 
     cluster.on('exit', (worker, code, signal) => {
-      console.log(`worker ${worker.process.pid} died with code: ${code}, and signal: ${signal}`);
-      console.log('starting a new worker');
+      log.error(`worker ${worker.process.pid} died with code: ${code}, and signal: ${signal}`);
+      log.error('starting a new worker');
       cluster.fork();
     });
   } else if (process.env.NODE_ENV !== config.test_env) {
     server = app.listen(config.port);
-    console.log(`battlestations api is running on port ${config.port}.`);
+    log.info(`builtright api is running on port ${config.port}.`);
   } else {
     server = app.listen(config.test_port);
   }
 }
 
 mongoose.connect(config.database, { useMongoClient: true }, (err) => {
-  if (err) console.log('error connecting to mongo: ', err);
-  console.log('connected to Mongoose');
+  if (err) log.info('error connecting to mongo: ', err);
   log.info('connected to mongoose');
   connect();
 });
@@ -71,6 +68,14 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Credentials', 'true');
   next();
 });
+
+// Setup admin dashboard
+app.use(require('forest-express-mongoose').init({
+  modelsDir: __dirname + '/models', // Your models directory.
+  envSecret: process.env.FOREST_ENV_SECRET,
+  authSecret: process.env.FOREST_AUTH_SECRET,
+  mongoose: require('mongoose') // The mongoose database connection.
+}));
 
 // Import routes to be served
 router(app);

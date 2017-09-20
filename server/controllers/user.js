@@ -44,3 +44,18 @@ exports.detail = (req, res) => {
     }
   })
 }
+
+exports.favorite = (req, res) => {
+  User.findById(req.params.id, (err, user) => {
+    if (err) res.status(500).send(err);
+
+    // push buildId to saved array
+    if (user._saved.indexOf(req.body.buildId) > -1) {
+      user._saved.push(req.body.buildId);
+      return user.save()
+        .then(user => res.status(204).send(user))
+    }
+
+    return res.status(200).send({ message: 'user already saved post' })
+  })
+}

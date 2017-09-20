@@ -1,6 +1,8 @@
 const config = require('./main');
-const mailgun = require('mailgun-js')({ apiKey: config.mailgun_priv_key,
-  domain: config.mailgun_domain });
+const mailgun = require('mailgun-js')({
+  apiKey: config.mailgun_priv_key,
+  domain: config.mailgun_domain
+});
 
 // Create and export function to send emails through Mailgun API
 exports.sendEmail = function (recipient, message) {

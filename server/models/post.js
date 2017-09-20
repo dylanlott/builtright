@@ -8,6 +8,7 @@ const PostSchema = new Schema({
   body: { type: String, required: true },
   link: { type: String },
   group: { type: String },
+  category: { type: String },
   slug: { type: String, unique: true },
   tags: [{ type: String }],
   _user: { type: Schema.Types.ObjectId, ref: 'User' },

@@ -36,6 +36,10 @@ const UserSchema = new Schema({
   flair: [{
     type: String
   }],
+  _saved: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Build'
+  }],
   stripe: {
     customerId: { type: String },
     subscriptionId: { type: String },

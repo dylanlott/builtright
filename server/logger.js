@@ -6,7 +6,7 @@ const pkg = require('./package.json');
 const logger = bunyanMongoDbLogger({
   name: pkg.name,
   streams: ['stdout', 'mongodb'],
-  url: 'mongodb://localhost:27017/battlestations',
+  url: 'mongodb://localhost:27017/builtright',
   level: process.env.LOG_LEVEL || 'debug'
 });
 
