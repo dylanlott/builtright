@@ -7,7 +7,7 @@ services:
     ports:
       - "3000:3000"
     env_file:
-      - ./server/.env
+      - ./server/.env.docker
     links:
       - mongo:mongo
       - redis:redis
@@ -17,7 +17,7 @@ services:
     ports: 
       - "27017:27017"
     env_file:
-      - ./server/.env
+      - ./server/.env.docker
 
   redis:
     image: redis
