@@ -27,6 +27,9 @@ build/Release
 node_modules
 client/node_modules
 server/node_modules
+server/.env
+server/.env.docker
+server/flightplan.js
 
 # Optional npm cache directory
 .npm
