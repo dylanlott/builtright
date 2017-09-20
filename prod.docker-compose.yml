@@ -1,0 +1,34 @@
+version: '2'
+services: 
+  server:
+    image: hivemindapps/builtright-server:latest 
+    ports:
+      - "3000:3000"
+    environment:
+      -  
+    links:
+      - mongo:mongo
+      - redis:redis
+
+  web:
+    image: hivemindapps/builtright-vue:latest 
+    ports: 
+      - "80:80"
+    environment:
+      - 
+    links: 
+      - mongo:mongo
+
+  mongo:
+    image: bitnami/mongodb
+    ports: 
+      - "27017:27017"
+    environment:
+      - 
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    environment:
+      - 
