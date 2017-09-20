@@ -7,7 +7,7 @@ const mailgun = require('mailgun-js')({
 // Create and export function to send emails through Mailgun API
 exports.sendEmail = function (recipient, message) {
   const data = {
-    from: 'Your Site <info@yourdomain.com>',
+    from: 'robot <robot@builtrightapp.com>',
     to: recipient,
     subject: message.subject,
     text: message.text

@@ -3,47 +3,34 @@ var appName = 'builtright';
 var username = 'dylan';
 
 plan.target('prod', {
-    host: '165.227.67.146',
-    username: username,
-    agent: process.env.SSH_AUTH_SOCK,
-    webRoot: '/var/www/builtrightapp.com/builtright/server',
-    ownerUser: 'dylan',
-    repository: 'https://github.com/dylanlott/builtright.git',
-    branchName: 'master',
-    maxDeploys: 10
+  host: '165.227.67.146',
+  username: username,
+  agent: process.env.SSH_AUTH_SOCK,
+  webRoot: '/var/www/builtrightapp.com/builtright/server',
+  ownerUser: username,
+  repository: 'https://github.com/dylanlott/builtright.git',
+  branchName: 'master'
 });
 
-plan.remote('setup', function(remote) {
-    remote.hostname();
-    remote.with('cd ' + remote.runtime.webRoot, function() {
-        remote.sudo('git clone ' + remote.runtime.repository);
-        remote.sudo('npm install');
-        remote.sudo('npm install -g pm2');
-        remote.sudo('pm2 start index.js');
-    })
-})
-
-plan.local('deploy', function(local) {
-    local.hostname();
-    local.failsafe();
-    local.exec('git add . && git commit -am "flightplan push"');
-    local.log('Committed to GitHub');
-    local.exec('git push origin master');
-    local.log('Pushed to GitHub');
-    local.unsafe();
+plan.local('deploy', function (local) {
+  local.log('transferring files');
+  const payload = local.exec('git ls-files', { silent: true });
+  local.transfer(payload, '/var/www/builtrightapp.com/server', {
+    silent: false,
+    user: 'dylan'
+  });
+  local.log('files transferred');
 });
 
-plan.remote('deploy', function(remote) {
-    remote.hostname();
-    remote.with('cd ' + remote.runtime.webRoot, function() {
-        remote.sudo('sudo git pull origin master');
-        remote.sudo('sudo npm install');
-        remote.failsafe();
-        remote.exec('sudo pm2 restart index.js');
-        remote.unsafe();
-        remote.exec('sudo pm2 list');
-        remote.log('Deploy successful');
-    });
+plan.remote('deploy', function (remote) {
+  remote.with('cd /var/www/builtrightapp.com/server', () => {
+    remote.log('installing dependencies');
+    remote.exec('sudo npm install');
+    remote.log('reticulating splines');
+    remote.exec('sudo pm2 restart index.js');
+    remote.log('processes restarted, deploy successful');
+    remote.exec('sudo pm2 list');
+  });
 });
 
 plan.remote('check', function(remote) {

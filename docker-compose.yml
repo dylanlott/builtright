@@ -1,0 +1,25 @@
+version: '2'
+services: 
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./server/.env
+    links:
+      - mongo:mongo
+      - redis:redis
+
+  mongo:
+    image: bitnami/mongodb
+    ports: 
+      - "27017:27017"
+    env_file:
+      - ./server/.env
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
