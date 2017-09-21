@@ -16,12 +16,13 @@ export default {
    */
   getBuildsByUser (user, skip, limit, context) {
     return axios.get(`${API_URL}/api/builds`, {
-      params: {
-        user
-      }
-    })
-    .then((res) => res.data)
-    .catch((err) => console.error('Error getting builds by user: ', err))
+        params: {
+          skip: skip || 0,
+          limit: limit || 50
+        }
+      })
+      .then((res) => res.data)
+      .catch((err) => console.error('Error getting builds by user: ', err))
   },
 
   /**

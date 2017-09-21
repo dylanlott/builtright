@@ -16,6 +16,13 @@ exports.setUserInfo = function setUserInfo(request) {
   return getUserInfo;
 };
 
+exports.checkUserMiddleware = (req, res, next) => {
+  if (req.user._id.toString() === req.params.userId) {
+    return next();
+  }
+  return res.status(401).send('Unauthorized');
+};
+
 exports.getRole = function getRole(checkRole) {
   let role;
 
@@ -30,16 +37,8 @@ exports.getRole = function getRole(checkRole) {
   return role;
 };
 
-exports.computeStats = (visitorsData) => {
-  return {
-    pages: computePageCounts(visitorsData),
-    referrers: computeRefererCounts(visitorsData),
-    activeUsers: getActiveUsers(visitorsData)
-  };
-};
-
 // get the total number of users on each page of our site
-exports.computePageCounts = (visitorsData) => {
+const computePageCounts = (visitorsData) => {
   // sample data in pageCounts object:
   // { "/": 13, "/about": 5 }
   var pageCounts = {};
@@ -55,7 +54,7 @@ exports.computePageCounts = (visitorsData) => {
 };
 
 // get the total number of users per referring site
-exports.computeRefererCounts = (visitorsData) => {
+const computeRefererCounts = (visitorsData) => {
   // sample data in referrerCounts object:
   // { "http://twitter.com/": 3, "http://stackoverflow.com/": 6 }
   var referrerCounts = {};
@@ -70,6 +69,14 @@ exports.computeRefererCounts = (visitorsData) => {
   return referrerCounts;
 };
 
-exports.getActiveUsers = (visitorsData) => {
+const getActiveUsers = (visitorsData) => {
   return Object.keys(visitorsData).length;
+};
+
+exports.computeStats = (visitorsData) => {
+  return {
+    pages: computePageCounts(visitorsData),
+    referrers: computeRefererCounts(visitorsData),
+    activeUsers: getActiveUsers(visitorsData)
+  };
 };

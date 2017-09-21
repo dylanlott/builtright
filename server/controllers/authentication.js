@@ -31,7 +31,7 @@ exports.login = function (req, res, next) {
 //= =======================================
 // Registration Route
 //= =======================================
-exports.register = function (req, res, next) {
+exports.register = (req, res, next) => {
   // Check for registration errors
   const email = req.body.email;
   const firstName = req.body.firstName;
@@ -48,7 +48,7 @@ exports.register = function (req, res, next) {
     return res.status(422).send({ error: 'You must enter a password.' });
   }
 
-  User.findOne({ email }, (err, existingUser) => {
+  return User.findOne({ email }, (err, existingUser) => {
     if (err) { return next(err); }
 
       // If user is not unique, return error
@@ -63,17 +63,13 @@ exports.register = function (req, res, next) {
       profile: { firstName, lastName }
     });
 
-    user.save((err, user) => {
-      if (err) { return next(err); }
-
+    return user.save((error, savedUser) => {
+      if (error) { return next(err); }
         // Subscribe member to Mailchimp list
         // mailchimp.subscribeToNewsletter(user.email);
+      const userInfo = setUserInfo(savedUser);
 
-        // Respond with JWT if user was created
-
-      const userInfo = setUserInfo(user);
-
-      res.status(201).json({
+      return res.status(201).json({
         token: `JWT ${generateToken(userInfo)}`,
         user: userInfo
       });

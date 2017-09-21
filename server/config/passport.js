@@ -1,10 +1,10 @@
 // Importing Passport, strategies, and config
-const passport = require('passport'),
-  User = require('../models/user'),
-  config = require('./main'),
-  JwtStrategy = require('passport-jwt').Strategy,
-  ExtractJwt = require('passport-jwt').ExtractJwt,
-  LocalStrategy = require('passport-local');
+const passport = require('passport');
+const User = require('../models/user');
+const config = require('./main');
+const JwtStrategy = require('passport-jwt').Strategy;
+const ExtractJwt = require('passport-jwt').ExtractJwt;
+const LocalStrategy = require('passport-local');
 
 // Setting username field to email rather than username
 const localOptions = {

@@ -12,27 +12,15 @@ const BuildsController = require('../controllers/build.js');
 const CommentsController = require('../controllers/comment.js');
 const HealthController = require('../controllers/health.js');
 
-const ROLE_MEMBER = constants.ROLE_MEMBER;
-const ROLE_CLIENT = constants.ROLE_CLIENT;
-const ROLE_OWNER = constants.ROLE_OWNER;
-const ROLE_ADMIN = constants.ROLE_ADMIN;
-
-const requireAuth = passport.authenticate('jwt', { session: false });
-
 module.exports = function (app) {
   const api = express.Router();
 
-
-  api.post('/analytics', requireAuth, (req,res) => {
-    logger[req.body.type](req.body);
-    res.send('OK');
-  });
-
+  api.use('/analytics', require('./analytics'));
   api.use('/admin', require('./admin'));
   api.use('/auth', require('./auth'));
-  api.use('/user', require('./users'));
-  api.use('/chat', require('./chats'));
-  api.use('/pay', require('./payments'));
+  api.use('/users', require('./users'));
+  api.use('/chats', require('./chats'));
+  api.use('/payments', require('./payments'));
   api.use('/communication', require('./communications'));
   api.use('/parts', require('./parts'));
   api.use('/builds', require('./builds'));

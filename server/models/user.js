@@ -33,9 +33,6 @@ const UserSchema = new Schema({
     enum: [ROLE_MEMBER, ROLE_CLIENT, ROLE_OWNER, ROLE_ADMIN],
     default: ROLE_MEMBER
   },
-  flair: [{
-    type: String
-  }],
   _saved: [{
     type: Schema.Types.ObjectId,
     ref: 'Build'
@@ -53,12 +50,8 @@ const UserSchema = new Schema({
   timestamps: true
 });
 
-//= ===============================
-// User ORM Methods
-//= ===============================
-
 // Pre-save of user to database, hash password if password is modified or new
-UserSchema.pre('save', function (next) {
+UserSchema.pre('save', (next) => {
   const user = this,
     SALT_FACTOR = 5;
 
@@ -67,15 +60,14 @@ UserSchema.pre('save', function (next) {
   bcrypt.genSalt(SALT_FACTOR, (err, salt) => {
     if (err) return next(err);
 
-    bcrypt.hash(user.password, salt, null, (err, hash) => {
-      if (err) return next(err);
+    bcrypt.hash(user.password, salt, null, (error, hash) => {
+      if (error) return next(error);
       user.password = hash;
-      next();
+      return next();
     });
   });
 });
 
-// Method to compare password for login
 UserSchema.methods.comparePassword = function (candidatePassword, cb) {
   bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
     if (err) { return cb(err); }

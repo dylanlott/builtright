@@ -150,12 +150,12 @@ export default {
       this.loggedOut = true
       this.$store.dispatch('logoutUser')
     },
+  },
+  watch: {
+    '$route': function () {
+      this.$store.dispatch('getUserInfo', this.user_id)
+    }
   }
-  // watch: {
-  //   '$route': function () {
-  //     this.$store.dispatch('getUserInfo', this.user_id)
-  //   }
-  // }
 }
 
 </script>
