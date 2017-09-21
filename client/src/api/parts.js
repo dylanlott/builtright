@@ -5,7 +5,6 @@ import user from './user'
 const storage = window.localStorage
 
 export default {
-
   /**
    * addPartToBuild - associate a part to a build
    *
@@ -28,7 +27,7 @@ export default {
   getPartsForBuild (id, context) {
     return new Promise((resolve, reject) => {
       const params = {}
-      axios.get(`/parts`, params)
+      axios.get(`/api/parts`, params)
         .then((res) => resolve(res.data.parts))
         .catch((err) => reject(err))
     })

@@ -2,7 +2,7 @@ import * as types from '../mutation-types'
 import api from '../../api/user'
 import { router } from '../../router/index'
 
-const storage = window.localStorage
+const storage = window.localStorage 
 const state = {
   user: {}, 
   token: storage.getItem('token') || '',
@@ -22,19 +22,17 @@ const mutations = {
   [types.LOGIN_USER_SUCCESS] (state, user) {
     state.loading = false
     state.success = true
-    console.log('user state: ', user)
     state.user = user.user
     state.email = user.user.email
     state.token = user.token
     state.user_id = user.user._id
-    window.localStorage.setItem('user', user)
-    window.localStorage.setItem('token', user.token)
-    window.localStorage.setItem('user_id', user.user_id)
+    storage.setItem('user', user)
+    storage.setItem('token', user.token)
+    storage.setItem('user_id', user.user_id)
   },
   [types.LOGOUT_USER_REQUEST] (state) {
     state.loading = true
     state.success = false
-    window.localStorage.clear()
     state.token = null
     state.user = {}
     state.loading = true
@@ -59,9 +57,11 @@ const mutations = {
     state.email = user.user.email
     state.token = user.token
     state.user_id = user.user._id
-    window.localStorage.setItem('user', user)
-    window.localStorage.setItem('token', user.token)
-    window.localStorage.setItem('user_id', user.user_id)
+    console.log('user: ', user)
+    storage.setItem('email', user.user.email)
+    storage.setItem('user_id', user.user._id)
+    storage.setItem('role', user.user.role)
+    storage.setItem('token', user.token)
   },
   [types.SIGNUP_USER_FAILURE] (state, err) {
     state.loading = false

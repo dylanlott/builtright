@@ -15,15 +15,13 @@ export default {
    * @return {Array} Array of Build objects
    */
   getBuildsByUser (user, skip, limit, context) {
-    return new Promise((resolve, reject) => {
-      axios.get(`${API_URL}/builds`, {
-        params: {
-          user
-        }
-      })
-      .then((res) => resolve(res))
-      .catch((err) => reject(err))
+    return axios.get(`${API_URL}/api/builds`, {
+      params: {
+        user
+      }
     })
+    .then((res) => res.data)
+    .catch((err) => console.error('Error getting builds by user: ', err))
   },
 
   /**
@@ -34,61 +32,36 @@ export default {
    * @return {Object}         Object build details
    */
   getBuildDetails (id, context) {
-    return new Promise((resolve, reject) => {
-      axios.get(`${API_URL}/builds/${id}`, {
-        params: {
-        }
-      })
-      .then((res) => resolve(res.data))
-      .catch((err) => reject(err))
-    })
+    return axios.get(`${API_URL}/api/builds/${id}`)
+      .then((res) => res.data)
+      .catch((err) => console.error('Error getting build details: ', err))
   },
-
 
   createBuild (build, context) {
-    return new Promise((resolve, reject) => {
-      const url = API_URL + '/builds'
-      axios.post(url, build, {
-        params: {
-        }
-      })
-      .then((res) => resolve(res.data))
-      .catch((err) => reject(err))
-    })
+    return axios.post(`${API_URL}/api/builds`, build)
+      .then((res) => res.data)
+      .catch((err) => console.error('Error creating build: ', err))
   },
 
-  getAllBuilds (skip, context) {
-    return new Promise((resolve, reject) => {
-      const params = {
-        limit: 10,
-        skin: skip,
-      }
-      axios.get('/builds', params)
-        .then((builds) => resolve(builds.data))
-        .catch((err) => err)
-    })
+  getAllBuilds (skip) {
+    const params = {
+      limit: 50,
+      skip: skip,
+    }
+    return axios.get('/api/builds', params)
+      .then((builds) => builds.data)
+      .catch((err) => console.error(err))
   },
 
   deleteBuild (id) {
-    return new Promise((resolve, reject) => {
-      const params = {
-        id
-      }
-      axios.delete(`${API_URL}/builds/${id}`)
-        .then((res) => resolve(res))
-        .catch((err) => reject(err))
-    })
+    return axios.delete(`${API_URL}/api/builds/${id}`)
+      .then((res) => res.data)
+      .catch((err) => console.error('Error deleting build: ', err))
   },
 
   updateBuild (build, id) {
-    return new Promise((resolve, reject) => {
-      const params = {
-      }
-      axios.put(`${API_URL}/builds/${id}`, build, params)
-        .then(res => {
-
-        })
-        .catch(err => reject(err))
-    })
+    return axios.put(`${API_URL}/api/builds/${id}`, build)
+      .then(res => res.data)
+      .catch(err => console.error('Error updating build: ', err))
   }
 }

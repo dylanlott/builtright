@@ -8,61 +8,36 @@ const URL = config.API_URL
 
 export default {
   getPosts (options) {
-    return new Promise((resolve, reject) => {
-      axios.get(`${URL}/posts`, {
+    return axios.get(`${URL}/api/posts`, {
         params: {
-          type: 'forum',
           options
         }
       })
-      .then((res) => resolve(res.data))
-      .catch((err) => reject(err))
-    })
+      .then((res) => res.data)
+      .catch((err) => console.error('Error getting posts: ', err))
   },
 
   createPost (post) {
-    return new Promise((resolve, reject) => {
-      axios.post(`${URL}/posts`, post, {
-        params: {
-        }
-      })
-      .then((res) => resolve(res.data))
-      .catch((err) => reject(err))
-    })
+    return axios.post(`${URL}/api/posts`, post)
+      .then((res) => res.data)
+      .catch((err) => console.error('Error creating post: ', err))
   },
 
   getDetails (id) {
-    return new Promise((resolve, reject) => {
-      axios.get(`${URL}/posts/${id}`, {
-        params: {
-        }
-      })
-      .then((res) => resolve(res.data))
-      .catch((err) => {
-        console.log('Error getting post details: ', err)
-        reject(err)
-      })
-    })
+    return axios.get(`${URL}/api/posts/${id}`)
+      .then((res) => res.data)
+      .catch((err) => console.error('Error getting post details: ', err))
   },
 
   updatePost (id, post) {
-    return new Promise((resolve, reject) => {
-      axios.put('${URL}/posts/${id}', post, {
-        params: {
-        }
-      })
+    return axios.put('${URL}/api/posts/${id}', post)
       .then((res) => resolve(res.data))
-    })
+      .catch(err => console.error('Error updating post: ', err))
   },
 
   deletePost (id) {
-    return new Promise((resolve, reject) => {
-      axios.delete(`${URL}/posts/${id}`, {
-        params: {
-        }
-      })
-      .then((res) => resolve(res))
-      .catch((err) => reject(err))
-    })
+    return axios.delete(`${URL}/api/posts/${id}`)
+      .then((res) => res.data)
+      .catch((err) => console.error('Error deleting post: ', err))
   }
 }

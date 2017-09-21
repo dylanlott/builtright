@@ -9,6 +9,7 @@ const PostSchema = new Schema({
   link: { type: String },
   group: { type: String },
   category: { type: String },
+  type: { type: String, enum: ["blog", "forum"]},
   slug: { type: String, unique: true },
   tags: [{ type: String }],
   _user: { type: Schema.Types.ObjectId, ref: 'User' },
@@ -17,7 +18,7 @@ const PostSchema = new Schema({
   timestamps: true
 });
 
-PostSchema.pre('save', function(next) {
+PostSchema.pre('save', function (next) {
   this.slug = slug(this.title);
   next();
 });

@@ -3,7 +3,7 @@
 
     <h1>Dashboard</h1>
       <v-layout row wrap>
-
+<!-- 
         <v-flex md4 xs12>
           <v-card class="primary white--text">
             <v-card-text>Start your build with us</v-card-text>
@@ -24,7 +24,7 @@
               Explore projects from the community
             </v-card-text>
           </v-card>
-        </v-flex>
+        </v-flex> -->
 
       </v-layout>
   </v-container>

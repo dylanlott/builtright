@@ -20,9 +20,12 @@ module.exports = {
         loaders: ['file-loader?context=src/images&name=images/[path][name].[ext]', {
           loader: 'image-webpack-loader',
           query: {
-            progressive: true,
-            optimizationLevel: 4,
-            interlaced: false,
+            mozjpeg: {
+              progressive: true,
+            },
+            gifsicle: {
+              interlaced: false,
+            },
             optipng: {
               optimizationLevel: 4,
             },

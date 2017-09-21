@@ -6,7 +6,7 @@ const access = window.localStorage.get('access')
 
 export default {
   getBlogPosts () {
-    return axios.get('/posts', {
+    return axios.get('/api/posts', {
         type: 'blog'
       })
       .then((res) => res.data)
@@ -15,12 +15,9 @@ export default {
 
   createBlogPost (blog) {
     if (access <= 1000) {
-      console.error('Must be admin to post a blog entry.')
-      return {}
+      return console.error('Must be admin to post a blog entry.')
     }
-    return axios.post('/blogs', blog, {
-        type: 'blog'
-      })
+    return axios.post('/api/posts', blog)
       .then((res) => res.data)
       .catch((err) => err)
   }

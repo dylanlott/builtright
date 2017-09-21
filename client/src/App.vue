@@ -128,7 +128,8 @@ export default {
   name: 'builtright',
   computed: mapState({
     user: state => state.user,
-    alerts: state => state.user.alerts
+    token: state => state.user.token,
+    alerts: state => state.alerts
   }),
   data() {
     return {
@@ -149,14 +150,10 @@ export default {
       this.loggedOut = true
       this.$store.dispatch('logoutUser')
     },
-    created () {
-      console.log('this.user._id', this.user._id)
-    }
   },
   watch: {
     '$route': function () {
-      console.log('this.user._id', this.user._id)
-      this.$store.dispatch('getUserInfo', this.user._id)
+      this.$store.dispatch('getUserInfo', this.user_id)
     }
   }
 }
