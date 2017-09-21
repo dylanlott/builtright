@@ -1,6 +1,4 @@
 <template lang="html">
-
-q
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- BuiltRight Leaderboard -->
 <ins class="adsbygoogle"
