@@ -1,45 +1,135 @@
 import Vue from 'vue'
-import Router from 'vue-router'
+import VueRouter from 'vue-router'
 
-import menuModule from 'vuex-store/modules/menu'
-import signup from '../components/auth/signup/Signup.vue'
-import login from '../components/auth/login/Login.vue'
+import notfound from '../views/PageNotFound.vue'
+import landing from '../views/Landing.vue'
+import login from '../views/Login.vue'
+import signup from '../views/SignUp.vue'
+import dashboard from '../views/Dashboard.vue'
+import builds from '../views/Builds.vue'
+import addbuild from '../views/AddBuild.vue'
+import profile from '../views/UserProfile.vue'
+import forgotpassword from '../views/ForgotPassword.vue'
+import buildDetails from '../views/BuildDetails.vue'
+import addPart from '../views/AddPart.vue'
+import forum from '../views/Forum.vue'
+import addPost from '../views/AddPost.vue'
+import postDetail from '../views/PostDetail.vue'
+import logout from '../views/Logout.vue'
+import confirmation from '../views/EmailConfirmation.vue'
 
-Vue.use(Router)
+Vue.use(VueRouter)
 
-export default new Router({
-  routes: [
-    ...generateRoutesFromMenu(menuModule.state.items),
-    {path: '/signup', name: 'Login', component: login},
-    {path: '/signup', name: 'Signup', component: signup},
-    {path: '*', redirect: { name: getDefaultRoute(menuModule.state.items).name }}
-  ]
+export const router = new VueRouter({
+  mode: 'history',
+  base: __dirname,
+  routes: [{
+    name: 'landing',
+    path: '/',
+    component: landing,
+    meta: {
+      auth: false
+    }
+  }, {
+    name: 'login',
+    path: '/login',
+    component: login,
+    meta: {
+      auth: false
+    }
+  }, {
+    name: 'signup',
+    path: '/signup',
+    component: signup,
+    meta: {
+      auth: false
+    }
+  }, {
+    name: 'forgot',
+    path: '/forgot',
+    component: forgotpassword,
+    meta: {
+      auth: false
+    }
+  }, {
+    name: 'profile',
+    path: '/profile',
+    component: profile,
+    meta: {
+      auth: true
+    }
+  }, {
+    name: 'dashboard',
+    path: '/dashboard',
+    component: dashboard,
+    meta: {
+      auth: true
+    }
+  }, {
+    path: '/builds',
+    name: 'builds',
+    component: builds,
+    meta: {
+      auth: true
+    }
+  }, {
+    path: '/builds/create',
+    name: 'addBuild',
+    component: addbuild,
+    meta: {
+      auth: true
+    }
+  }, {
+    path: '/builds/:id',
+    name: 'buildDetails',
+    component: buildDetails,
+    meta: {
+      auth: true
+    }
+  }, {
+    path: '/builds/:id/add',
+    name: 'addPart',
+    component: addPart,
+    meta: {
+      auth: true
+    }
+  }, {
+    path: '/forum',
+    name: 'forum',
+    component: forum,
+    meta: {
+      auth: false
+    }
+  }, {
+    path: '/forum/add',
+    name: 'addPost',
+    component: addPost,
+    meta: {
+      auth: true
+    }
+  }, {
+    path: '/forum/:id',
+    name: 'postDetail',
+    component: postDetail,
+    meta: {
+      auth: true
+    }
+  }, {
+    path: '/logout',
+    name: 'logout',
+    component: logout,
+    meta: {
+      auth: false
+    }
+  }, {
+    path: '/confirm',
+    name: 'confirmation',
+    component: confirmation,
+    meta: {
+      auth: false
+    }
+  }, {
+    path: '*',
+    component: notfound
+  }]
 })
-
-function generateRoutesFromMenu (menu = [], routes = []) {
-  for (let i = 0, l = menu.length; i < l; i++) {
-    let item = menu[i]
-    if (item.path) {
-      routes.push(item)
-    }
-    if (item.children) {
-      generateRoutesFromMenu(item.children, routes)
-    }
-  }
-  return routes
-}
-
-function getDefaultRoute (menu = []) {
-  let defaultRoute
-
-  menu.forEach((item) => {
-    if (item.meta.default) {
-      defaultRoute = item
-    } else if (item.children) {
-      let defaultChild = item.children.find((i) => i.meta.default)
-      defaultRoute = defaultChild || defaultRoute
-    }
-  })
-
-  return defaultRoute
-}

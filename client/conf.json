@@ -1,0 +1,14 @@
+{
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc","closure"]
+  },
+  "source": {
+    "exclude": ["node_modules", "public", "out"],
+    "include": ["src"]
+  },
+  "opts": {
+    "recurse": true
+  },
+  "plugins": ["plugins/markdown"]
+}

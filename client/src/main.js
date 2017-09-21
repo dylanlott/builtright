@@ -1,43 +1,45 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
+import App from './App.vue'
+import Vuetify from 'vuetify'
+import {router} from './router/index.js'
+import store from './state/index.js'
+import user from './api/user'
 import BootstrapVue from 'bootstrap-vue'
-import VeeValidate from 'vee-validate'
-import App from './App'
-import store from './store'
-import router from './router'
-import { sync } from 'vuex-router-sync'
-import VuesticPlugin from 'src/components/vuestic-components/vuestic-components-plugin'
+import axios from 'axios'
+import VueSweetAlert from 'vue-sweetalert'
+import config from './config'
+import user from './api/user'
 
-Vue.use(VuesticPlugin)
+const storage = window.localStorage
+
+Vue.use(Vuetify)
 Vue.use(BootstrapVue)
-Vue.use(VeeValidate)
+Vue.use(VueSweetAlert)
 
-sync(store, router)
-
-let mediaHandler = () => {
-  if (window.matchMedia(store.getters.config.windowMatchSizeLg).matches) {
-    store.dispatch('toggleSidebar', true)
-  } else {
-    store.dispatch('toggleSidebar', false)
-  }
+axios.defaults.baseURL = config.API_URL
+axios.defaults.params = {
+  token: user.getToken()
 }
 
+axios.interceptors.response.use(function(config) {
+  console.log('response: ', config)
+  return config
+}, function(err) {
+  if (err.message === 'Request failed with status code 401') {
+    localStorage.clear()
+  }
+  return Promise.reject(err)
+})
+
 router.beforeEach((to, from, next) => {
-  store.commit('setLoading', true)
-  next()
+  (to.meta.auth && !user.checkAuth() && user.checkAuth() !== undefined)
+    ? next({path: '/login'})
+    : next(true)
 })
 
-router.afterEach((to, from) => {
-  mediaHandler()
-  store.commit('setLoading', false)
-})
-
-/* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   store,
-  template: '<App/>',
-  components: { App }
+  render: h => h(App)
 })

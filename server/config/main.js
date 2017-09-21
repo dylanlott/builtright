@@ -1,4 +1,6 @@
 module.exports = {
+  host: 'localhost:3000',
+  dashboard: '/dashboard',
   // Secret key for JWT signing and encryption
   secret: process.env.JWT_SECRET || 'super secret passphrase',
   // Database connection information
