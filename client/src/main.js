@@ -17,9 +17,7 @@ Vue.use(BootstrapVue)
 Vue.use(VueSweetAlert)
 
 axios.defaults.baseURL = config.API_URL
-axios.defaults.params = {
-  token: user.getToken()
-}
+axios.defaults.headers.common['Authorization'] = user.getToken();
 
 axios.interceptors.response.use(function(config) {
   console.log('response: ', config)

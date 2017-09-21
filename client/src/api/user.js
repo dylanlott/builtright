@@ -7,20 +7,20 @@ const API_URL = config.API_URL
 
 export default {
   getUser (id, params={}, context) {
-    return axios.get(`/users/${id}`)
+    return axios.get(`/api/users/${id}`)
       .then((res) => res.data)
       .catch((err) => console.error(`Error getUser: ${err}`))
   },
 
   login(user, context) {
-    return axios.post(`/authentication`, user)
+    return axios.post(`/api/auth/login`, user)
       .then((res) => res.data)
       .catch((err) => console.error(`Error login: ${err}`))
   },
 
   signup (user, context) {
-    return axios.post(`/users`, user)
-      .then((user) => user.data)
+    return axios.post(`/api/auth/register`, user)
+      .then((res) => res.data)
       .catch((err) => console.error(`Error signup: ${err}`))
   },
 

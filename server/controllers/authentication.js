@@ -43,11 +43,6 @@ exports.register = function (req, res, next) {
     return res.status(422).send({ error: 'You must enter an email address.' });
   }
 
-  // Return error if full name not provided
-  if (!firstName || !lastName) {
-    return res.status(422).send({ error: 'You must enter your full name.' });
-  }
-
   // Return error if no password provided
   if (!password) {
     return res.status(422).send({ error: 'You must enter a password.' });

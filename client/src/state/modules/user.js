@@ -4,11 +4,10 @@ import { router } from '../../router/index'
 
 const storage = window.localStorage
 const state = {
+  user: {}, 
   token: storage.getItem('token') || '',
   user_id: storage.getItem('user_id') || '',
-  email: storage.getItem('email'),
-  _id: storage.getItem('_id'),
-  displayName: storage.getItem('displayName'),
+  email: storage.getItem('email') || '',
   admin: false,
   access: 1000,
   loading: false,
@@ -21,25 +20,29 @@ const mutations = {
     state.success = false
   },
   [types.LOGIN_USER_SUCCESS] (state, user) {
-    storage.setItem('user_id', user.data.email)
-    storage.setItem('access', user.data.access)
-    storage.setItem('email', user.data.email)
-    storage.setItem('token', user.token)
-    storage.setItem('_id', user.data._id)
-    storage.setItem('displayName', user.data.displayName)
-    state.mongo_id = user.data._id
-    state.user_id = user.data.user_id
-    state.email = user.data.email
+    state.loading = false
+    state.success = true
+    console.log('user state: ', user)
+    state.user = user.user
+    state.email = user.user.email
     state.token = user.token
-    state.access = user.data.access
+    state.user_id = user.user._id
+    window.localStorage.setItem('user', user)
+    window.localStorage.setItem('token', user.token)
+    window.localStorage.setItem('user_id', user.user_id)
   },
   [types.LOGOUT_USER_REQUEST] (state) {
+    state.loading = true
+    state.success = false
+    window.localStorage.clear()
     state.token = null
     state.user = {}
     state.loading = true
     state.success = false
   },
   [types.LOGOUT_USER_SUCCESS] (state) {
+    state.loading = false
+    state.success = true
     state.token = null
     state.user = {}
     state.loading = false
@@ -52,7 +55,18 @@ const mutations = {
   [types.SIGNUP_USER_SUCCESS] (state, user) {
     state.loading = false
     state.success = true
-    state.user = user
+    state.user = user.user
+    state.email = user.user.email
+    state.token = user.token
+    state.user_id = user.user._id
+    window.localStorage.setItem('user', user)
+    window.localStorage.setItem('token', user.token)
+    window.localStorage.setItem('user_id', user.user_id)
+  },
+  [types.SIGNUP_USER_FAILURE] (state, err) {
+    state.loading = false
+    state.success = false
+    state.errors = err;
   },
   [types.RECEIVE_USER_INFO] (state) {
     state.loading = true
@@ -61,11 +75,10 @@ const mutations = {
   [types.RECEIVE_USER_SUCCESS] (state, user) {
     state.loading = false
     state.success = true
-    state.email = user.data.email
+    state.user = user.user
+    state.email = user.user.email
     state.token = user.token
-    state.access = user.data.access
-    state.mongo_id = user.data._id
-    state.user_id = user.data.user_id
+    state.user_id = user.user._id
   },
   [types.RECEIVE_USER_FAILURE] (state, errors) {
    state.loading = false

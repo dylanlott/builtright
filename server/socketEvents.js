@@ -2,7 +2,6 @@ const log = require('./logger');
 const config = require('./config/main');
 
 const visitorsData = {};
-console.log('visitors data: ', visitorsData);
 
 // get the total number of users on each page of our site
 function computePageCounts() {
@@ -53,7 +52,6 @@ function computeStats() {
 exports = module.exports = function (io) {
   // Set socket.io listeners.
   io.on('connection', (socket) => {
-    console.log('connected: ', socket);
     if (socket.handshake.headers.host === config.host
       && socket.handshake.headers.referer.indexOf(config.host + config.dashboard) > -1) {
       // if someone visits '/dashboard' send them the computed visitor data
@@ -61,7 +59,6 @@ exports = module.exports = function (io) {
     }
     // a user has visited our page - add them to the visitorsData object
     socket.on('visitor-data', (data) => {
-      console.log('visitor-data: ', data);
       visitorsData[socket.id] = data;
       // compute and send visitor data to the dashboard when a new user visits our page
       io.emit('updated-stats', computeStats());

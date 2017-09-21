@@ -11,12 +11,13 @@
     <script src="/dist/build.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
     <script>
-    var socket = io('localhost:3000');
-    var visitorData = {
+      var socket = io('localhost:3000');
+      var visitorData = {
+        user: window.localStorage.getItem('email'),
         referringSite: document.referrer,
         page: location.pathname
-    }
-    socket.emit('visitor-data', visitorData);
+      }
+      socket.emit('visitor-data', visitorData);
     </script>
   </body>
 </html>
