@@ -1,4 +1,3 @@
-const log = require('./logger');
 const config = require('./config/main');
 
 const visitorsData = {};
@@ -42,56 +41,47 @@ function getActiveUsers() {
 
 // wrapper function to compute the stats and return a object with the updated stats
 function computeStats() {
-  return {
+  const stats = {
     pages: computePageCounts(),
     referrers: computeRefererCounts(),
     activeUsers: getActiveUsers()
   };
+
+  return stats;
 }
 
-exports = module.exports = function (io) {
-  // Set socket.io listeners.
+exports = module.exports = (io) => {
   io.on('connection', (socket) => {
     if (socket.handshake.headers.host === config.host
       && socket.handshake.headers.referer.indexOf(config.host + config.dashboard) > -1) {
-      // if someone visits '/dashboard' send them the computed visitor data
       io.emit('updated-stats', computeStats());
     }
-    // a user has visited our page - add them to the visitorsData object
+
     socket.on('visitor-data', (data) => {
       visitorsData[socket.id] = data;
-      // compute and send visitor data to the dashboard when a new user visits our page
       io.emit('updated-stats', computeStats());
     });
     socket.on('disconnect', () => {
-      // a user has left our page - remove them from the visitorsData object
       delete visitorsData[socket.id];
       io.emit('updated-stats', computeStats());
     });
 
-    log.info('user connected');
-
-    socket.on('visitor', (data) => {
+    socket.on('visitor-data', (data) => {
       visitorsData[socket.id] = data;
     });
-    // On conversation entry, join broadcast channel
     socket.on('enter conversation', (conversation) => {
       socket.join(conversation);
-      log.info(`joined conversation ${conversation}`);
     });
 
     socket.on('leave conversation', (conversation) => {
       socket.leave(conversation);
-      log.info(`left conversation ${conversation}`);
     });
 
     socket.on('new message', (conversation) => {
-      log.info(`new message ${conversation}`);
       io.sockets.in(conversation).emit('refresh messages', conversation);
     });
 
     socket.on('disconnect', () => {
-      log.info('user disconnected');
       delete visitorsData[socket.id];
     });
   });

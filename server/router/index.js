@@ -1,3 +1,7 @@
+const express = require('express');
+const passport = require('passport');
+const logger = require('../logger');
+const constants = require('../constants');
 const AuthenticationController = require('../controllers/authentication');
 const UserController = require('../controllers/user');
 const ChatController = require('../controllers/chat');
@@ -7,28 +11,24 @@ const PartsController = require('../controllers/part');
 const BuildsController = require('../controllers/build.js');
 const CommentsController = require('../controllers/comment.js');
 const HealthController = require('../controllers/health.js');
-const express = require('express');
-const passport = require('passport');
-const constants = require('../constants');
 
 const ROLE_MEMBER = constants.ROLE_MEMBER;
 const ROLE_CLIENT = constants.ROLE_CLIENT;
 const ROLE_OWNER = constants.ROLE_OWNER;
 const ROLE_ADMIN = constants.ROLE_ADMIN;
 
-// require in passport config
-const passportService = require('../config/passport');
-
 const requireAuth = passport.authenticate('jwt', { session: false });
-const requireLogin = passport.authenticate('local', { session: false });
 
 module.exports = function (app) {
   const api = express.Router();
 
-  api.get('/admin', requireAuth, AuthenticationController.roleAuthorization(ROLE_ADMIN), (req, res) => {
-    res.send({ content: 'Admin dashboard is working.' });
+
+  api.post('/analytics', requireAuth, (req,res) => {
+    logger[req.body.type](req.body);
+    res.send('OK');
   });
 
+  api.use('/admin', require('./admin'));
   api.use('/auth', require('./auth'));
   api.use('/user', require('./users'));
   api.use('/chat', require('./chats'));

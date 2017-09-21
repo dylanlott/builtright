@@ -26,7 +26,7 @@ const mutations = {
     state.email = user.user.email
     state.token = user.token
     state.user_id = user.user._id
-    storage.setItem('user', user)
+    storage.setItem('email', user.user.email)
     storage.setItem('token', user.token)
     storage.setItem('user_id', user.user_id)
   },
@@ -57,11 +57,9 @@ const mutations = {
     state.email = user.user.email
     state.token = user.token
     state.user_id = user.user._id
-    console.log('user: ', user)
     storage.setItem('email', user.user.email)
-    storage.setItem('user_id', user.user._id)
-    storage.setItem('role', user.user.role)
     storage.setItem('token', user.token)
+    storage.setItem('user_id', user.user_id)
   },
   [types.SIGNUP_USER_FAILURE] (state, err) {
     state.loading = false
@@ -81,10 +79,10 @@ const mutations = {
     state.user_id = user.user._id
   },
   [types.RECEIVE_USER_FAILURE] (state, errors) {
-   state.loading = false
-   state.success = false
-   state.errors = errors
- }
+    state.loading = false
+    state.success = false
+    state.errors = errors
+  }
 }
 
 const actions = {
@@ -132,27 +130,11 @@ const actions = {
   },
   signup ({commit, state}, user) {
     commit(types.SIGNUP_USER_REQUEST)
-    const self = this;
-    const login = {
-      email: user.email,
-      password: user.password
-    };
     return api.signup(user)
       .then((user) => {
         commit(types.SIGNUP_USER_SUCCESS, user)
-        const login = {
-          strategy: 'local',
-          email: user.email,
-          password: user.password
-        }
+        router.push({ name: 'dashboard' })
         return user
-      })
-      .then((user) => {
-        api.login(login)
-          .then((token) => {
-            commit(types.LOGIN_USER_SUCCESS, token)
-            router.push({ name: 'dashboard' })
-          })
       })
       .catch((err) => {
         commit(types.SIGNUP_USER_FAILURE, err)

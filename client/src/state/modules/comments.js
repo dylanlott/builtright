@@ -59,9 +59,9 @@ const actions = {
     return comments.getComments(id)
       .then((comments) => {
         commit(types.GET_POST_COMMENTS_SUCCESS, comments.data)
-        commit(types.SET_SKIP, comments.skip)
-        commit(types.SET_TOTAL, comments.total)
-        commit(types.SET_LIMIT, comments.limit)
+        commit(types.SET_COMMENT_SKIP, comments.skip)
+        commit(types.SET_COMMENT_TOTAL, comments.total)
+        commit(types.SET_COMMENT_LIMIT, comments.limit)
       })
       .catch((err) => commit(types.GET_POST_COMMENTS_FAILURE, err))
   },

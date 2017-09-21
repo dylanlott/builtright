@@ -8,8 +8,8 @@
               <v-icon>account_circle</v-icon>
             </v-list-tile-avatar> -->
             <v-list-tile-content>
-              <v-list-tile-title v-show="user.token">{{ user.email || user.user_id }}</v-list-tile-title>
-              <v-list-tile-title v-show="!user.token">
+              <v-list-tile-title v-show="token">{{ user.email || user_id }}</v-list-tile-title>
+              <v-list-tile-title v-show="!token">
                 <router-link class="menu-link" to="login">Login</router-link>
               </v-list-tile-title>
             </v-list-tile-content>
@@ -28,7 +28,7 @@
          class="my-4"
        ></v-divider>
 
-       <router-link v-if="user.token"
+       <router-link v-if="token"
           :to="{ name: 'dashboard' }"
           class="menu-link">
          <v-list-item >
@@ -43,7 +43,7 @@
          </v-list-item>
        </router-link>
 
-        <router-link v-if="user.token"
+        <router-link v-if="token"
             :to="{ name: 'builds' }"
             class="menu-link">
           <v-list-item >
@@ -72,7 +72,7 @@
         </router-link>
 
 
-        <router-link v-if="user.token"
+        <router-link v-if="token"
             class="menu-link"
             :to="{ name: 'profile'}">
           <v-list-item >
@@ -92,7 +92,7 @@
          class="my-4"
        ></v-divider>
 
-        <v-list-item v-if="user.token" @click="logout()">
+        <v-list-item v-if="token" @click="logout()">
           <v-list-tile>
             <v-list-tile-action>
               <v-icon>clear</v-icon>
@@ -142,7 +142,7 @@ export default {
   },
   methods: {
     goToDashboard () {
-      if (user.token) {
+      if (this.token) {
         router.push('dashboard')
       }
     },
@@ -150,12 +150,12 @@ export default {
       this.loggedOut = true
       this.$store.dispatch('logoutUser')
     },
-  },
-  watch: {
-    '$route': function () {
-      this.$store.dispatch('getUserInfo', this.user_id)
-    }
   }
+  // watch: {
+  //   '$route': function () {
+  //     this.$store.dispatch('getUserInfo', this.user_id)
+  //   }
+  // }
 }
 
 </script>
