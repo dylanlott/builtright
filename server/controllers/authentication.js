@@ -15,9 +15,6 @@ function generateToken(user) {
   });
 }
 
-//= =======================================
-// Login Route
-//= =======================================
 exports.login = function (req, res, next) {
   const userInfo = setUserInfo(req.user);
 
@@ -27,10 +24,6 @@ exports.login = function (req, res, next) {
   });
 };
 
-
-//= =======================================
-// Registration Route
-//= =======================================
 exports.register = (req, res, next) => {
   // Check for registration errors
   const email = req.body.email;
@@ -77,10 +70,6 @@ exports.register = (req, res, next) => {
   });
 };
 
-//= =======================================
-// Authorization Middleware
-//= =======================================
-
 // Role authorization check
 exports.roleAuthorization = function (requiredRole) {
   return function (req, res, next) {
@@ -101,10 +90,6 @@ exports.roleAuthorization = function (requiredRole) {
     });
   };
 };
-
-//= =======================================
-// Forgot Password Route
-//= =======================================
 
 exports.forgotPassword = function (req, res, next) {
   const email = req.body.email;
@@ -146,10 +131,6 @@ exports.forgotPassword = function (req, res, next) {
     });
   });
 };
-
-//= =======================================
-// Reset Password Route
-//= =======================================
 
 exports.verifyToken = function (req, res, next) {
   User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, (err, resetUser) => {

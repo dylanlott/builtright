@@ -1,5 +1,6 @@
-var path = require('path')
-var webpack = require('webpack')
+const path = require('path')
+const webpack = require('webpack')
+const Dotenv = require('dotenv-webpack')
 
 module.exports = {
   entry: './src/main.js',
@@ -76,7 +77,11 @@ if (process.env.NODE_ENV === 'production') {
         NODE_ENV: '"production"'
       }
     }),
-    new webpack.optimize.UglifyJsPlugin({
+    new Dotenv({
+      path: './.env', // Path to .env file (this is the default) 
+      safe: true // load .env.example (defaults to "false" which does not use dotenv-safe) 
+    }),
+    new wbpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false
       }

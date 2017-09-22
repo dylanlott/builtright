@@ -39,22 +39,25 @@ exports.list = (req, res) => {
 };
 
 exports.detail = (req, res) => {
-  return User.findById(req.params.id, (err, user) => {
-    if (err || !user) {
-      return User.findOne({ email: req.params.id })
-        .select('-password')
-        .then((found) => {
-          if (!found) {
-            res.status(404).send({ message: 'user does not exist' });
-          }
+  console.log('hit');
+  return User.findById(req.params.id)
+    .select('-password')
+    .then((user) => {
+      if (!user) {
+        return User.findOne({ email: req.params.id })
+          .select('-password')
+          .then((found) => {
+            if (!found) {
+              return res.status(404).send({ message: 'user does not exist' });
+            }
 
-          return res.status(200).json(found);
-        })
-        .catch(error => res.status(500).send(error));
-    }
+            return res.status(200).json(found);
+          });
+      }
 
-    return res.status(200).send(user);
-  });
+      return res.send(user);
+    })
+    .catch(error => res.status(500).send(error));
 };
 
 exports.favorite = (req, res) => {
