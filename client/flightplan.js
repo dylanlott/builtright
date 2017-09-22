@@ -1,6 +1,6 @@
 var plan = require('flightplan');
 var appName = 'builtright';
-var username = 'deploy';
+var username = 'dylan';
 var startFile = 'bin/www';
 
 plan.target('dev', {
@@ -15,7 +15,7 @@ plan.target('dev', {
 });
 
 plan.target('prod', {
-  host: '159.203.106.53',
+  host: '165.227.67.146',
   username: 'dylan',
   agent: process.env.SSH_AUTH_SOCK,
   webRoot: '/var/www/builtrightapp.com/client',

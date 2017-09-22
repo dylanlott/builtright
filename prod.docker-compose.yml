@@ -14,8 +14,7 @@ services:
     image: hivemindapps/builtright-vue:latest 
     ports: 
       - "80:80"
-    environment:
-      - 
+      - "443:443"
     links: 
       - mongo:mongo
 
@@ -23,12 +22,8 @@ services:
     image: bitnami/mongodb
     ports: 
       - "27017:27017"
-    environment:
-      - 
 
   redis:
     image: redis
     ports:
       - "6379:6379"
-    environment:
-      - 
