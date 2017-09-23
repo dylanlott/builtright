@@ -1,11 +1,6 @@
 <template>
   <v-container fluid>
-    <h1>BuiltRight</h1>
-    <h3>The #1 Car Modification Community</h3>
 
-    <div class="">
-
-    </div>
   </v-container>
 </template>
 

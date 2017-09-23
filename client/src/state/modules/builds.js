@@ -4,8 +4,6 @@ import parts from '../../api/parts'
 import { router } from '../../router/index'
 
 const localStorage = window.localStorage
-// const user = localStorage.getItem('user_id')
-// const token = localStorage.getItem('token')
 
 const state = {
   builds: [],

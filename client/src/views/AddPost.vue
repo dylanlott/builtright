@@ -22,9 +22,9 @@
               </v-card-row>
               <v-card-row>
                 <v-text-field
-                 name="postText"
+                 name="postBody"
                  label="Body"
-                 v-model="post.text"
+                 v-model="post.body"
                  multi-line
                 ></v-text-field>
               </v-card-row>
@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import marked from 'marked'
 import { router } from '../router/index'
 import { mapState, mapDispatch } from 'vuex'
 const moment = require('moment')
@@ -64,10 +65,7 @@ export default {
       router.push({ name: 'forum' })
     },
     submit () {
-      this.post.date = moment().format('YYYY-MM-DD HH:m:s')
-      this.post.user = this.user.user_id
       this.post.type = 'forum'
-      this.post.published = true
       console.log('post: ', this.post)
       this.$store.dispatch('createPost', this.post)
       //fire off toast

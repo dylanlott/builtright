@@ -9,7 +9,16 @@ const PostSchema = new Schema({
   link: { type: String },
   group: { type: String },
   category: { type: String },
-  type: { type: String, enum: ["blog", "forum"]},
+  vehicle: {
+    year: { type: Number },
+    make: { type: String },
+    model: { type: String },
+    trim: { type: String },
+    options: { type: String },
+    build: { type: Schema.Types.ObjectId, ref: 'Build' }
+  },
+  type: { type: String, enum: ["blog", "forum", "guide"]},
+  steps: [{ type: Schema.Types.Mixed }],
   slug: { type: String, unique: true },
   tags: [{ type: String }],
   _user: { type: Schema.Types.ObjectId, ref: 'User' },

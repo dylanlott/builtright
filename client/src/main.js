@@ -9,12 +9,15 @@ import axios from 'axios'
 import VueSweetAlert from 'vue-sweetalert'
 import config from './config'
 import user from './api/user'
+import Gravatar from 'vue-gravatar'
 
 const storage = window.localStorage
 
 Vue.use(Vuetify)
 Vue.use(BootstrapVue)
 Vue.use(VueSweetAlert)
+
+Vue.component('v-gravatar', Gravatar);
 
 axios.defaults.baseURL = config.API_URL
 axios.defaults.headers.common['Authorization'] = user.getToken();

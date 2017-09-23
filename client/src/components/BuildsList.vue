@@ -33,7 +33,6 @@
           </v-btn>
         </v-card-row>
       </v-card>
-
   </div>
 </template>
 

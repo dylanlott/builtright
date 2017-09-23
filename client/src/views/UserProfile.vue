@@ -3,7 +3,7 @@
     <v-card class="grey darken-3 white--text">
       <v-card-row>
         <v-card-title >
-          {{ user.user_id }}
+          {{ user.email }}
         </v-card-title>
       </v-card-row>
       <v-card-row>
@@ -25,8 +25,7 @@ export default {
     user: state => state.user
   }),
   created () {
-    console.log('this._id: ', this.user._id)
-    this.$store.dispatch('getUserInfo', this.user._id)
+    this.$store.dispatch('getUserInfo', this.user.user_id)
   }
 }
 </script>

@@ -68,6 +68,7 @@ const actions = {
     commit(types.GET_POSTS_REQUEST)
     return posts.getPosts(options)
       .then((posts) => {
+        console.log('get posts: ', posts);
         commit(types.GET_POSTS_SUCCESS, posts)
       })
       .catch((err) => {
