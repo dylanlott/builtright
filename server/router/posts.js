@@ -9,6 +9,6 @@ router.get('/:id', PostsController.detail);
 router.put('/:id', PostsController.update);
 router.delete('/:id', PostsController.delete);
 router.post('/:id/upvote', PostsController.upvote);
-router.post('/:id/downvote', PostsController.downvote);
+//router.post('/:id/downvote', PostsController.downvote);
 
 module.exports = router;

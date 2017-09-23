@@ -7,8 +7,8 @@
     "test": "mocha -S --ui bdd --require ./tests/spec_helper.js --recursive ./tests --reporter spec",
     "dev": "nodemon index.js",
     "start": "node",
-    "build:prod": "docker build -t hivemindapps/builtright-server:latest .",
-    "deploy": "npm run build:prod && docker push hivemindapps/builtright-server:latest"
+    "build:prod": "docker build -t hivemindapps/builtright-server .",
+    "deploy": "npm run build:prod && docker push hivemindapps/builtright-server"
   },
   "author": "Dylan Lott",
   "license": "ISC",

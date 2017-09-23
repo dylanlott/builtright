@@ -9,7 +9,7 @@
     "linter": "./node_modules/.bin/standard ./src/**/*.js",
     "docs": "jsdoc -c ./conf.json && cd out && ws",
     "build:prod": "npm run build && docker build -t hivemindapps/builtright-client .",
-    "deploy": "npm run build:prod && docker push hivemindapps/builtright-client:latest"
+    "deploy": "npm run build:prod && docker push hivemindapps/builtright-client"
   },
   "dependencies": {
     "axios": "^0.15.3",

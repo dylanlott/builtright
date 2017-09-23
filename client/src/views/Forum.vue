@@ -60,7 +60,7 @@
           <p style="color: #fff">There are no posts to show here.</p>
         </div>
         <div v-for="item in posts">
-          <router-link :to="{ name: 'postDetail', params: { id: item._id }}">
+          <router-link :to="{ name: 'postDetail', params: { id: item.slug }}">
             <div class="post-list elevation-1">
               <v-list two-line>
                 <v-list-item>
