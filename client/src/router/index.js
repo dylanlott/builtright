@@ -17,6 +17,7 @@ import addPost from '../views/AddPost.vue'
 import postDetail from '../views/PostDetail.vue'
 import logout from '../views/Logout.vue'
 import confirmation from '../views/EmailConfirmation.vue'
+import info from '../views/AppInformation.vue'
 
 Vue.use(VueRouter)
 
@@ -125,6 +126,13 @@ export const router = new VueRouter({
     path: '/confirm',
     name: 'confirmation',
     component: confirmation,
+    meta: {
+      auth: false
+    }
+  }, {
+    path: '/info',
+    name: 'info',
+    component: info,
     meta: {
       auth: false
     }

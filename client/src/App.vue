@@ -8,7 +8,7 @@
               <img src="./img/logo-horizontal.png" alt="" height="35" class="app-logo">
             </router-link>
             <v-list-tile-avatar>
-              <v-gravatar v-if="token" :email="this.user.email" />
+              <v-gravatar v-if="token" default-img="retro" :email="this.user.email" />
             </v-list-tile-avatar>
             <v-list-tile-content>
               <v-list-tile-title>{{ user.email }}</v-list-tile-title>

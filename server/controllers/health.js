@@ -1,4 +1,5 @@
 const os = require('os');
+const pkg = require('../package.json');
 
 exports.check = function(req, res, next) {
   res.status(200).send('OK');
@@ -6,7 +7,9 @@ exports.check = function(req, res, next) {
 
 exports.info = function(req, res, next) {
   const info = {
-    name: 'battlestations'
+    name: pkg.name,
+    version: pkg.version,
+    description: pkg.description
   }
-  res.status(200).send(info);
+  return res.status(200).send(info);
 };

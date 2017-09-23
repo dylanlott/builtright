@@ -14,6 +14,6 @@ module.exports = function (app) {
   api.use('/comments', require('./comments'));
   api.use('/posts', require('./posts'));
   api.use('/health', HealthController.check);
-  api.use('/info', HealthController.info);
+  api.get('/', HealthController.info);
   app.use('/api', api);
 };
