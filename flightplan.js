@@ -1,4 +1,15 @@
 const plan = require('flightplan');
+const username = 'dylan';
+
+plan.target('prod', {
+  host: '165.227.67.146',
+  username: username,
+  agent: process.env.SSH_AUTH_SOCK,
+  webRoot: '/var/www/builtrightapp.com/',
+  ownerUser: username,
+  repository: 'https://github.com/dylanlott/builtright.git',
+  branchName: 'master'
+});
 
 plan.local('deploy', function (local) {
   local.log('sending main payload');

@@ -67,10 +67,8 @@ const actions = {
   getPosts ({commit, state}, options) {
     commit(types.GET_POSTS_REQUEST)
     return posts.getPosts(options)
-      .then((res) => {
-        const posts = res.data
+      .then((posts) => {
         commit(types.GET_POSTS_SUCCESS, posts)
-        return posts
       })
       .catch((err) => {
         console.log(`Error getting posts: ${err}`)

@@ -8,11 +8,7 @@ const URL = config.API_URL
 
 export default {
   getPosts (options) {
-    return axios.get(`${URL}/api/posts`, {
-        params: {
-          options
-        }
-      })
+    return axios.get(`${URL}/api/posts`)
       .then((res) => res.data)
       .catch((err) => console.error('Error getting posts: ', err))
   },

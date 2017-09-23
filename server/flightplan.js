@@ -27,7 +27,7 @@ plan.remote('deploy', function (remote) {
     remote.log('installing dependencies');
     remote.exec('sudo npm install');
     remote.log('reticulating splines');
-    remote.exec('sudo pm2 restart index.js');
+    remote.exec('sudo pm2 restart index.js --name builtright');
     remote.log('processes restarted, deploy successful');
     remote.exec('sudo pm2 list');
   });

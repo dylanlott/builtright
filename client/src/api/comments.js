@@ -16,7 +16,7 @@ export default {
    * @return {type}    returns an axios promise
    */
   getComments (id) {
-    return axios.get('/comments', {
+    return axios.get('/api/comments', {
       params: {
         source: id
       }
@@ -32,7 +32,7 @@ export default {
    * @return {type}         returns an axios promise
    */
   createComment (comment) {
-    return axios.post('/comments', comment)
+    return axios.post('/api/comments', comment)
       .then((res) => res.data)
       .catch((err) => err)
   }

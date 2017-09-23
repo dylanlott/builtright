@@ -11,8 +11,6 @@ exports.create = (req, res) => {
 };
 
 exports.list = (req, res) => Build.find(req.query)
-  .limit(req.query.limit || 50)
-  .skip(req.query.skip || 0)
   .populate('_user')
   .then((data) => {
     console.log('req.query: ', req.query);
@@ -35,7 +33,7 @@ exports.detail = (req, res) => {
       return res.status(200).json(data)
     })
     .catch(err => res.status(500).json(err));
-}
+};
 
 exports.update = (req, res) => {
   const newBuild = req.body;

@@ -7,7 +7,7 @@ exports.createPart = (req, res) => {
     .catch(err => res.status(500).json(err));
 };
 
-exports.listParts = (req, res) => Part.find(req.params)
+exports.listParts = (req, res) => Part.find(req.query)
   .limit(req.body.limit || 50)
   .skip(req.body.skip || 0)
   .populate('_user')

@@ -29,7 +29,7 @@ const mutations = {
     storage.setItem('email', user.user.email)
     storage.setItem('token', user.token)
     storage.setItem('_id', user.user._id)
-    storage.setItem('user_id', user.user_id)
+    storage.setItem('user_id', user.user._id)
   },
   [types.LOGOUT_USER_REQUEST] (state) {
     state.loading = true
@@ -61,7 +61,7 @@ const mutations = {
     storage.setItem('token', user.token)
     storage.setItem('email', user.user.email)
     storage.setItem('_id', user.user._id)
-    storage.setItem('user_id', user.user_id)
+    storage.setItem('user_id', user.user._id)
   },
   [types.SIGNUP_USER_FAILURE] (state, err) {
     state.loading = false
@@ -79,6 +79,10 @@ const mutations = {
     state.email = user.user.email
     state.token = user.token
     state.user_id = user.user._id
+    storage.setItem('email', user.user.email)
+    storage.setItem('token', user.token)
+    storage.setItem('_id', user.user._id)
+    storage.setItem('user_id', user.user._id)
   },
   [types.RECEIVE_USER_FAILURE] (state, errors) {
     state.loading = false

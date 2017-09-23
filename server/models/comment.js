@@ -7,7 +7,7 @@ const CommentsSchema = new Schema({
   text: { type: String, required: true },
   _parent: { type: String },
   _user: { type: Schema.Types.ObjectId, ref: 'User' },
-  _votes: [{ type: Schema.Types.ObjectId, ref: 'User'  }],
+  _votes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   rating: { type: Number },
   hidden: { type: Boolean, default: false }
 }, {

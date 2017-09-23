@@ -26,7 +26,7 @@ exports.viewProfile = function (req, res, next) {
 exports.list = (req, res) => {
   User.findById(req.user._id, (err, user) => {
     if (user.role === 'admin') {
-      return User.find({})
+      return User.find(req.query)
         .limit(req.params.limit)
         .skip(req.params.skip)
         .select('-password')
@@ -39,7 +39,6 @@ exports.list = (req, res) => {
 };
 
 exports.detail = (req, res) => {
-  console.log('hit');
   return User.findById(req.params.id)
     .select('-password')
     .then((user) => {

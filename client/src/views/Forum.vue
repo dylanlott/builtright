@@ -6,7 +6,7 @@
 
     <v-container flex>
       <router-link :to="{ name: 'addPost' }" class="routerlink">
-        <v-btn light v-tooltip:top="{ html: 'Write A Forum Post' }" name="addPost" raised floating class="cyan floating">
+        <v-btn light v-tooltip:top="{ html: 'Write A Forum Post' }" name="addPost" raised floating class="primary floating">
           <v-icon class="white--text">create</v-icon>
         </v-btn>
       </router-link>
