@@ -106,6 +106,7 @@
       </v-toolbar-title>
     </v-toolbar>
     <main>
+      <v-alert info dismissible v-model="alert" v-if="alerts.length"></v-alert> 
       <router-view></router-view>
       <BottomNav></BottomNav>
     </main>

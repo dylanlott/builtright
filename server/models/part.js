@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const slug = require('slug');
+const constants = require('../constants');
+const Float = require('mongoose-float').loadType(mongoose, 2);
 
+const TYPES = constants.PART_TYPES;
 const Schema = mongoose.Schema;
 
 const PartSchema = new Schema({
@@ -9,7 +12,8 @@ const PartSchema = new Schema({
   slug: { type: String, unique: true },
   make: { type: String },
   model: { type: String },
-  price: { type: Number },
+  type: { type: String, enum: TYPES },
+  price: { type: Float },
   trim: { type: Schema.Types.Mixed },
   url: { type: String, required: true },
   source: { type: String },
@@ -22,7 +26,6 @@ const PartSchema = new Schema({
 });
 
 PartSchema.pre('save', function (next) {
-  console.log('pre save slug part');
   this.slug = slug(this.title);
   next();
 });

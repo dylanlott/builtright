@@ -12,7 +12,7 @@
 
     <v-layout row wrap>
       <v-flex xs12>
-        <BuildsList></BuildsList>
+        <BuildsList :builds="builds.builds" loading="loading"></BuildsList>
       </v-flex>
     </v-layout>
 
@@ -21,9 +21,24 @@
 
 <script>
 import BuildsList from '../components/BuildsList.vue'
+import { mapState } from 'vuex'
+
 export default {
+  data () {
+    return {
+      query: {
+        limit: 50,
+        skip: 0
+      }
+    }
+  },
+  computed: mapState({
+    user: state => state.user,
+    builds: state => state.builds,
+    loading: state => state.loading
+  }),
   created () {
-    this.$store.dispatch('getBuildsByUser', this.user_id, 0, this.limit)
+    this.$store.dispatch('getBuilds', this.query)
   },
   components: { BuildsList }
 }

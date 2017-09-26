@@ -4,8 +4,8 @@
       <span>Builds</span>
       <v-icon>history</v-icon>
     </v-btn>
-    <v-btn @click.native="route('forum')" flat light class="white--text">
-      <span>Forum</span>
+    <v-btn @click.native="route('posts')" flat light class="white--text">
+      <span>Posts</span>
       <v-icon>favorite</v-icon>
     </v-btn>
     <v-btn @click.native="route('profile')" flat light class="white--text">

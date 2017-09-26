@@ -1,42 +1,34 @@
 <template>
-  <div>
-    <h1>Your Builds</h1>
-
-    <v-progress-linear v-if="loading"
-      v-bind:indeterminate="true">
-    </v-progress-linear>
-
-    <v-card v-if="!builds.length">
-      <v-card-text>You don't have any builds. Start your first!</v-card-text>
-    </v-card>
-    <v-card
-      class="build__cards grey darken-3 white--text"
-      v-for="build in builds">
-        <v-card-row>
-          <v-card-title>
-            {{ build.title }}
-          </v-card-title>
-
-        </v-card-row>
-        <v-card-row>
-          <v-card-text>
-            {{build.year}} {{build.make}} {{build.model}}
-          </br/>
-          </v-card-text>
-        </v-card-row>
-        <v-card-row actions>
-          <router-link class="routerlink"
-            :to="{name: 'buildDetails', params: { id: build._id }}">
-            <v-btn flat class="white--text">View</v-btn>
-          </router-link>
-          <v-spacer></v-spacer>
-          Share
-          <v-btn icon dark>
-            <v-icon class="white--text">share</v-icon>
-          </v-btn>
-        </v-card-row>
+  <v-flex>
+    <v-container padding>
+      <v-card v-if="!builds">
+        <v-card-text>We didn't find any builds. :(</v-card-text>
       </v-card>
-  </div>
+    </v-container>
+
+    <v-container>
+      <v-card v-for="build in builds">
+          <v-flex xs12>
+            <v-card class="blue-grey darken-2 white--text">
+              <v-card-title primary-title>
+                <div class="headline" v-text="build.title"></div>
+                <div></div>
+              </v-card-title>
+              <v-card-text class="left">
+                <div class="light-2" v-text="build.vehicle.make"></div>
+              </v-card-text>
+              <v-card-actions>
+                <router-link class="router" :to="{ name: 'buildDetails', params: { id: build.slug }}">
+                  <v-btn flat dark> View details
+                    <v-icon>details</v-icon> 
+                  </v-btn>
+                </router-link> 
+              </v-card-actions>
+            </v-card>
+          </v-flex>
+      </v-card> 
+    </v-container>
+  </v-flex>
 </template>
 
 <script>
@@ -47,18 +39,15 @@ const storage = window.localStorage
 
 export default {
   name: 'buildsList',
-  computed: mapState({
-    user: state => state.user,
-    builds: state => state.builds.builds,
-    loading: state => state.loading
-  }),
-  created () {
-    this.$store.dispatch('getBuilds')
-  }
+  props: ['builds']
 }
 </script>
 
 <style lang="stylus">
   .build__cards
     margin: 40px 20px
+  .router
+    text-decoration: none
+  .left
+    text-align: left
 </style>

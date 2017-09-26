@@ -10,10 +10,7 @@ const state = {
   details: {},
   success: false,
   loading: false,
-  errors: '',
-  skip: 0,
-  limit: 10,
-  total: 0
+  errors: ''
 }
 
 const mutations = {
@@ -22,10 +19,7 @@ const mutations = {
     state.success = false
   },
   [types.GET_BUILDS_SUCCESS] (state, builds) {
-    state.builds = builds.data
-    state.limit = builds.limit
-    state.skip = builds.skip
-    state.total = builds.total
+    state.builds = builds
     state.loading = false
     state.success = true
   },
@@ -102,7 +96,10 @@ const actions = {
   getBuilds ({commit, state}, query) {
     commit(types.GET_BUILDS_REQUEST)
     return builds.get(query)
-      .then((res) => commit(types.GET_BUILDS_SUCCESS, res.data))
+      .then((builds) => {
+        commit(types.GET_BUILDS_SUCCESS, builds);
+        return res;
+      })
       .catch((err) => commit(types.GET_BUILDS_FAILURE, err))
   },
   getBuildDetails ({commit, state}, id) {
@@ -113,7 +110,6 @@ const actions = {
   },
   createNewBuild ({commit, state}, build) {
     commit(types.CREATE_BUILD_REQUEST)
-    console.log('CREATE BUILD: ', build)
     return builds.createBuild(build)
       .then((build) => commit(types.CREATE_BUILD_SUCCESS, build))
       .catch((err) => commit(types.CREATE_BUILD_FAILURE, err))

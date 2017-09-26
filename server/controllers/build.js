@@ -4,29 +4,33 @@ const Comment = require('../models/comment.js');
 const Part = require('../models/part.js');
 
 exports.create = (req, res) => {
+  console.log('creating build with: ', req.body);
+
   const build = new Build(req.body);
   build.save()
     .then(data => res.status(200).json(data))
-    .catch(err => res.status(500).json(err));
+    .catch(err => {
+      console.error('Error creating build: ', err);
+      return res.status(500).json(err);
+    })
 };
 
 exports.list = (req, res) => Build.find(req.query)
   .populate('_user')
+  .select('-password')
   .then((data) => {
-    console.log('req.query: ', req.query);
-    console.log('List Builds: ', data);
     return res.status(200).json(data);
   });
 
 exports.detail = (req, res) => {
   return Build.findOne({ slug: req.params.id })
     .populate('_user _comments _parts')
+    .select('-_user.password')
     .then(data => {
-      console.log('found build by slug: ', data);
-
       if (!data) {
         return Build.findById(req.params.id)
           .populate('_user _comments _parts')
+          .select('-_user.password')
           .then(data => res.status(200).json(data))
       }
 
@@ -125,11 +129,11 @@ exports.upvote = (req, res) => {
     .then(build => {
       console.log('upvote build: ', build);
 
-      if (build._votes.indexOf(req.user._id) > -1) {
+      if (build._upvotes.indexOf(req.user._id) > -1) {
         return res.status(200).send({ message: 'user has already upvoted this post' });
       }
 
-      build._votes.push(req.user._id);
+      build._upvotes.push(req.user._id);
       build.save().then(updated => res.status(201).json(build))
     })
     .catch(err => console.log('error upvoting build: ', err));

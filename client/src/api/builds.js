@@ -39,8 +39,11 @@ export default {
   },
 
   get (query, context) {
-    return axios.get(`${API_URL}/api/builds`, {params: { query }})
-      .then((res) => res.data)
+    return axios.get(`${API_URL}/api/builds`)
+      .then((res) => {
+        console.log('GOT BUILDS: ', res);
+        return res.data;
+      })
       .catch((err) => console.error('Error getting builds: ', err))
   },
 
@@ -55,7 +58,7 @@ export default {
       limit: 50,
       skip: skip,
     }
-    return axios.get('/api/builds', params)
+    return axios.get(`${API_URL}/api/builds`, params)
       .then((builds) => builds.data)
       .catch((err) => console.error(err))
   },
