@@ -33,7 +33,7 @@
           </v-layout>
         </v-card-text>
 
-        <CommentList></CommentList>
+        <CommentList :comments="details._comments"></CommentList>
         <AddComment></AddComment>
 
       </v-card>
@@ -49,8 +49,7 @@ import AddComment from '../components/AddComment.vue'
 export default {
   computed: mapState({
     user: state => state.user,
-    details: state => state.posts.postDetails,
-    comments: state => state.posts.postsDetails._comments
+    details: state => state.posts.postDetails
   }),
   created () {
     this.$store.dispatch('getPostDetails', this.$route.params.id)

@@ -54,6 +54,7 @@ exports.search = (req, res) => Post.search(req.params.name, (err, docs) => {
 
 exports.comment = (req, res) => {
   const newComment = new Comment(req.body);
+  newComment._user = req.user._id;
   newComment._parent = req.params.id;
 
   return newComment.save()

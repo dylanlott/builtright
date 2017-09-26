@@ -95,21 +95,21 @@ export const router = new VueRouter({
       auth: true
     }
   }, {
-    path: '/forum',
+    path: '/posts',
     name: 'forum',
     component: forum,
     meta: {
       auth: false
     }
   }, {
-    path: '/forum/add',
+    path: '/posts/add',
     name: 'addPost',
     component: addPost,
     meta: {
       auth: true
     }
   }, {
-    path: '/forum/:id',
+    path: '/posts/:id',
     name: 'postDetail',
     component: postDetail,
     meta: {
