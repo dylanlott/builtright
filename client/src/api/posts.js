@@ -25,6 +25,12 @@ export default {
       .catch((err) => console.error('Error getting post details: ', err))
   },
 
+  comment (id, comment) {
+    return axios.post(`${URL}/api/posts/${id}`, comment)
+      .then((res) => res.data)
+      .catch((err) => console.error('Error posting comment to post: ', err))
+  },
+
   updatePost (id, post) {
     return axios.put('${URL}/api/posts/${id}', post)
       .then((res) => resolve(res.data))

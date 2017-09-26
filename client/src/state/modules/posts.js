@@ -113,6 +113,13 @@ const actions = {
     return posts.deletePost(id)
       .then((res) => res.data)
       .catch((err) => err)
+  },
+
+  comment ({commit, state}, id, comment) {
+    commit(types.ADD_COMMENT_REQUEST)
+    return posts.comment(id, comment)
+      .then((res) => commit(types.ADD_COMMENT_SUCCESS))
+      .catch((err) => commit(types.ADD_COMMENT_FAILURE, err))
   }
 }
 

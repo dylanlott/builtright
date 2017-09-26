@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.get('/', PostsController.list);
 router.post('/', PostsController.create);
+router.post('/:id', PostsController.comment);
 router.get('/:id', PostsController.detail);
 router.put('/:id', PostsController.update);
 router.delete('/:id', PostsController.delete);

@@ -63,14 +63,12 @@
           <router-link :to="{ name: 'postDetail', params: { id: item.slug }}">
             <div class="post-list elevation-1">
               <v-list two-line>
-                <v-list-item>
-                  <v-list-tile>
-                    <v-list-tile-content>
-                      <v-list-tile-title v-html="item.title" />
-                      <v-list-tile-sub-title v-html="item.text" />
-                    </v-list-tile-content>
-                  </v-list-tile>
-                </v-list-item>
+                <v-list-tile>
+                  <v-list-tile-content>
+                    <v-list-tile-title v-html="item.title" />
+                    <v-list-tile-sub-title v-html="item.text" />
+                  </v-list-tile-content>
+                </v-list-tile>
               </v-list>
             </div>
           </router-link>

@@ -52,29 +52,29 @@ exports.search = (req, res) => Post.search(req.params.name, (err, docs) => {
   return res.status(200).send(docs);
 });
 
-exports.addComment = (req, res) => {
+exports.comment = (req, res) => {
   const newComment = new Comment(req.body);
   newComment._parent = req.params.id;
 
-  newComment.save((err, comment) => {
-    console.log('comment: ', comment);
-
-    Post.findById(req.params.id, (error, post) => {
-      post._comments.push(comment._id);
-      post.save((error, updatedPost) => {
-        if (err || error) {
-          res.status(500).send(err||error);
-        }
-        return res.status(200).send(updatedPost);
-      });
-    });
-  });
+  return newComment.save()
+    .then((comment) => {
+      return Post.findOne({ slug: req.params.id })
+        .then((post) => {
+          post._comments.push(comment._id);
+          return post.save()
+            .then((updatedPost) => res.status(200).send(updatedPost))
+            .catch((err) => {
+              console.log('ERROR saving comment to post: ', err);
+              res.status(500).send(err);
+            });
+        });
+    })
+    .catch((err) => res.status(500).send(err))
 };
 
 exports.upvote = (req, res) => {
   return Post.findById(req.params.id)
     .then(post => {
-      console.log('upvote post: ', post);
 
       if (post._upvotes.indexOf(req.user._id) > -1) {
         return res.status(200).send({ message: 'user has already upvoted this post' });

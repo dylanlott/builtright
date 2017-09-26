@@ -54,21 +54,20 @@ const mutations = {
 }
 
 const actions = {
-  getComments ({commit, state}, id) {
+  getComments ({commit, state}, resource, id) {
     commit(types.GET_POST_COMMENTS_REQUEST)
-    return comments.getComments(id)
-      .then((comments) => {
-        commit(types.GET_POST_COMMENTS_SUCCESS, comments.data)
-        commit(types.SET_COMMENT_SKIP, comments.skip)
-        commit(types.SET_COMMENT_TOTAL, comments.total)
-        commit(types.SET_COMMENT_LIMIT, comments.limit)
+    console.log('get comments for ', resource, id)
+    return comments.getComments(resource, id)
+      .then((res) => {
+        commit(types.GET_POST_COMMENTS_SUCCESS, res.data)
       })
       .catch((err) => commit(types.GET_POST_COMMENTS_FAILURE, err))
   },
 
-  addComment ({commit, state}, comment) {
+  addComment ({commit, state}, payload) {
+    console.log('payload: ', payload)
     commit(types.ADD_COMMENT_REQUEST)
-    return comments.createComment(comment)
+    return comments.create(payload.resource, payload.id, payload.comment)
       .then((res) => commit(types.ADD_COMMENT_SUCCESS, comment))
       .catch((err) => commit(types.ADD_COMMENT_FAILURE, err))
   }
