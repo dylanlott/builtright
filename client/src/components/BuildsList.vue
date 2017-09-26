@@ -6,6 +6,9 @@
       v-bind:indeterminate="true">
     </v-progress-linear>
 
+    <v-card v-if="!builds.length">
+      <v-card-text>You don't have any builds. Start your first!</v-card-text>
+    </v-card>
     <v-card
       class="build__cards grey darken-3 white--text"
       v-for="build in builds">
@@ -50,8 +53,7 @@ export default {
     loading: state => state.loading
   }),
   created () {
-    console.log('this.user', this.user.user_id)
-    this.$store.dispatch('getBuildsByUser', this.user_id, 0, 50)
+    this.$store.dispatch('getBuilds')
   }
 }
 </script>

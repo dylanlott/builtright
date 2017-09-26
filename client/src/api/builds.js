@@ -38,6 +38,12 @@ export default {
       .catch((err) => console.error('Error getting build details: ', err))
   },
 
+  get (query, context) {
+    return axios.get(`${API_URL}/api/builds`, {params: { query }})
+      .then((res) => res.data)
+      .catch((err) => console.error('Error getting builds: ', err))
+  },
+
   createBuild (build, context) {
     return axios.post(`${API_URL}/api/builds`, build)
       .then((res) => res.data)

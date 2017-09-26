@@ -99,6 +99,12 @@ const actions = {
       .then((res) => commit(types.GET_BUILDS_SUCCESS, res.data))
       .catch((err) => commit(types.GET_BUILDS_FAILURE, err))
   },
+  getBuilds ({commit, state}, query) {
+    commit(types.GET_BUILDS_REQUEST)
+    return builds.get(query)
+      .then((res) => commit(types.GET_BUILDS_SUCCESS, res.data))
+      .catch((err) => commit(types.GET_BUILDS_FAILURE, err))
+  },
   getBuildDetails ({commit, state}, id) {
     commit(types.GET_BUILD_DETAILS_REQUEST)
     return builds.getBuildDetails(id)

@@ -23,7 +23,6 @@
 import BuildsList from '../components/BuildsList.vue'
 export default {
   created () {
-    console.log('getting builds for ', this.user_id)
     this.$store.dispatch('getBuildsByUser', this.user_id, 0, this.limit)
   },
   components: { BuildsList }
