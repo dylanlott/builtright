@@ -1,10 +1,11 @@
 import axios from 'axios'
 import * as types from '../state/mutation-types'
 import config from '../config'
+const API_URL = config.API_URL
 
 export default {
   create (data) {
-    return axios.post('/api/analytics', data, params)
+    return axios.post(`${API_URL}/api/analytics`, data)
       .then((res) => res.data)
       .catch((err) => err)
   }

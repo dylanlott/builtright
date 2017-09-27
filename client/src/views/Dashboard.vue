@@ -1,9 +1,15 @@
 <template>
   <v-container flex>
     <h1>Dashboard</h1>
-    <v-layout>
-      DASHBOARD
-    </v-layout>
+      <v-card>
+        <v-card-title class="headline">Your Builds</v-card-title>
+      </v-card>
+      <v-card>
+        <v-card-title class="headline">Recent Comments</v-card-title>
+      </v-card>
+      <v-card>
+        <v-card-title class="headline">Favorited Posts</v-card-title>
+      </v-card>
   </v-container>
 </template>
 

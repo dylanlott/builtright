@@ -17,6 +17,7 @@ exports.create = (req, res) => {
 
 exports.list = (req, res) => Build.find(req.query)
   .populate('_user')
+  .where('hidden').equals('false')
   .select('-password')
   .then((data) => {
     return res.status(200).json(data);
@@ -124,6 +125,20 @@ exports.addExistingPart = (req, res) => {
     .catch(err => res.status(500).send(err));
 }
 
+exports.upload = (req, res) => {
+  return Build.findById(req.params.id)
+    .then((build => {
+      // storage image in S3
+
+      // Get URL back
+
+      // store URL in build.images
+
+      // send back updated build object
+    })
+    .catch((err) => console.error('Error uploading file: ', err));
+}
+
 exports.upvote = (req, res) => {
   return Build.findById(req.params.id)
     .then(build => {
@@ -145,7 +160,7 @@ exports.downvote = (req, res) => {
       console.log('downvote build: ', build);
       console.log('user downvoting: ', req.user._id);
 
-      if (build._votes.indexOf(req.user._id) > -1) {
+      if (build._downvotes.indexOf(req.user._id) > -1) {
         build._votes.splice(build._votes.indexOf(req.user._id), 1);
         console.log('build._votes: ', build._votes);
         build.save()

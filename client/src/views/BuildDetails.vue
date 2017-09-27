@@ -1,8 +1,16 @@
 <template lang="html">
   <div class="content__bg">
     <div class="secondary__nav">
-      Dashboard / Builds / Info 
+      <router-link :to="{ name: 'dashboard' }">Dashboard</router-link> / 
+      <router-link :to="{ name: 'builds' }">Builds</router-link> /
+      {{ details.title }}
     </div>
+    
+    <router-link class="routerlink" v-if="details._user._id === user.user_id" :to="{ name: 'addPart' }">
+      <v-btn class="cyan white--text"> 
+        Add a part
+      </v-btn>
+    </router-link>
 
     <v-container>
       <v-card>
@@ -28,7 +36,6 @@
                 {{ item.make }} {{item.model}} {{item.trim}}
               </v-list-tile-sub-title>
               <v-list-tile-sub-title>${{item.price}}</v-list-tile-sub-title>
-              <v-list-tile-sub-title v-text="item.type"></v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -36,10 +43,12 @@
      
       <v-card>
         <v-card-title class="headline">Stats</v-card-title>
-        <v-card-text>Total Cost of Build: </v-card-text>
-        <v-card-text>0 - 60mph time: </v-card-text>
-        <v-card-text>Horsepower: </v-card-text>
-        <v-card-text>Torque: </v-card-text>
+        <v-card-text>
+          <span>Total cost: </span>
+          <span>0 - 60mph time:</span>
+          <span>Horsepower: </span>
+          <span>Torque: </span>
+        </v-card-text>
       </v-card>
 
       <v-card>
@@ -100,4 +109,7 @@ export default {
 
 .left
   text-align: left
+
+.routerlink
+  text-decoration: none
 </style>
