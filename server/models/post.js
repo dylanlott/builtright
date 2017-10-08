@@ -23,6 +23,8 @@ const PostSchema = new Schema({
   tags: [{ type: String }],
   _user: { type: Schema.Types.ObjectId, ref: 'User' },
   _comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
+  _upvotes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  _downvotes: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 }, {
   timestamps: true
 });

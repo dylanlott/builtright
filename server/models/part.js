@@ -20,7 +20,9 @@ const PartSchema = new Schema({
   notes: { type: String },
   options: [{ type: String }],
   _comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
-  _user: { type: Schema.Types.ObjectId, ref: 'User' }
+  _user: { type: Schema.Types.ObjectId, ref: 'User' },
+  _upvotes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  _downvotes: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 }, {
   timestamps: true
 });
