@@ -2,15 +2,18 @@ const _ = require('lodash');
 const Build = require('../models/build.js');
 const Comment = require('../models/comment.js');
 const Part = require('../models/part.js');
+const vote = require('../utils/votes');
+const log = require('../logger');
 
 exports.create = (req, res) => {
-  console.log('creating build with: ', req.body);
-
   const build = new Build(req.body);
   build.save()
-    .then(data => res.status(200).json(data))
+    .then(data => {
+      log.info('build created', data);
+      res.status(200).json(data)
+    })
     .catch(err => {
-      console.error('Error creating build: ', err);
+      log.error('error creating build', err);
       return res.status(500).json(err);
     })
 };
@@ -44,14 +47,24 @@ exports.update = (req, res) => {
   const newBuild = req.body;
   newBuild.updated = Date.now();
   Build.findByIdAndUpdate(req.params.id, newBuild, (err, data) => {
-    if (err) res.status(500).json(err);
+    if (err) {
+      log.error('error updating build', err);
+      res.status(500).json(err);
+    }
+    log.info('updated build', data);
     return res.status(200).json(data);
   });
 };
 
 exports.delete = (req, res) => Build.findByIdAndRemove(req.params.id)
-  .then(data => res.status(200).json(data))
-  .catch(err => res.status(500).send(err));
+  .then(data => {
+    log.info('deleted build', data);
+    res.status(200).json(data)
+  })
+  .catch(err => {
+    log.error('error deleting build', err);
+    res.status(500).send(err);
+  })
 
 exports.search = (req, res) => Build.search(req.params.name, (err, docs) => {
   if (err) res.status(500).send(err);
@@ -84,15 +97,18 @@ exports.addPart = (req, res) => {
     .then(part => {
       Build.findById(req.params.id)
         .then((build) => {
-          console.log('found build: ', build);
           build._parts.push(part._id)
+          log.info('added part to build', part, build);
           build.save()
             .then((build) => {
-              res.status(201).json(build);
+              return res.status(201).json(build);
             })
         })
     })
-    .catch((err) => res.status(500).send(err));
+    .catch((err) => {
+      log.error('error adding part to build', err);
+      return res.status(500).send(err);
+    });
 }
 
 // for adding a part that already exists in our part database to the build
@@ -100,7 +116,6 @@ exports.addExistingPart = (req, res) => {
   Part.findById(req.body.partId, (err, part) => {
     if (err) res.status(500).send(err);
 
-    console.log('adding existing part to build', part);
     Build.findById(req.params.id)
       .then(build => {
         if (build._parts.indexOf(req.body.partId) > -1) {
@@ -118,8 +133,7 @@ exports.addExistingPart = (req, res) => {
   return Build.findById(req.params.id)
     .then((build) => {
       build._parts.push(req.body.id);
-      console.log('pushed to builds parts', build);
-      build.save()
+      return build.save()
         .then((build) => res.status(203).json(build))
     })
     .catch(err => res.status(500).send(err));
@@ -128,46 +142,45 @@ exports.addExistingPart = (req, res) => {
 exports.upload = (req, res) => {
   return Build.findById(req.params.id)
     .then((build => {
-      // storage image in S3
-
+      // upload image
+      // store image in S3
       // Get URL back
-
       // store URL in build.images
-
       // send back updated build object
+      return res.status(200).json({ message: 'not implemented yet' });
     })
-    .catch((err) => console.error('Error uploading file: ', err));
+    .catch((err) => {
+      log.error('error uploading file', err);
+      res.status(500).json({ message: 'error uploading file' });
+    });
 }
 
 exports.upvote = (req, res) => {
   return Build.findById(req.params.id)
     .then(build => {
-      console.log('upvote build: ', build);
+      vote.removeDownvote(build, req.user._id);
+      vote.addUpvote(build, req.user._id);
 
-      if (build._upvotes.indexOf(req.user._id) > -1) {
-        return res.status(200).send({ message: 'user has already upvoted this post' });
-      }
-
-      build._upvotes.push(req.user._id);
-      build.save().then(updated => res.status(201).json(build))
+      return build.save()
+        .then(updated => res.status(201).json(updated));;
     })
-    .catch(err => console.log('error upvoting build: ', err));
+    .catch(err => logger.error('Error upvoting post', err));
 }
 
 exports.downvote = (req, res) => {
   return Build.findById(req.params.id)
     .then(build => {
-      console.log('downvote build: ', build);
-      console.log('user downvoting: ', req.user._id);
+      vote.removeUpvote(build, req.user._id);
+      vote.addDownvote(build, req.user._id);
 
-      if (build._downvotes.indexOf(req.user._id) > -1) {
-        build._votes.splice(build._votes.indexOf(req.user._id), 1);
-        console.log('build._votes: ', build._votes);
-        build.save()
-          .then(upvoted => res.status(203).send(upvoted));
-      }
-
-      return res.status(200).send(build);
+      return build.save()
+        .then(updated => {
+          log.info('downvoted build', build._id);
+          return res.status(203).send(updated);
+        })
     })
-    .catch(err => res.status(500).send(err));
+    .catch(err => {
+      log.error('error downvoting build', err);
+      res.status(500).send(err)
+    });
 }

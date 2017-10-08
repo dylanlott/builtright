@@ -1,5 +1,6 @@
 const Comment = require('../models/comment.js');
 const log = require('../logger');
+const vote = require('../utils/vote');
 
 exports.create = (req, res) => {
   const comment = new Comment(req.body);
@@ -32,23 +33,17 @@ exports.update = (req, res) => {
 
 exports.upvote = (req, res) => Comment.findById(req.params.id)
   .then((comment) => {
-    if (comment._votes.indexOf(req.user._id) > -1) {
-      return res.status(200).send({ message: 'user has already upvoted this comment' });
-    }
+    vote.removeDownvote(comment, req.user._id);
+    vote.addUpvote(comment, req.user._id);
 
-    comment._votes.push(req.user._id);
     return comment.save().then(updated => res.status(201).json(updated));
   })
   .catch(err => log.info('error upvoting build: ', err));
 
 exports.downvote = (req, res) => Comment.findById(req.params.id)
   .then((comment) => {
-    if (comment._votes.indexOf(req.user._id) > -1) {
-      comment._votes.splice(comment._votes.indexOf(req.user._id), 1);
-      comment.save()
-        .then(upvoted => res.status(203).send(upvoted));
-    }
-
+    vote.removeUpvote(comment, req.user._id);
+    vote.addDownvote(comment, req.user._id);
     return res.status(200).send(comment);
   })
   .catch(err => res.status(500).send(err));
