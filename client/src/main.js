@@ -38,6 +38,12 @@ router.beforeEach((to, from, next) => {
     : next(true)
 })
 
+router.beforeEach((to, from, next) => {
+  (to.meta.admin && user.checkRole('admin'))
+    ? next({ path: '/login'})
+    : next(true)
+})
+
 new Vue({
   el: '#app',
   router,

@@ -15,15 +15,6 @@ function generateToken(user) {
   });
 }
 
-/**
- * exports.login() logs a user in
- *
- * @param {...} req -
- * @param {...} res -
- * @param {...} next -
- *
- * @return {...}
- */
 exports.login = function (req, res, next) {
   const userInfo = setUserInfo(req.user);
 

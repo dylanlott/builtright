@@ -18,6 +18,7 @@ import postDetail from '../views/PostDetail.vue'
 import logout from '../views/Logout.vue'
 import confirmation from '../views/EmailConfirmation.vue'
 import info from '../views/AppInformation.vue'
+import admin from '../views/AdminDashboard.vue'
 
 Vue.use(VueRouter)
 
@@ -135,6 +136,14 @@ export const router = new VueRouter({
     component: info,
     meta: {
       auth: false
+    }
+  }, {
+    path: '/admin',
+    name: 'admin',
+    component: admin,
+    meta: {
+      auth: true,
+      admin: true
     }
   }, {
     path: '*',

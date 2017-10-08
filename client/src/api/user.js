@@ -34,6 +34,10 @@ export default {
     return storage.getItem('token') ? true : false
   },
 
+  checkRole (value) {
+    return !!(storage.getItem('role') === value)
+  },
+
   getToken () {
     return storage.getItem('token')
   },

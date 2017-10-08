@@ -61,6 +61,7 @@ exports = module.exports = (io) => {
       visitorsData[socket.id] = data;
       io.emit('updated-stats', computeStats());
     });
+
     socket.on('disconnect', () => {
       delete visitorsData[socket.id];
       io.emit('updated-stats', computeStats());
@@ -69,6 +70,7 @@ exports = module.exports = (io) => {
     socket.on('visitor-data', (data) => {
       visitorsData[socket.id] = data;
     });
+
     socket.on('enter conversation', (conversation) => {
       socket.join(conversation);
     });

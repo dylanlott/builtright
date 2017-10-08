@@ -2,12 +2,13 @@ import * as types from '../mutation-types'
 import api from '../../api/user'
 import { router } from '../../router/index'
 
-const storage = window.localStorage 
+const storage = window.localStorage
 const state = {
-  user: {}, 
+  user: {},
   token: storage.getItem('token') || '',
   user_id: storage.getItem('user_id') || '',
   email: storage.getItem('email') || '',
+  role: storage.getItem('role') || '',
   admin: false,
   access: 1000,
   loading: false,
@@ -26,24 +27,23 @@ const mutations = {
     state.email = user.user.email
     state.token = user.token
     state.user_id = user.user._id
+    state.role = user.user.role
     storage.setItem('email', user.user.email)
     storage.setItem('token', user.token)
     storage.setItem('_id', user.user._id)
     storage.setItem('user_id', user.user._id)
+    storage.setItem('role', user.user.role)
   },
   [types.LOGOUT_USER_REQUEST] (state) {
     state.loading = true
     state.success = false
     state.token = null
+    state.role = null
     state.user = {}
     state.loading = true
     state.success = false
   },
   [types.LOGOUT_USER_SUCCESS] (state) {
-    state.loading = false
-    state.success = true
-    state.token = null
-    state.user = {}
     state.loading = false
     state.success = true
   },
@@ -58,10 +58,12 @@ const mutations = {
     state.email = user.user.email
     state.token = user.token
     state.user_id = user.user._id
+    state.role = user.user.role
     storage.setItem('token', user.token)
     storage.setItem('email', user.user.email)
     storage.setItem('_id', user.user._id)
     storage.setItem('user_id', user.user._id)
+    storage.setItem('role', user.user.role)
   },
   [types.SIGNUP_USER_FAILURE] (state, err) {
     state.loading = false
@@ -79,10 +81,12 @@ const mutations = {
     state.email = user.user.email
     state.token = user.token
     state.user_id = user.user._id
+    state.role = user.user.role
     storage.setItem('email', user.user.email)
     storage.setItem('token', user.token)
     storage.setItem('_id', user.user._id)
     storage.setItem('user_id', user.user._id)
+    storage.setItem('role', user.user.role)
   },
   [types.RECEIVE_USER_FAILURE] (state, errors) {
     state.loading = false
