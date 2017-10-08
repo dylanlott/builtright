@@ -173,5 +173,4 @@ export default {
 
   #app-logo
     margin-top: 5px
-
 </style>

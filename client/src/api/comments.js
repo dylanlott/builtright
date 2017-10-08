@@ -35,8 +35,32 @@ export default {
       .catch((err) => err)
   },
 
+  /**
+   * update - update a comment on a resource
+   *
+   * @param  {type} comment   comment object
+   * @param  {type} id        id of resource
+   * @param  {type} resource  the resource to post a comment to
+   * @return {type}           returns an axios promise
+   */
   update (resource, id, comment) {
     return axios.put(`/api/${resource}/${id}`, comment)
+      .then((res) => res.data)
+      .catch((err) => err)
+  },
+
+  /**
+   * vote - vote up or down on a comment
+   *
+   * Resource can be `build`, `post`, or `comment`
+   *
+   * @param  {Model}      resource   comment object
+   * @param  {ObjectId}   id        id of resource
+   * @param  {direction}  up or down
+   * @return {type}       returns an axios promise
+   */
+  vote (resource, id, direction) {
+    return axios.post(`/api/${resource}/${id}/${direction}`)
       .then((res) => res.data)
       .catch((err) => err)
   }

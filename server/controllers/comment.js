@@ -1,6 +1,6 @@
 const Comment = require('../models/comment.js');
 const log = require('../logger');
-const vote = require('../utils/vote');
+const vote = require('../utils/votes');
 
 exports.create = (req, res) => {
   const comment = new Comment(req.body);

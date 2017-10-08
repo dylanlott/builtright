@@ -141,7 +141,7 @@ exports.addExistingPart = (req, res) => {
 
 exports.upload = (req, res) => {
   return Build.findById(req.params.id)
-    .then((build => {
+    .then((build) => {
       // upload image
       // store image in S3
       // Get URL back
