@@ -33,15 +33,11 @@ axios.interceptors.response.use(function(config) {
 })
 
 router.beforeEach((to, from, next) => {
-  (to.meta.auth && !user.checkAuth() && user.checkAuth() !== undefined)
-    ? next({path: '/login'})
-    : next(true)
-})
+  if (to.meta.admin && !user.checkRole('admin')) next({ path: '/login' });
 
-router.beforeEach((to, from, next) => {
-  (to.meta.admin && user.checkRole('admin'))
-    ? next({ path: '/login'})
-    : next(true)
+  (to.meta.auth && !user.checkAuth() && user.checkAuth() !== undefined)
+      ? next({path: '/login'})
+      : next(true)
 })
 
 new Vue({

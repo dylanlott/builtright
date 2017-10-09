@@ -3,6 +3,7 @@ export const SET_USER = 'SET_USER'
 export const SET_TOKEN = 'SET_TOKEN'
 export const SET_USER_ID = 'SET_USER_ID'
 export const SET_ADMIN = 'SET_ADMIN'
+export const SET_ROLE = 'SET_ROLE'
 
 export const LOGOUT_USER_REQUEST = 'LOGOUT_USER_REQUEST'
 export const LOGOUT_USER_SUCCESS = 'LOGOUT_USER_SUCCESS'
@@ -78,3 +79,11 @@ export const ADD_COMMENT_FAILURE = "ADD_COMMENT_FAILURE"
 export const SET_COMMENT_SKIP = "SET_COMMENT_SKIP"
 export const SET_COMMENT_TOTAL = "SET_COMMENT_TOTAL"
 export const SET_COMMENT_LIMIT = "SET_COMMENT_LIMIT"
+
+// ERRORS
+export const ADD_ERROR = "ADD_ERROR"
+export const REMOVE_ERROR = "REMOVE_ERROR"
+
+// ALERTS
+export const ADD_ALERT = "ADD_ALERT"
+export const REMOVE_ALERT = "REMOVE_ALERT"

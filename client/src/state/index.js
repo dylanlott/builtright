@@ -9,6 +9,7 @@ import posts from './modules/posts'
 import comments from './modules/comments'
 import parts from './modules/parts'
 import alerts from './modules/alerts'
+import admin from './modules/admin'
 
 Vue.use(Vuex)
 
@@ -21,6 +22,7 @@ export default new Vuex.Store({
     posts,
     comments,
     parts,
-    alerts
+    alerts,
+    admin
   }
 })
