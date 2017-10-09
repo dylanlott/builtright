@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const slug = require('slug');
 const searchable = require('mongoose-searchable');
 const constants = require('../constants');
-
 const Schema = mongoose.Schema;
 
 const BuildSchema = new Schema({
@@ -42,7 +41,7 @@ const BuildSchema = new Schema({
 BuildSchema.plugin(searchable);
 
 BuildSchema.pre('save', function (next) {
-  this.slug = slug(this.title);
+  this.slug = slug(this.title, { lowercase: true });
   next();
 });
 

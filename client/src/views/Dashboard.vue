@@ -2,13 +2,26 @@
   <v-container flex>
     <h1>Dashboard</h1>
       <v-card>
-        <v-card-title class="headline">Your Builds</v-card-title>
+        <v-card-title class="headline">Recently Submitted Builds</v-card-title>
+        <v-card-text>
+            
+        </v-card-text>
       </v-card>
       <v-card>
         <v-card-title class="headline">Recent Comments</v-card-title>
+        <v-card-text> 
+          <v-list>
+
+          </v-list>
+        </v-card-text>
       </v-card>
       <v-card>
         <v-card-title class="headline">Favorited Posts</v-card-title>
+        <v-card-text> 
+          <v-list>
+            
+          </v-list>
+        </v-card-text>
       </v-card>
   </v-container>
 </template>
@@ -20,9 +33,17 @@ import { mapState } from 'vuex'
 export default {
   name: 'dashboard',
   computed: mapState({
-    user: state => state.user
+    user: state => state.user,
+    builds: state => state.builds,
+    comments: state => state.comments
   }),
-  components: { }
+  created () {
+    this.$store.dispatch('getBuilds', {
+      limit: 5,
+      skip: 0,
+      sort: -1
+    })
+  }
 }
 
 </script>

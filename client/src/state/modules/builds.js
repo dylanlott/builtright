@@ -93,9 +93,9 @@ const actions = {
       .then((res) => commit(types.GET_BUILDS_SUCCESS, res.data))
       .catch((err) => commit(types.GET_BUILDS_FAILURE, err))
   },
-  getBuilds ({commit, state}, query) {
+  getBuilds ({commit, state}, params) {
     commit(types.GET_BUILDS_REQUEST)
-    return builds.get(query)
+    return builds.get(params)
       .then((builds) => {
         commit(types.GET_BUILDS_SUCCESS, builds);
         return res;

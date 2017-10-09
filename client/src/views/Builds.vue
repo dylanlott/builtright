@@ -38,7 +38,7 @@ export default {
     loading: state => state.loading
   }),
   created () {
-    this.$store.dispatch('getBuilds', this.query)
+    this.$store.dispatch('getBuilds', {})
   },
   components: { BuildsList }
 }

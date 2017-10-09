@@ -7,41 +7,26 @@ const token = storage.getItem('token')
 const API_URL = config.API_URL
 
 export default {
-  /**
-   * getBuilds - Returns the user's builds
-   *
-   * @param  {Number} user    user_id integer
-   * @param  {Object}  context vue context
-   * @return {Array} Array of Build objects
-   */
-  getBuildsByUser (user, skip, limit, context) {
-    return axios.get(`${API_URL}/api/builds`, {
-        params: {
-          skip: skip || 0,
-          limit: limit || 50
-        }
-      })
-      .then((res) => res.data)
-      .catch((err) => console.error('Error getting builds by user: ', err))
-  },
+//  getBuildsByUser (user, skip, limit, context) {
+//    return axios.get(`${API_URL}/api/builds`, {
+//        params: {
+//          skip: skip || 0,
+//          limit: limit || 50
+//        }
+//      })
+//      .then((res) => res.data)
+//      .catch((err) => console.error('Error getting builds by user: ', err))
+//  },
 
-  /**
-   * getBuildDetails - Gets details for a build.
-   *
-   * @param  {Number} id      user's ID
-   * @param  {Object} context Vue context object
-   * @return {Object}         Object build details
-   */
   getBuildDetails (id, context) {
     return axios.get(`${API_URL}/api/builds/${id}`)
       .then((res) => res.data)
       .catch((err) => console.error('Error getting build details: ', err))
   },
 
-  get (query, context) {
-    return axios.get(`${API_URL}/api/builds`)
+  get (params) {
+    return axios.get(`${API_URL}/api/builds`, { params: params })
       .then((res) => {
-        console.log('GOT BUILDS: ', res);
         return res.data;
       })
       .catch((err) => console.error('Error getting builds: ', err))

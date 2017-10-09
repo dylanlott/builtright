@@ -18,13 +18,20 @@ exports.create = (req, res) => {
     })
 };
 
-exports.list = (req, res) => Build.find(req.query)
-  .populate('_user')
-  .where('hidden').equals('false')
-  .select('-password')
-  .then((data) => {
-    return res.status(200).json(data);
-  });
+exports.list = (req, res) => {
+  const skip = parseInt(req.query.skip) || 0
+  const limit = parseInt(req.query.limit) || 50
+  const sort = parseInt(req.query.sort) || -1
+
+  return Build.find()
+    .populate('_user')
+    .where('hidden').equals('false')
+    .limit(limit)
+    .skip(skip)
+    .then((data) => {
+      return res.status(200).json(data);
+    });
+}
 
 exports.detail = (req, res) => {
   return Build.findOne({ slug: req.params.id })

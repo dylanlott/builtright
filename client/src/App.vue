@@ -108,7 +108,7 @@
     <main>
       <v-alert info dismissible v-model="alert" v-if="alerts.length"></v-alert> 
       <router-view></router-view>
-      <BottomNav></BottomNav>
+      <BottomNav user="user"></BottomNav>
     </main>
   </v-app>
 </template>

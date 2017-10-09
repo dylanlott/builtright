@@ -2,7 +2,6 @@
   <v-container>
     <h1>Admin Dashboard</h1>
 
-
   </v-container>
 </template>
 
@@ -19,6 +18,9 @@ export default {
     user: state => state.user,
     admin: state => state.admin
   }),
+  created () {
+    
+  },
   beforeCreated () {
     this.$store.dispatch('checkRole', this.user.user_id, 'admin') 
   }
