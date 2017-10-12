@@ -4,7 +4,8 @@ import { router } from '../../router'
 
 const state = {
   admin: false,
-  role: null
+  role: null,
+  stats: {}
 }
 
 const mutations = {
@@ -14,6 +15,7 @@ const mutations = {
 }
 
 const actions = {
+
   checkRole ({commit}, id, role) {
     return user.getUser(id)
       .then(res => {

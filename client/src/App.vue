@@ -114,10 +114,20 @@
 </template>
 
 <script>
+import io from 'socket.io-client';
 import Gravatar from 'vue-gravatar'
 import {mapState} from 'vuex'
 import {router} from './router/index'
 import BottomNav from './components/BottomNav.vue'
+
+const socket = io(process.env.SOCKET_IO);
+const visitorData = {
+  user: window.localStorage.getItem('email'),
+  referringSite: document.referrer,
+  page: location.pathname
+}
+socket.emit('visitor-data', visitorData);
+
 export default {
   name: 'builtright',
   computed: mapState({

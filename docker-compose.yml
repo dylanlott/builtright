@@ -6,17 +6,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
-    volumes:
-      - "./server/models:/app/models"
-      - "./server/controllers:/app/controllers"
-      - "./server/config:/app/config"
-      - "./server/package.json:/app/package.json"
-      - "./server/index.js:/app/index.js"
-      - "./server/router.js:/app/router.js"
-      - "./server/socketEvents.js:/app/socketEvents.js"
-      - "./server/logger.js:/app/logger.js"
-      - "./server/constants.js:/app/constants.js"
-      - "./server/helpers.js:/app/helpers.js"
     env_file:
       - ./server/.env.docker
     links:
