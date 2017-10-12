@@ -1,6 +1,8 @@
 const _ = require('lodash');
 const Post = require('../models/post.js');
 const Comment = require('../models/comment.js');
+const utils = require('../utils/votes');
+const log = require('../logger');
 
 exports.create = (req, res) => {
   const post = new Post(req.body);
@@ -64,44 +66,36 @@ exports.comment = (req, res) => {
           post._comments.push(comment._id);
           return post.save()
             .then((updatedPost) => res.status(200).send(updatedPost))
-            .catch((err) => {
-              console.log('ERROR saving comment to post: ', err);
-              res.status(500).send(err);
-            });
         });
     })
-    .catch((err) => res.status(500).send(err))
+    .catch((err) => {
+      log.error('error commenting on post', err);
+      res.status(500).send('error adding comment to post');
+    })
 };
 
 exports.upvote = (req, res) => {
   return Post.findById(req.params.id)
     .then(post => {
-
-      if (post._upvotes.indexOf(req.user._id) > -1) {
-        return res.status(200).send({ message: 'user has already upvoted this post' });
-      }
-
-      post._upvotes.push(req.user._id);
-      post.save().then(updated => res.status(201).json(updated))
+      utils.upvote(post, req.user._id);
+      return post.save()
+        .then(post => res.status(201).json(post));
     })
-    .catch(err => console.log('error upvoting post: ', err));
+    .catch(err => {
+      log.error('Error upvoting post', err);
+      return res.status(500).send('error upvoting post');
+    });
 }
 
-//TODO: add downvote functionality
-//exports.downvote = (req, res) => {
-//  return Build.findById(req.params.id)
-//    .then(build => {
-//      console.log('downvote build: ', build);
-//      console.log('user downvoting: ', req.user._id);
-//
-//      if (build._votes.indexOf(req.user._id) > -1) {
-//        build._votes.splice(build._votes.indexOf(req.user._id), 1);
-//        console.log('build._votes: ', build._votes);
-//        build.save()
-//          .then(upvoted => res.status(203).send(upvoted));
-//      }
-//
-//      return res.status(200).send(build);
-//    })
-//    .catch(err => res.status(500).send(err));
-//}
+exports.downvote = (req, res) => {
+  return Post.findById(req.params.id)
+    .then(post => {
+      utils.downvote(post, req.user._id);
+      return post.save()
+        .then(post => res.status(201).json(post));
+    })
+    .catch(err => {
+      log.error('error upvoting post: ', err)
+      return res.status(500).send('error downvoting post');
+    });
+}

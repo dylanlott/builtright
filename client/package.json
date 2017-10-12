@@ -36,6 +36,7 @@
     "flightplan": "^0.6.15",
     "image-webpack-loader": "^3.3.1",
     "standard": "^10.0.2",
+    "strip-loader": "^0.1.2",
     "style-loader": "^0.13.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^2.4.0",

@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const slug = require('slug');
+//const assert = require('assert');
+//const errors = require('storj-service-error-types');
 
 const Schema = mongoose.Schema;
 
@@ -9,14 +11,7 @@ const PostSchema = new Schema({
   link: { type: String },
   group: { type: String },
   category: { type: String },
-  vehicle: {
-    year: { type: Number },
-    make: { type: String },
-    model: { type: String },
-    trim: { type: String },
-    options: { type: String },
-    build: { type: Schema.Types.ObjectId, ref: 'Build' }
-  },
+  build: { type: Schema.Types.ObjectId, ref: 'Build' },
   type: { type: String, enum: ["blog", "forum", "guide"]},
   steps: [{ type: Schema.Types.Mixed }],
   slug: { type: String, unique: true },
@@ -31,6 +26,9 @@ const PostSchema = new Schema({
 
 PostSchema.pre('save', function (next) {
   this.slug = slug(this.title);
+  //if (this.type === 'guide') {
+  //  assert(this.steps.length > 1, errors.BadRequest('Guides must have at least two steps.')
+  //}
   next();
 });
 

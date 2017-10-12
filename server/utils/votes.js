@@ -1,3 +1,4 @@
+const log = require('../logger');
 
 exports.removeUpvote = (resource, userId) => {
   if (resource._upvotes.indexOf(userId) > -1) {
@@ -29,3 +30,16 @@ exports.addDownvote = (resource, userId) => {
   }
 }
 
+exports.upvote = (resource, userId) => {
+  this.removeDownvote(resource, userId);
+  return this.addUpvote(resource, userId);
+}
+
+exports.downvote = (resource, userId) => {
+  this.removeUpvote(resource, userId);
+  return this.addDownvote(resource, userId);
+}
+
+exports.handleError = (message, error) => {
+  return log.error(message, error);
+}
