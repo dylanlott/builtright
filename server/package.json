@@ -28,6 +28,7 @@
     "mailchimp-v3": "^1.0.1",
     "mailgun-js": "^0.7.10",
     "moment": "^2.13.0",
+    "mongoosastic": "^4.3.0",
     "mongoose": "^4.4.13",
     "mongoose-float": "^1.0.2",
     "mongoose-searchable": "^1.0.0",

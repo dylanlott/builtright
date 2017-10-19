@@ -48,6 +48,7 @@
 import { router } from '../router'
 
 export default {
+  name: 'signup',
   data () {
     return {
       user: {

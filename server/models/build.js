@@ -1,22 +1,28 @@
 const mongoose = require('mongoose');
+const mongoosastic = require('mongoosastic');
 const slug = require('slug');
 const searchable = require('mongoose-searchable');
 const constants = require('../constants');
 const Schema = mongoose.Schema;
+const log = require('../logger');
 
 const BuildSchema = new Schema({
-  title: { type: String, unique: true, required: true },
-  info: { type: String },
-  tags: [{ type: String }],
+  title: { type: String, unique: true, required: true, es_indexed: true },
+  info: { type: String, es_indexed: true },
+  tags: [{ type: String, es_indexed: true }],
+  keywords: [{
+    type: String,
+    es_indexed: true
+  }],
   display: { type: String, default: constants.BUILD_DEFUALT_IMAGE },
   vehicle: {
-    make: { type: String, required: true },
-    model: { type: String, required: true },
-    year: { type: String, required: true },
-    trim: { type: String },
-    options: { type: String },
-    transmission: { type: String },
-    color: { type: String }
+    make: { type: String, required: true, es_indexed: true },
+    model: { type: String, required: true, es_indexed: true },
+    year: { type: String, required: true, es_indexed: true },
+    trim: { type: String, es_indexed: true },
+    options: { type: String, es_indexed: true },
+    transmission: { type: String, es_indexed: true },
+    color: { type: String, es_indexed: true }
   },
   stats: {
     wheel_horsepower: { type: Number },
@@ -39,6 +45,9 @@ const BuildSchema = new Schema({
 });
 
 BuildSchema.plugin(searchable);
+BuildSchema.plugin(mongoosastic, {
+  curlDebug: true
+});
 
 BuildSchema.pre('save', function (next) {
   this.slug = slug(this.title, { lowercase: true });

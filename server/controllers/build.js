@@ -5,17 +5,30 @@ const Part = require('../models/part.js');
 const vote = require('../utils/votes');
 const log = require('../logger');
 
+Build.createMapping((err, mapping) => {
+  if (err) {
+    log.error('error creating mapping, you can ignore this', err);
+  } else {
+    log.info('mapping created', mapping);
+  }
+});
+
 exports.create = (req, res) => {
   const build = new Build(req.body);
   build.save()
     .then(data => {
+      build.on('es-indexed', (err, data) => {
+        if (err) log.error('error indexing build', err);
+        return log.info('build indexed', data);
+      });
+
       log.info('build created', data);
-      res.status(200).json(data)
+      return res.status(200).json(data)
     })
     .catch(err => {
       log.error('error creating build', err);
       return res.status(500).json(err);
-    })
+    });
 };
 
 exports.list = (req, res) => {

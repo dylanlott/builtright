@@ -11,6 +11,7 @@ services:
     links:
       - mongo:mongo
       - redis:redis
+      - elasticsearch:elasticsearch
 
   mongo:
     image: bitnami/mongodb
@@ -35,3 +36,9 @@ services:
       - server:server
     env_file:
       - ./client/.env.docker
+
+  elasticsearch:
+    image: elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300:9300"
