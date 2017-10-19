@@ -86,10 +86,19 @@ exports.delete = (req, res) => Build.findByIdAndRemove(req.params.id)
     res.status(500).send(err);
   })
 
-exports.search = (req, res) => Build.search(req.params.name, (err, docs) => {
-  if (err) res.status(500).send(err);
-  return res.status(200).send(docs);
-});
+exports.search = (req, res) => {
+  return Build.search({
+      query_string: { query: req.body.terms },
+    },
+    { hydrate: true },
+    (err, results) => {
+    if (err) res.status(500).send('error querying results');
+
+    console.log('build search results: ', results);
+
+    return res.status(200).json(results);
+  })
+}
 
 exports.addComment = (req, res) => {
   const newComment = new Comment(req.body);
