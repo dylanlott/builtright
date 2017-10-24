@@ -26,9 +26,6 @@ const PostSchema = new Schema({
 
 PostSchema.pre('save', function (next) {
   this.slug = slug(this.title);
-  //if (this.type === 'guide') {
-  //  assert(this.steps.length > 1, errors.BadRequest('Guides must have at least two steps.')
-  //}
   next();
 });
 

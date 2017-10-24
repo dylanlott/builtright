@@ -33,7 +33,7 @@ const BuildSchema = new Schema({
   },
   _comments: [{ type: Schema.Types.ObjectId, ref: 'Comment'}],
   _parts: [{ type: Schema.Types.ObjectId, ref: 'Part' }],
-  _user: { type: Schema.Types.ObjectId, ref: 'User' },
+  _user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   slug: { type: String, unique: true },
   reddit: { type: String }, // corresponding reddit link,
   imgur: { type: String }, // imgur album link
