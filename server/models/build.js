@@ -46,7 +46,9 @@ const BuildSchema = new Schema({
 
 BuildSchema.plugin(searchable);
 BuildSchema.plugin(mongoosastic, {
-  curlDebug: true
+  host: process.env.ELASTICSEARCH_HOST,
+  port: process.env.ELASTICSEARCH_PORT,
+  curlDebug: process.env.NODE_ENV === 'production' ? false : true
 });
 
 BuildSchema.pre('save', function (next) {
