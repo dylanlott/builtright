@@ -119,8 +119,10 @@ import Gravatar from 'vue-gravatar'
 import {mapState} from 'vuex'
 import {router} from './router/index'
 import BottomNav from './components/BottomNav.vue'
+import config from './config'
 
-const socket = io(process.env.SOCKET_IO);
+const socket = io(config.SOCKET_IO);
+
 const visitorData = {
   user: window.localStorage.getItem('email'),
   referringSite: document.referrer,
