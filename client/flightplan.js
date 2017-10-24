@@ -23,32 +23,19 @@ plan.target('prod', {
   branchName: 'master'
 });
 
-plan.local('docker', function(local) {
-  local.hostname();
-	local.exec('npm run build');
-  local.exec('docker build -t hivemindapps/builtright-nginx .');
-  local.exec('docker push hivemindapps/builtright-nginx');
-  local.log('Docker image built successfully and pushed to Docker Hub');
+plan.local('deploy', function(local) {
+  local.log('pushing changes');
+  local.exec('git commit -am "flightplan deploy"');
+	local.exec('git push origin master');
 });
 
-plan.remote('docker', function(remote) {
-  remote.hostname();
-  remote.exec('docker pull hivemindapps/builtright-nginx:latest');
-	remote.exec('docker restart builtright-nginx');
-  remote.exec('docker ps');
-  remote.exec('docker logs builtright-nginx');
-});
-
-plan.local('git', function(local) {
-	local.hostname();
-	local.exec('git push deploy master')
-});
-
-plan.remote('git', function(remote) {
-	remote.hostname();
+plan.remote('deploy', function(remote) {
+  remote.log('pulling down changes');
 	remote.with('cd /var/www/builtrightapp.com/client', function() {
 		remote.exec('sudo git pull origin master');
+    remote.log('installing updates and changes');
 		remote.exec('sudo npm install');
+    remote.log('building package');
 		remote.exec('sudo npm run build');
 	});
 });
