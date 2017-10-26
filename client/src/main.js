@@ -36,8 +36,8 @@ router.beforeEach((to, from, next) => {
   if (to.meta.admin && !user.checkRole('admin')) next({ path: '/login' });
 
   (to.meta.auth && !user.checkAuth() && user.checkAuth() !== undefined)
-      ? next({path: '/login'})
-      : next(true)
+    ? next({path: '/login'})
+    : next(true)
 })
 
 new Vue({

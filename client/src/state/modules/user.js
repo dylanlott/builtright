@@ -1,6 +1,7 @@
 import * as types from '../mutation-types'
 import api from '../../api/user'
 import { router } from '../../router/index'
+import client from '../../api'
 
 const storage = window.localStorage
 const state = {
@@ -129,7 +130,7 @@ const actions = {
   },
   getUserInfo ({commit, state}, id) {
     commit(types.RECEIVE_USER_INFO)
-    return api.getUser(id)
+    return client.request('GET', `/api/users/${id}`)
       .then((user) => {
         commit(types.RECEIVE_USER_SUCCESS, user)
         return user;

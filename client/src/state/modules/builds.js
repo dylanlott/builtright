@@ -2,7 +2,7 @@ import * as types from '../mutation-types'
 import builds from '../../api/builds'
 import parts from '../../api/parts'
 import { router } from '../../router/index'
-
+import client from '../../api'
 const localStorage = window.localStorage
 
 const state = {
@@ -87,9 +87,9 @@ const mutations = {
 }
 
 const actions = {
-  getBuildsByUser ({commit, state}, user, skip, limit) {
+  getBuildsByUser ({commit, state}) {
     commit(types.GET_BUILDS_REQUEST)
-    return builds.getBuildsByUser(user, skip, limit)
+    return client.request('GET', '/api/builds')
       .then((res) => commit(types.GET_BUILDS_SUCCESS, res.data))
       .catch((err) => commit(types.GET_BUILDS_FAILURE, err))
   },
@@ -137,6 +137,9 @@ const actions = {
     return builds.deleteBuild(id)
       .then((build) => commit(types.DELETE_BUILD_SUCCESS, build))
       .catch((err) => commit(types.DELETE_BUILD_FAILURE, err))
+  },
+  searchBuilds ({commit, state}, search) {
+
   }
 }
 
