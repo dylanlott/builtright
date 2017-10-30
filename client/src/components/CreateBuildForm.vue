@@ -54,6 +54,7 @@
           id="Imgur"
           name="imgur"
           label="Imgur Link"
+          :rules="urlRules"
           v-model="build.imgur"
         ></v-text-field>
       </v-container>
@@ -73,6 +74,7 @@
 import user from '../api/user'
 import { router } from '../router/index'
 import { mapState } from 'vuex'
+import url_validator from '../utils/url'
 
 const storage = window.localStorage
 
@@ -87,7 +89,13 @@ export default {
           year: '',
           trim: ''
         }
-      }
+      },
+      urlRules: [
+        (v) => {
+          console.log(url_validator.test(v))
+          url_validator.test(v) || 'url must be valid'
+        }
+      ]
     }
   },
   computed: mapState({

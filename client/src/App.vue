@@ -108,6 +108,7 @@
     <main>
       <v-alert info dismissible v-model="alert" v-if="alerts.length"></v-alert> 
       <router-view></router-view>
+      <Footer></Footer>
       <BottomNav user="user"></BottomNav>
     </main>
   </v-app>
@@ -119,6 +120,7 @@ import Gravatar from 'vue-gravatar'
 import {mapState} from 'vuex'
 import {router} from './router/index'
 import BottomNav from './components/BottomNav.vue'
+import Footer from './components/footer/Footer.vue'
 import config from './config'
 
 const socket = io(config.SOCKET_IO);
@@ -144,7 +146,8 @@ export default {
     }
   },
   components: {
-    BottomNav
+    BottomNav,
+    Footer
   },
   methods: {
     goToDashboard () {
@@ -153,7 +156,6 @@ export default {
       }
     },
     logout () {
-      this.loggedOut = true
       this.$store.dispatch('logoutUser')
     },
   }
@@ -169,8 +171,10 @@ export default {
     font-size: 16px
 
   #builtright-app
-    padding-bottom: 60px
     color: charcoal
+
+    @media (max-width: 500px)
+      padding-bottom: 1px 
 
   .content
     margin-top: 0px
