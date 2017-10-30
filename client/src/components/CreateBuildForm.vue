@@ -1,64 +1,72 @@
 <template>
-<v-container class="builds"> 
-  <v-card> 
-    <h1 class="header">Create A New Build</h1>
+  <v-container class="builds">
+    <v-card> 
+      <h1 class="header">Create A New Build</h1>
 
-    <v-container> 
-      <v-text-field
-        class="build__input"
-        id="Build Name"
-        name="Build Name"
-        label="Build Name"
-        v-model="build.title"
-        required
-      ></v-text-field>
+      <v-container> 
+        <v-text-field
+          class="build__input"
+          id="Build Name"
+          name="Build Name"
+          label="Build Name"
+          v-model="build.title"
+          required
+        ></v-text-field>
 
-      <v-text-field
-        class="build__input"
-        id="Build make"
-        name="Build make"
-        label="Build make"
-        v-model="build.vehicle.make"
-        required
-      ></v-text-field>
+        <v-text-field
+          class="build__input"
+          id="Build make"
+          name="Build make"
+          label="Build make"
+          v-model="build.vehicle.make"
+          required
+        ></v-text-field>
 
-      <v-text-field
-        class="build__input"
-        id="Build Model"
-        name="Build Model"
-        label="Build Model"
-        v-model="build.vehicle.model"
-        required
-      ></v-text-field>
+        <v-text-field
+          class="build__input"
+          id="Build Model"
+          name="Build Model"
+          label="Build Model"
+          v-model="build.vehicle.model"
+          required
+        ></v-text-field>
 
-      <v-text-field
-        class="build__input"
-        id="Build Year"
-        name="Build Year"
-        label="Build Year"
-        v-model="build.vehicle.year"
-        required
-      ></v-text-field>
+        <v-text-field
+          class="build__input"
+          id="Build Year"
+          name="Build Year"
+          label="Build Year"
+          v-model="build.vehicle.year"
+          required
+        ></v-text-field>
 
-      <v-text-field
-        class="build__input"
-        id="Build Trim"
-        name="Build Trim"
-        label="Build Trim"
-        v-model="build.vehicle.trim"
-        required
-      ></v-text-field>
-    </v-container>
-    <div>
-      <v-btn 
-        raised 
-        @click.native='submit()' 
-        class="build__btn">
-          Create Build
-      </v-btn>
-    </div>
-  </v-card>
-</v-container>
+        <v-text-field
+          class="build__input"
+          id="Build Trim"
+          name="Build Trim"
+          label="Build Trim"
+          v-model="build.vehicle.trim"
+          required
+        ></v-text-field>
+
+        <v-text-field
+          class="build__input"
+          id="Imgur"
+          name="imgur"
+          label="Imgur Link"
+          v-model="build.imgur"
+        ></v-text-field>
+      </v-container>
+      <div>
+        <v-btn 
+          raised 
+          @click.native='submit()' 
+          class="build__btn">
+            Create Build
+        </v-btn>
+      </div>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
@@ -91,6 +99,7 @@ export default {
         title: this.build.title,
         vehicle: this.build.vehicle,
         _user: this.user.user_id,
+        
       }
       this.$store.dispatch('createNewBuild', build)
       router.push({ name: 'builds'})

@@ -7,17 +7,6 @@ const token = storage.getItem('token')
 const API_URL = config.API_URL
 
 export default {
-//  getBuildsByUser (user, skip, limit, context) {
-//    return axios.get(`${API_URL}/api/builds`, {
-//        params: {
-//          skip: skip || 0,
-//          limit: limit || 50
-//        }
-//      })
-//      .then((res) => res.data)
-//      .catch((err) => console.error('Error getting builds by user: ', err))
-//  },
-
   getBuildDetails (id, context) {
     return axios.get(`${API_URL}/api/builds/${id}`)
       .then((res) => res.data)

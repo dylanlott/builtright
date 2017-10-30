@@ -2,12 +2,13 @@ const mongoose = require('mongoose');
 const slug = require('slug');
 //const assert = require('assert');
 //const errors = require('storj-service-error-types');
+const mongoosastic = require('mongoosastic');
 
 const Schema = mongoose.Schema;
 
 const PostSchema = new Schema({
-  title: { type: String, unique: true, required: true },
-  body: { type: String, required: true },
+  title: { type: String, unique: true, required: true, es_indexed: true },
+  body: { type: String, required: true, es_indexed: true },
   link: { type: String },
   group: { type: String },
   category: { type: String },
@@ -15,7 +16,7 @@ const PostSchema = new Schema({
   type: { type: String, enum: ["blog", "forum", "guide"]},
   steps: [{ type: Schema.Types.Mixed }],
   slug: { type: String, unique: true },
-  tags: [{ type: String }],
+  tags: [{ type: String, es_indexed: true }],
   _user: { type: Schema.Types.ObjectId, ref: 'User' },
   _comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
   _upvotes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
@@ -27,6 +28,12 @@ const PostSchema = new Schema({
 PostSchema.pre('save', function (next) {
   this.slug = slug(this.title);
   next();
+});
+
+PostSchema.plugin(mongoosastic, {
+  host: process.env.ELASTICSEARCH_HOST,
+  port: process.env.ELASTICSEARCH_PORT,
+  curlDebug: process.env.NODE_ENV === 'production' ? false : true
 });
 
 module.exports = mongoose.model('Post', PostSchema);
