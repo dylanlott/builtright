@@ -1,5 +1,6 @@
-const mongoose = require('mongoose'),
-  Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+
+const Schema = mongoose.Schema;
 
 const MessageSchema = new Schema({
   conversationId: {
@@ -14,8 +15,7 @@ const MessageSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   }
-},
-{
+}, {
   timestamps: true // Saves createdAt and updatedAt as dates. createdAt will be our timestamp.
 });
 

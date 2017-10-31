@@ -1,10 +1,10 @@
-var plan = require('flightplan');
-var appName = 'builtright';
-var username = 'dylan';
+const plan = require('flightplan');
+
+const username = 'dylan';
 
 plan.target('prod', {
   host: '165.227.67.146',
-  username: username,
+  username,
   agent: process.env.SSH_AUTH_SOCK,
   webRoot: '/var/www/builtrightapp.com/builtright/server',
   ownerUser: username,
@@ -17,7 +17,7 @@ plan.local('deploy', function (local) {
   const payload = local.exec('git ls-files', { silent: true });
   local.transfer(payload, '/var/www/builtrightapp.com/server', {
     silent: false,
-    user: 'dylan'
+    user: username
   });
   local.log('files transferred');
 });

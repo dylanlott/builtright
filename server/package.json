@@ -8,7 +8,8 @@
     "dev": "nodemon index.js",
     "start": "node",
     "build:prod": "docker build -t hivemindapps/builtright-server .",
-    "deploy": "npm run build:prod && docker push hivemindapps/builtright-server"
+    "deploy": "npm run build:prod && docker push hivemindapps/builtright-server",
+    "fly": "fly deploy:prod"
   },
   "author": "Dylan Lott",
   "license": "ISC",

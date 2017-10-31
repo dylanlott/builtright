@@ -38,10 +38,10 @@ app.use((req, res, next) => {
 });
 
 app.use(require('forest-express-mongoose').init({
-  modelsDir: __dirname + '/models', // Your models directory.
+  modelsDir: `${__dirname}/models`,
   envSecret: process.env.FOREST_ENV_SECRET,
   authSecret: process.env.FOREST_AUTH_SECRET,
-  mongoose: require('mongoose') // The mongoose database connection.
+  mongoose
 }));
 
 router(app);

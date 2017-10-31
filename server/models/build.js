@@ -3,8 +3,8 @@ const mongoosastic = require('mongoosastic');
 const slug = require('slug');
 const searchable = require('mongoose-searchable');
 const constants = require('../constants');
+
 const Schema = mongoose.Schema;
-const log = require('../logger');
 
 const BuildSchema = new Schema({
   title: { type: String, unique: true, required: true, es_indexed: true },
@@ -22,16 +22,20 @@ const BuildSchema = new Schema({
     trim: { type: String, es_indexed: true },
     options: { type: String, es_indexed: true },
     transmission: { type: String, es_indexed: true },
-    color: { type: String, es_indexed: true }
+    color: { type: String, es_indexed: true },
+    vin: { type: String }
   },
   stats: {
     wheel_horsepower: { type: Number },
     crank_horsepower: { type: Number },
     torque: { type: Number },
-    zerotosixty: {type: Number },
+    zerotosixty: { type: Number },
     topSpeed: { type: Number }
   },
-  _comments: [{ type: Schema.Types.ObjectId, ref: 'Comment'}],
+  recipe: {
+    goals: [{ type: Object }]
+  },
+  _comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
   _parts: [{ type: Schema.Types.ObjectId, ref: 'Part' }],
   _user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   slug: { type: String, unique: true },
@@ -47,8 +51,7 @@ const BuildSchema = new Schema({
 BuildSchema.plugin(searchable);
 BuildSchema.plugin(mongoosastic, {
   host: process.env.ELASTICSEARCH_HOST,
-  port: process.env.ELASTICSEARCH_PORT,
-  curlDebug: process.env.NODE_ENV === 'production' ? false : true
+  port: process.env.ELASTICSEARCH_PORT
 });
 
 BuildSchema.pre('save', function (next) {
