@@ -1,5 +1,5 @@
 <template>
-  <v-footer class="app__footer">
+  <v-footer class="app__footer" transition="slide-y-transition">
     <div>Hivemind Apps ©</div>
     <v-spacer></v-spacer>
     <div>{{ new Date().getFullYear() }}</div>

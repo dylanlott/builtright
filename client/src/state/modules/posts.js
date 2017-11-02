@@ -1,6 +1,7 @@
 import * as types from '../mutation-types'
 import posts from '../../api/posts'
 import { router } from '../../router/index'
+import client from '../../api'
 
 const storage = window.localStorage
 const user = storage.getItem('user_id')
@@ -60,6 +61,20 @@ const mutations = {
     state.loading = false
     state.success = false
     state.errors = errors
+  },
+  [types.UPDATE_POST_REQUEST] (state) {
+    state.loading = true
+    state.success = false
+  },
+  [types.UPDATE_POST_SUCCESS] (state, post) {
+    state.loading = false
+    state.success = true
+    state.postDetails = post
+  },
+  [types.UPDATE_POST_FAILURE] (state, err) {
+    state.loading = false
+    state.success = false
+    state.errors = err
   }
 }
 
@@ -104,8 +119,13 @@ const actions = {
       })
   },
 
-  updatePost ({commit, state}, previous, updated) {
-    return null
+  updatePost ({commit, state}, updated) {
+    return client.request('PUT', `/api/posts/${updated.id}`, updated)
+      .then((res) => {
+        console.log('update post response: ', res)
+        commit(types.UPDATE_POST_SUCCESS, res.data)
+      })
+      .catch((err) => commit(types.UPDATE_POST_FAILURE, err))
   },
 
   deletePost ({commit, state}, id) {

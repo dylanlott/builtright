@@ -2,7 +2,7 @@
   <v-layout>
     <v-flex>
       <v-container> 
-        <v-card>
+        <v-card transition="slide-y-transition">
           <v-card-title class="title" v-html="this.formatted(details.title)"></v-card-title>
           <v-card-text>
             <v-layout>

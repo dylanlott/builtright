@@ -15,6 +15,7 @@ import addPart from '../views/AddPart.vue'
 import forum from '../views/Forum.vue'
 import addPost from '../views/AddPost.vue'
 import postDetail from '../views/PostDetail.vue'
+import editPost from '../views/EditPost.vue'
 import logout from '../views/Logout.vue'
 import confirmation from '../views/EmailConfirmation.vue'
 import info from '../views/AppInformation.vue'
@@ -113,6 +114,13 @@ export const router = new VueRouter({
     path: '/posts/:id',
     name: 'postDetail',
     component: postDetail,
+    meta: {
+      auth: true
+    }
+  }, {
+    path: '/posts/:id/edit',
+    name: 'editPost',
+    component: editPost,
     meta: {
       auth: true
     }
