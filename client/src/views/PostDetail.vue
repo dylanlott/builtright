@@ -57,5 +57,5 @@ export default {
   text-align: left
 .title
   font-size: 1.4rem
-  margin: 0px 15px 0px 15px 
+  margin: 15px 15px 0px 15px 
 </style>
