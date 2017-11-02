@@ -54,18 +54,14 @@ const mutations = {
 }
 
 const actions = {
-  getComments ({commit, state}, resource, id) {
+  getComments ({commit, state}, data) {
     commit(types.GET_POST_COMMENTS_REQUEST)
-    console.log('get comments for ', resource, id)
-    return comments.getComments(resource, id)
-      .then((res) => {
-        commit(types.GET_POST_COMMENTS_SUCCESS, res.data)
-      })
+    return comments.getComments(data.resource, data.id)
+      .then((res) => commit(types.GET_POST_COMMENTS_SUCCESS, res._comments))
       .catch((err) => commit(types.GET_POST_COMMENTS_FAILURE, err))
   },
 
   addComment ({commit, state}, payload) {
-    console.log('payload: ', payload)
     commit(types.ADD_COMMENT_REQUEST)
     return comments.create(payload.resource, payload.id, payload.comment)
       .then((res) => commit(types.ADD_COMMENT_SUCCESS, comment))

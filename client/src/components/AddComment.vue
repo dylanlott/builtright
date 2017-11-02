@@ -33,6 +33,11 @@ export default {
       }
     }
   },
+  props: [
+    "source_id",
+    "resource",
+    "update"
+  ],
   computed: mapState({
     comments: state => state.comments,
     user: state => state.user
@@ -46,6 +51,7 @@ export default {
         text: this.comment.text,
         user: this.user.user_id,
         _source: this.$route.params.id,
+        _source_id: this.source_id,
         parent: this.comment.parent
       }
 
@@ -53,6 +59,9 @@ export default {
         resource: 'posts',
         id: this.$route.params.id, 
         comment: _comment
+      }).then((res) => {
+        this.comment.text = ''
+        this.$store.dispatch(`${this.update}`, this.$route.params.id)
       })
     }
   }

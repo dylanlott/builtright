@@ -1,7 +1,8 @@
 <template>
   <v-footer class="app__footer">
+    <div>Hivemind Apps ©</div>
     <v-spacer></v-spacer>
-    <div>Hivemind Apps © {{ new Date().getFullYear() }}</div>
+    <div>{{ new Date().getFullYear() }}</div>
   </v-footer>
 </template>
 
@@ -12,4 +13,6 @@ export default {
 </script>
 
 <style lang="stylus">
+  .app__footer
+    padding: 0px 10px
 </style>

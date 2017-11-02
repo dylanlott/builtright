@@ -89,13 +89,7 @@ export default {
           year: '',
           trim: ''
         }
-      },
-      urlRules: [
-        (v) => {
-          console.log(url_validator.test(v))
-          url_validator.test(v) || 'url must be valid'
-        }
-      ]
+      }
     }
   },
   computed: mapState({
@@ -106,9 +100,11 @@ export default {
       const build = {
         title: this.build.title,
         vehicle: this.build.vehicle,
-        _user: this.user.user_id,
-        
+        _user: this.user.user_id
       }
+
+      console.log('valid? ', url_validator.test(this.build.imgur)); 
+
       this.$store.dispatch('createNewBuild', build)
       router.push({ name: 'builds'})
     }
