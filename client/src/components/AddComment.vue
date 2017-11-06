@@ -1,22 +1,23 @@
 <template lang="html">
   <v-card>
-    <v-card-title style="font-size: 16px;">Add to the discussion</v-card-title>
-    <v-card-text class="grey lighten-3">
-      <v-layout row padded>
-         <v-text-field
-           name="comment"
-           label="Add a comment"
-           v-model="comment.text"
-           multi-line
-         ></v-text-field>
-       </v-layout>
-        <v-layout>
-          <v-btn primary dark @click.native="submitComment()" class="white--text">Submit</v-btn>
-        </v-layout>
-        <v-card>
+    <v-card-title class="heading">Add a comment</v-card-title>
+    <v-card-text>
+      <v-layout column padded>
+        <v-text-field
+          name="comment"
+          label="Add a comment"
+          v-model="comment.text"
+          multi-line
+        ></v-text-field>
+      
+        <v-btn primary dark @click.native="submitComment()" class="white--text">Submit</v-btn>
+        <div class="preview">
+        <v-card dark>
           <v-card-title>Preview</v-card-title>
           <v-card-text v-html="compiledMarkdown()" class="preview"></v-card-text>
-       </v-card> 
+        </v-card>
+        </div>
+      </v-layout>
     </v-card-text>
   </v-card>
 </template>
@@ -71,4 +72,11 @@ export default {
 <style lang="stylus">
 .preview
   text-align: left
+
+.heading
+  font-size: 24px
+  font-weight: 400
+
+.preview
+  margin: 20px 8px
 </style>

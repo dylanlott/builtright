@@ -52,10 +52,10 @@
       </v-card>
 
       <v-card>
-        <v-card-title class="headline">Comments</v-card-title>
-        <v-card-text>
-          <div v-if="details._comments.length < 1">No comments to display at this time.</div>
-        </v-card-text>
+        <CommentList :comments="comments"></CommentList>
+      </v-card>
+      <v-card>
+        <AddComment></AddComment>
       </v-card>
     </v-container>
   </div>
@@ -64,6 +64,8 @@
 <script>
 import { router } from '../router/index'
 import { mapState } from 'vuex'
+import CommentList from '../components/CommentList.vue'
+import AddComment from '../components/AddComment.vue'
 
 export default {
   name: 'buildDetails',
@@ -75,10 +77,15 @@ export default {
   computed: mapState({
     details: state => state.builds.details,
     parts: state => state.builds.parts,
+    comments: state => state.builds.details._comments,
     user: state => state.user
   }),
   created () {
     this.$store.dispatch('getBuildDetails', this.$route.params.id)
+  },
+  components: {
+    CommentList,
+    AddComment
   },
   methods: {
     calculateTotal: function () {

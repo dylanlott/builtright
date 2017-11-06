@@ -61,6 +61,7 @@
       <div>
         <v-btn 
           raised 
+          primary
           @click.native='submit()' 
           class="build__btn">
             Create Build
@@ -119,6 +120,7 @@ export default {
     
   .header
     color: charcoal
+    padding: 20px
 
   .input-group label
     color: light-blue

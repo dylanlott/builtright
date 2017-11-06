@@ -1,6 +1,9 @@
 <template lang="html">
   <v-card>
-    <v-card-title>Comments</v-card-title>
+    <v-card-title class="heading">Comments</v-card-title>
+    <v-card-text v-if="comments.length === 0">
+      There are no comments to display at this time.
+    </v-card-text>
     <v-list two-line>
       <v-list v-for="comment in comments">
         <v-list-tile>
@@ -48,4 +51,8 @@ export default {
 
 .action-item
   font-size: 10px
+
+.heading
+  font-size: 24px
+  font-weight: 400
 </style>
