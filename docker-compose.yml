@@ -10,7 +10,6 @@ services:
       - ./server/.env.docker
     links:
       - mongo:mongo
-      - redis:redis
       - elasticsearch:elasticsearch
 
   mongo:
@@ -19,19 +18,12 @@ services:
       - "27017:27017"
     env_file:
       - ./server/.env.docker
-
-  redis:
-    image: redis
-    ports:
-      - "6379:6379"
-
   web:
     build:
       context: ./client
       dockerfile: Dockerfile
     ports: 
-      - "443:443"
-      - "80:80"
+      - "8080:80"
     links:
       - server:server
     env_file:

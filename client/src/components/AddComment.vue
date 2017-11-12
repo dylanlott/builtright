@@ -57,7 +57,7 @@ export default {
       }
 
       this.$store.dispatch('addComment', { 
-        resource: 'posts',
+        resource: this.resource,
         id: this.$route.params.id, 
         comment: _comment
       }).then((res) => {

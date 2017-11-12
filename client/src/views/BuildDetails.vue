@@ -55,7 +55,12 @@
         <CommentList :comments="comments"></CommentList>
       </v-card>
       <v-card>
-        <AddComment></AddComment>
+        <AddComment 
+          :source_id="details._id"
+          resource="builds"
+          update="getBuildDetails"
+        >
+        </AddComment>
       </v-card>
     </v-container>
   </div>

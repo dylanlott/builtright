@@ -15,6 +15,8 @@ mongoose.Promise = bluebird;
 
 const server = app.listen(config.port);
 
+console.log('#### CONNECTING TO MONGOOSE ####', config.database);
+
 mongoose.connect(config.database, { useMongoClient: true }, (err) => {
   if (err) log.error('error connecting to mongo: ', err);
   log.info('connected to mongoose');
