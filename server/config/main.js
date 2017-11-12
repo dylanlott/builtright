@@ -21,4 +21,4 @@ module.exports = {
   test_port: 3001,
   test_db: 'builtright_test_db',
   test_env: 'test'
-};
+}

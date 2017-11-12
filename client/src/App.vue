@@ -123,7 +123,7 @@ import BottomNav from './components/BottomNav.vue'
 import Footer from './components/footer/Footer.vue'
 import config from './config'
 
-const socket = io(config.SOCKET_IO);
+const socket = io(config.API_URL);
 
 const visitorData = {
   user: window.localStorage.getItem('email'),

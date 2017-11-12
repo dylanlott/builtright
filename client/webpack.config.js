@@ -75,7 +75,7 @@ if (process.env.NODE_ENV === 'production') {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"',
-        SOCKET_IO: '"server:3000"'
+        API_URL: '"server:3000"'
       }
     }),
     new Dotenv({
