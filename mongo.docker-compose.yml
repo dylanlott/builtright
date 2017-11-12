@@ -8,6 +8,16 @@ services:
     env_file:
       - ./server/.env
 
+  elasticsearch:
+    image: 'bitnami/elasticsearch:latest'
+    volumes:
+      - 'elasticsearch_master_data:/bitnami/elasticsearch'
+    ports:
+      - 9200:9200
+      - 9300:9300
+
 volumes:
   mongodb_master_data:
+    driver: local
+  elasticsearch_master_data:
     driver: local
