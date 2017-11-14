@@ -41,6 +41,8 @@ server/.env
 server/.env.docker
 server/flightplan.js
 
+.env
+
 # Optional npm cache directory
 .npm
 
