@@ -38,6 +38,7 @@ exports.list = (req, res) => {
 
   return Build.find()
     .populate('_user')
+    .populate('_user', '-password')
     .where('hidden').equals('false')
     .limit(limit)
     .skip(skip)
@@ -48,13 +49,11 @@ exports.list = (req, res) => {
 
 exports.detail = (req, res) => {
   return Build.findOne({ slug: req.params.id })
-    .populate('_user _comments _parts')
-    .select('-_user.password')
+    .populate('_user _comments _parts', '-password')
     .then(data => {
       if (!data) {
         return Build.findById(req.params.id)
-          .populate('_user _comments _parts')
-          .select('-_user.password')
+          .populate('_user _comments _parts', '-password')
           .then(data => res.status(200).json(data))
       }
 

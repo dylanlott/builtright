@@ -108,7 +108,7 @@
     <main>
       <v-alert info dismissible v-model="alert" v-if="alerts.length"></v-alert> 
       <router-view></router-view>
-      <Footer></Footer>
+      <AppFooter></AppFooter>
       <BottomNav user="user"></BottomNav>
     </main>
   </v-app>
@@ -120,16 +120,28 @@ import Gravatar from 'vue-gravatar'
 import {mapState} from 'vuex'
 import {router} from './router/index'
 import BottomNav from './components/BottomNav.vue'
-import Footer from './components/footer/Footer.vue'
+import AppFooter from './components/footer/Footer.vue'
 import config from './config'
 
 const socket = io(config.API_URL);
-
 const visitorData = {
   user: window.localStorage.getItem('email'),
   referringSite: document.referrer,
-  page: location.pathname
+  page: location.pathname,
+  errors: []
 }
+
+window.onerror = (msg, url, line, column, err) => {
+  console.log(msg, url, line, column, err)
+  return errors.push({
+    msg,
+    url,
+    line,
+    column,
+    err
+  })
+}
+
 socket.emit('visitor-data', visitorData);
 
 export default {
@@ -147,7 +159,7 @@ export default {
   },
   components: {
     BottomNav,
-    Footer
+    AppFooter
   },
   methods: {
     goToDashboard () {

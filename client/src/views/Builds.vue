@@ -9,6 +9,9 @@
       </v-btn>
     </router-link>
     <v-layout row wrap>
+      <v-flex xs12> 
+        View builds from the community
+      </v-flex>
       <v-flex xs12>
         <BuildsList :builds="builds.builds" loading="loading"></BuildsList>
       </v-flex>

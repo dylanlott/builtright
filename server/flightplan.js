@@ -1,12 +1,14 @@
 const plan = require('flightplan');
 
-const username = 'dylan';
+const username = 'root';
+const dev = '159.89.132.122'
+const prod = '165.227.67.146';
 
 plan.target('prod', {
-  host: '165.227.67.146',
+  host: dev,
   username,
   agent: process.env.SSH_AUTH_SOCK,
-  webRoot: '/var/www/builtrightapp.com/builtright/server',
+  webRoot: '/var/www/',
   ownerUser: username,
   repository: 'https://github.com/dylanlott/builtright.git',
   branchName: 'master'
@@ -15,7 +17,7 @@ plan.target('prod', {
 plan.local('deploy', function (local) {
   local.log('transferring files');
   const payload = local.exec('git ls-files', { silent: true });
-  local.transfer(payload, '/var/www/builtrightapp.com/server', {
+  local.transfer(payload, '/var/www/builtright/server', {
     silent: false,
     user: username
   });
@@ -23,7 +25,7 @@ plan.local('deploy', function (local) {
 });
 
 plan.remote('deploy', function (remote) {
-  remote.with('cd /var/www/builtrightapp.com/server', () => {
+  remote.with('cd /var/www/builtright/server', () => {
     remote.log('installing dependencies');
     remote.exec('sudo npm install');
     remote.log('reticulating splines');
