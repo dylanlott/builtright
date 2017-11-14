@@ -1,10 +1,9 @@
 <template lang="html">
   <v-layout>
     <v-flex>
-      <v-container> 
+      <v-container>
         <v-card transition="slide-y-transition">
           <v-card-title>Edit Post - {{details.title}}</v-card-title>
-
           <v-card-text>
             <v-text-field
               name="tags"
@@ -20,6 +19,8 @@
           </v-card-text>
           <v-card-actions>
             <v-btn primary @click="submitUpdate()">Submit</v-btn>
+            <v-spacer></v-spacer>
+            <v-btn error @click="deletePost()">Delete</v-btn>
           </v-card-actions>
         </v-card>
       </v-container>
@@ -60,6 +61,17 @@ export default {
     submitUpdate () {
       console.log('initial: ', this.initial)
       this.$store.dispatch('updatePost', this.initial)
+    },
+    deletePost () {
+      this.$swal({
+        title: 'Confirm delete',
+        text: 'Are you sure you want to delete this post?',
+        icon: 'warning'
+      })
+      .then((deleted) => {
+        this.$dispatch('deletePost', this.$route.params.id)
+        this.$swal('Post deleted.', '', success)
+      })
     }
   }
 }
