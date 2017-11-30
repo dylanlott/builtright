@@ -131,17 +131,6 @@ import config from './config'
 //   errors: []
 // }
 
-window.onerror = (msg, url, line, column, err) => {
-  console.log(msg, url, line, column, err)
-  return errors.push({
-    msg,
-    url,
-    line,
-    column,
-    err
-  })
-}
-
 // socket.emit('visitor-data', visitorData);
 
 export default {

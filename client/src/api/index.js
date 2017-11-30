@@ -5,7 +5,7 @@ import axios from 'axios'
 
 const ls = window.localStorage
 const api = axios.create({
-  baseURL: config.API_URL,
+  baseURL: 'localhost:3000',
   headers: {
     'Authorization': ls.getItem('token')
   }

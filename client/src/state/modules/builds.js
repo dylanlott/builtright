@@ -119,14 +119,9 @@ const actions = {
   },
   addPartToBuild ({commit, state}, part) {
     commit(types.ADD_PART_REQUEST)
-    const url = `/api/builds/${part.data.build}/new`
-    console.log('client: ', client)
-    return client().post({
-      path: url,
-      data: part
-    })
-    .then((part) => commit(types.ADD_PART_SUCCESS, part))
-    .catch((err) => commit(types.ADD_PART_FAILURE, err))
+    return builds.addPartToBuild(part.data.build, part)
+      .then((part) => commit(types.ADD_PART_SUCCESS, part))
+      .catch((err) => commit(types.ADD_PART_FAILURE, err))
   },
   getPartsForBuild ({commit, state}, id) {
     commit(types.GET_PARTS_REQUEST)

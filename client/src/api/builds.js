@@ -27,6 +27,12 @@ export default {
       .catch((err) => console.error('Error creating build: ', err))
   },
 
+  addPartToBuild (build, part) {
+    return axios.post(`${API_URL}/api/builds/${build}/new`)
+      .then((res) => res.data)
+      .catch((err) => console.error('Error adding part to build', err));
+  },
+
   getAllBuilds (skip) {
     const params = {
       limit: 50,
