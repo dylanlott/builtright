@@ -89,9 +89,12 @@ const mutations = {
 const actions = {
   getBuildsByUser ({commit, state}) {
     commit(types.GET_BUILDS_REQUEST)
-    return client.request('GET', '/api/builds')
-      .then((res) => commit(types.GET_BUILDS_SUCCESS, res.data))
-      .catch((err) => commit(types.GET_BUILDS_FAILURE, err))
+    return client.request({
+      method: 'GET',
+      path: '/api/builds'
+    })
+    .then((res) => commit(types.GET_BUILDS_SUCCESS, res.data))
+    .catch((err) => commit(types.GET_BUILDS_FAILURE, err))
   },
   getBuilds ({commit, state}, params) {
     commit(types.GET_BUILDS_REQUEST)
@@ -116,9 +119,14 @@ const actions = {
   },
   addPartToBuild ({commit, state}, part) {
     commit(types.ADD_PART_REQUEST)
-    return parts.addPartToBuild(part)
-      .then((part) => commit(types.ADD_PART_SUCCESS, part))
-      .catch((err) => commit(types.ADD_PART_FAILURE, err))
+    const url = `/api/builds/${part.data.build}/new`
+    console.log('client: ', client)
+    return client().post({
+      path: url,
+      data: part
+    })
+    .then((part) => commit(types.ADD_PART_SUCCESS, part))
+    .catch((err) => commit(types.ADD_PART_FAILURE, err))
   },
   getPartsForBuild ({commit, state}, id) {
     commit(types.GET_PARTS_REQUEST)

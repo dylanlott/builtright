@@ -5,7 +5,7 @@
       <router-link :to="{ name: 'builds' }">Builds</router-link> /
       {{ details.title }}
     </div>
-    
+   
     <router-link class="routerlink" v-if="details._user._id === user.user_id" :to="{ name: 'addPart' }">
       <v-btn class="cyan white--text"> 
         Add a part

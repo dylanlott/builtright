@@ -115,7 +115,7 @@
 </template>
 
 <script>
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 import Gravatar from 'vue-gravatar'
 import {mapState} from 'vuex'
 import {router} from './router/index'
@@ -123,13 +123,13 @@ import BottomNav from './components/BottomNav.vue'
 import AppFooter from './components/footer/Footer.vue'
 import config from './config'
 
-const socket = io(config.API_URL);
-const visitorData = {
-  user: window.localStorage.getItem('email'),
-  referringSite: document.referrer,
-  page: location.pathname,
-  errors: []
-}
+// const socket = io(config.API_URL);
+// const visitorData = {
+//   user: window.localStorage.getItem('email'),
+//   referringSite: document.referrer,
+//   page: location.pathname,
+//   errors: []
+// }
 
 window.onerror = (msg, url, line, column, err) => {
   console.log(msg, url, line, column, err)
@@ -142,7 +142,7 @@ window.onerror = (msg, url, line, column, err) => {
   })
 }
 
-socket.emit('visitor-data', visitorData);
+// socket.emit('visitor-data', visitorData);
 
 export default {
   name: 'builtright',

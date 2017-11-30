@@ -11,18 +11,4 @@ const api = axios.create({
   }
 })
 
-api.defaults.headers.common['Authorization'] = ls.getItem('token')
-
-const Client =  {
-  request: (method, path, options) => {
-    return api.request({
-      path,
-      method,
-      ...options
-    });
-  },
-
-  token: () => ls.getItem('token')
-}
-
-export default Client
+export default api

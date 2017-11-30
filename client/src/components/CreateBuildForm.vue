@@ -54,7 +54,6 @@
           id="Imgur"
           name="imgur"
           label="Imgur Link"
-          :rules="urlRules"
           v-model="build.imgur"
         ></v-text-field>
       </v-container>
@@ -75,7 +74,6 @@
 import user from '../api/user'
 import { router } from '../router/index'
 import { mapState } from 'vuex'
-import url_validator from '../utils/url'
 
 const storage = window.localStorage
 
@@ -103,8 +101,6 @@ export default {
         vehicle: this.build.vehicle,
         _user: this.user.user_id
       }
-
-      console.log('valid? ', url_validator.test(this.build.imgur)); 
 
       this.$store.dispatch('createNewBuild', build)
       router.push({ name: 'builds'})
