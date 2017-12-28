@@ -4,17 +4,12 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const router = require('./router');
 const mongoose = require('mongoose');
-// const socketEvents = require('./socketEvents');
+mongoose.Promise = bluebird;
 const config = require('./config/main');
 const helmet = require('helmet');
 const bluebird = require('bluebird');
 const log = require('./logger');
-
 const app = express();
-mongoose.Promise = bluebird;
-
-console.log('connecting to ', config.database, config.port)
-
 const server = app.listen(config.port);
 
 mongoose.connect(config.database, { useMongoClient: true }, (err) => {
@@ -22,14 +17,12 @@ mongoose.connect(config.database, { useMongoClient: true }, (err) => {
   log.info('connected to mongoose');
 });
 
-const io = require('socket.io').listen(server);
-
-// socketEvents(io);
-
 app.use(express.static(`${ __dirname }/public`));
 app.use(bodyParser.urlencoded({ extended: false })); // Parses urlencoded bodies
 app.use(bodyParser.json()); // Send JSON responses
-app.use(logger('dev')); // Log requests to API using morgan
+if (!process.env.NODE_ENV === 'development') {
+  app.use(logger('dev')); // Log requests to API using morgan
+}
 app.use(helmet());
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
