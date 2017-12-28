@@ -1,23 +1,48 @@
 version: '2'
 
-services: 
+services:
+  mongo:
+    image: 'bitnami/mongodb:latest'
+    volumes:
+      - 'mongodb_master_data:/bitnami'
+    env_file:
+      - ./server/.env
+    ports:
+      - 27017:27017
+
+  elasticsearch:
+    image: 'bitnami/elasticsearch:latest'
+    volumes:
+      - 'elasticsearch_master_data:/bitnami/elasticsearch'
+    ports:
+      - 9200:9200
+      - 9300:9300
+
   server:
     build:
       context: ./server
       dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
     env_file:
-      - ./server/.env.docker
+      - ./server/.env
+    ports: 
+      - "3000:3000"
+    links:
+      - "mongo:mongo"
+      - "elasticsearch:elasticsearch"
+    restart: always
 
-  web:
+  gui:
     build:
       context: ./client
       dockerfile: Dockerfile
-    ports: 
-      - "8080:80"
+    ports:
+      - "80:80"
     links:
-      - server:server
-    env_file:
-      - ./client/.env.docker
+      - "server:server"
+    restart: always
 
+volumes:
+  mongodb_master_data:
+    driver: local
+  elasticsearch_master_data:
+    driver: local

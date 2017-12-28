@@ -13,6 +13,8 @@ const log = require('./logger');
 const app = express();
 mongoose.Promise = bluebird;
 
+console.log('connecting to ', config.database, config.port)
+
 const server = app.listen(config.port);
 
 mongoose.connect(config.database, { useMongoClient: true }, (err) => {

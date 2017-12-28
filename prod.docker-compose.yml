@@ -1,31 +1,48 @@
 version: '2'
-services: 
-  server:
-    image: hivemindapps/builtright-server:latest 
-    ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=production 
-    links:
-      - mongo:mongo
-    depends_on:
-      - mongo
 
-  web:
-    image: hivemindapps/builtright-client:latest 
-    ports: 
-      - "8080:80"
-    links: 
-      - server:server
-    depends_on:
-      - mongo
-    environment:
-      - NODE_ENV=production
-      - API_URL=server:3000
-
+services:
   mongo:
-    image: bitnami/mongodb
-    ports: 
-      - "27017:27017"
+    image: 'bitnami/mongodb:latest'
+    volumes:
+      - 'mongodb_master_data:/bitnami'
     env_file:
       - ./server/.env
+    ports:
+      - 27017:27017
+
+  elasticsearch:
+    image: 'bitnami/elasticsearch:latest'
+    volumes:
+      - 'elasticsearch_master_data:/bitnami/elasticsearch'
+    ports:
+      - 9200:9200
+      - 9300:9300
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    env_file:
+      - ./server/.env
+    ports: 
+      - "3000:3000"
+    links:
+      - "mongo:mongo"
+      - "elasticsearch:elasticsearch"
+    restart: always
+
+  gui:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    links:
+      - "server:server"
+    restart: always
+
+volumes:
+  mongodb_master_data:
+    driver: local
+  elasticsearch_master_data:
+    driver: local
