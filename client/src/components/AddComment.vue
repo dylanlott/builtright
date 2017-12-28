@@ -50,7 +50,7 @@ export default {
     submitComment () {
       const _comment = {
         text: this.comment.text,
-        user: this.user.user_id,
+        _user: this.user.user_id,
         _source: this.$route.params.id,
         _source_id: this.source_id,
         parent: this.comment.parent
@@ -61,6 +61,10 @@ export default {
         id: this.$route.params.id, 
         comment: _comment
       }).then((res) => {
+        this.$swal({
+          type: 'success',
+          title: 'Comment Submitted'
+        })
         this.comment.text = ''
         this.$store.dispatch(`${this.update}`, this.$route.params.id)
       })

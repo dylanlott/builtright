@@ -22,16 +22,6 @@ Vue.component('v-gravatar', Gravatar);
 axios.defaults.baseURL = config.API_URL
 axios.defaults.headers.common['Authorization'] = user.getToken();
 
-axios.interceptors.response.use(function(config) {
-  console.log('response: ', config)
-  return config
-}, function(err) {
-  if (err.message === 'Request failed with status code 401') {
-    localStorage.clear()
-  }
-  return Promise.reject(err)
-})
-
 router.beforeEach((to, from, next) => {
   if (to.meta.admin && !user.checkRole('admin')) next({ path: '/login' });
 

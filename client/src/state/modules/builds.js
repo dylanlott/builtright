@@ -114,7 +114,7 @@ const actions = {
   createNewBuild ({commit, state}, build) {
     commit(types.CREATE_BUILD_REQUEST)
     return builds.createBuild(build)
-      .then((build) => commit(types.CREATE_BUILD_SUCCESS, build))
+      .then((response) => commit(types.CREATE_BUILD_SUCCESS, response))
       .catch((err) => commit(types.CREATE_BUILD_FAILURE, err))
   },
   addPartToBuild ({commit, state}, part) {

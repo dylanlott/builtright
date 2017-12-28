@@ -1,6 +1,7 @@
 import axios from 'axios'
 import * as types from '../mutation-types'
 import comments from '../../api/comments'
+import api from '../../api'
 
 const state = {
   comments: [],
@@ -61,10 +62,11 @@ const actions = {
       .catch((err) => commit(types.GET_POST_COMMENTS_FAILURE, err))
   },
 
-  addComment ({commit, state}, payload) {
+  addComment ({ commit }, payload) {
     commit(types.ADD_COMMENT_REQUEST)
-    return comments.create(payload.resource, payload.id, payload.comment)
-      .then((res) => commit(types.ADD_COMMENT_SUCCESS, comment))
+    return api.post(`/api/${payload.resource}/${payload.comment._source_id}/comment`,
+      payload)
+      .then((res) => commit(types.ADD_COMMENT_SUCCESS, res.data))
       .catch((err) => commit(types.ADD_COMMENT_FAILURE, err))
   }
 }

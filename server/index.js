@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const router = require('./router');
 const mongoose = require('mongoose');
-const socketEvents = require('./socketEvents');
+// const socketEvents = require('./socketEvents');
 const config = require('./config/main');
 const helmet = require('helmet');
 const bluebird = require('bluebird');
@@ -22,7 +22,7 @@ mongoose.connect(config.database, { useMongoClient: true }, (err) => {
 
 const io = require('socket.io').listen(server);
 
-socketEvents(io);
+// socketEvents(io);
 
 app.use(express.static(`${ __dirname }/public`));
 app.use(bodyParser.urlencoded({ extended: false })); // Parses urlencoded bodies

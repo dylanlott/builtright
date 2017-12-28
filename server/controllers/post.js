@@ -23,8 +23,6 @@ exports.detail = (req, res) => {
   return Post.findOne({ slug: req.params.id })
     .populate('_user _comments _parts')
     .then(data => {
-      console.log('found post by slug: ', data);
-
       if (!data) {
         return Post.findById(req.params.id)
           .populate('_user _comments')
@@ -55,13 +53,13 @@ exports.search = (req, res) => Post.search(req.params.name, (err, docs) => {
 });
 
 exports.comment = (req, res) => {
-  const newComment = new Comment(req.body);
+  const newComment = new Comment(req.body.comment);
   newComment._user = req.user._id;
   newComment._parent = req.params.id;
 
   return newComment.save()
     .then((comment) => {
-      return Post.findOne({ slug: req.params.id })
+      return Post.findOne({ _id: req.params.id })
         .then((post) => {
           post._comments.push(comment._id);
           return post.save()

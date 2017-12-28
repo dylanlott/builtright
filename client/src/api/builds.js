@@ -7,7 +7,7 @@ const token = storage.getItem('token')
 const API_URL = config.API_URL
 
 export default {
-  getBuildDetails (id, context) {
+  getBuildDetails (id) {
     return axios.get(`${API_URL}/api/builds/${id}`)
       .then((res) => res.data)
       .catch((err) => console.error('Error getting build details: ', err))
@@ -21,7 +21,7 @@ export default {
       .catch((err) => console.error('Error getting builds: ', err))
   },
 
-  createBuild (build, context) {
+  createBuild (build) {
     return axios.post(`${API_URL}/api/builds`, build)
       .then((res) => res.data)
       .catch((err) => console.error('Error creating build: ', err))

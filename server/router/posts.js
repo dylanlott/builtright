@@ -11,7 +11,7 @@ const requireLogin = passport.authenticate('local', { session: false });
 
 router.get('/', PostsController.list);
 router.post('/', requireAuth, PostsController.create);
-router.post('/:id', requireAuth, PostsController.comment);
+router.post('/:id/comment', requireAuth, PostsController.comment);
 router.get('/:id', PostsController.detail);
 router.put('/:id', requireAuth, PostsController.update);
 router.delete('/:id', requireAuth, PostsController.delete);

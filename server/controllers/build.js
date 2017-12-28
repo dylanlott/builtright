@@ -23,7 +23,7 @@ exports.create = (req, res) => {
       });
 
       log.info('build created', data);
-      return res.status(200).json(data)
+      return res.status(201).json(data)
     })
     .catch(err => {
       log.error('error creating build', err);
@@ -100,16 +100,14 @@ exports.search = (req, res) => {
 }
 
 exports.addComment = (req, res) => {
-  const newComment = new Comment(req.body);
-  newComment._parent = req.params.id;
+  const newComment = new Comment(req.body.comment);
+  return newComment.save((err, comment) => {
+    if (err) return res.status(500).send('error adding comment', err)
 
-  newComment.save((err, comment) => {
-    console.log('comment: ', comment);
-
-    Build.findById(req.params.id, (error, build) => {
+    return Build.findById(req.params.id, (error, build) => {
       build._comments.push(comment._id);
       build.save((saveError, updatedBuild) => {
-        if (err) {
+        if (saveError) {
           res.status(500).send(saveError);
         }
         return res.status(200).send(updatedBuild);

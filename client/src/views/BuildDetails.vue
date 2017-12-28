@@ -5,7 +5,7 @@
       <router-link :to="{ name: 'builds' }">Builds</router-link> /
       {{ details.title }}
     </div>
-   
+  
     <router-link class="routerlink" v-if="details._user._id === user.user_id" :to="{ name: 'addPart' }">
       <v-btn class="cyan white--text"> 
         Add a part
@@ -16,8 +16,8 @@
       <v-card>
         <v-card-media :src="details.display">
           <v-layout column class="media">
-            <v-card-title class="headline white--text">{{details.title}}</v-card-title> 
-            <v-card-text class="white--text left">
+            <v-card-title class="headline">{{details.title}}</v-card-title> 
+            <v-card-text class="left">
               {{details.vehicle.year}} {{details.vehicle.make}} {{details.vehicle.model}} {{details.vehicle.trim}}
             </v-card-text>
           </v-layout>
