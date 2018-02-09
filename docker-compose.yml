@@ -24,12 +24,22 @@ services:
       dockerfile: Dockerfile
     env_file:
       - ./server/.env
+    volumes: 
+      - ./server/config:/app/config
+      - ./server/controllers:/app/controllers
+      - ./server/router:/app/router
+      - ./server/models:/app/models
+      - ./server/index.js:/app/index.js
+      - ./server/constants.js:/app/constants.js 
     ports: 
       - "3000:3000"
     links:
       - "mongo:mongo"
       - "elasticsearch:elasticsearch"
     restart: always
+    depends_on:
+      - elasticsearch
+      - mongo
 
   gui:
     build:
