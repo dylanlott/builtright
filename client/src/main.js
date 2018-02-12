@@ -11,11 +11,11 @@ import config from './config'
 import user from './api/user'
 import Gravatar from 'vue-gravatar'
 
-const storage = window.localStorage
-
 Vue.use(Vuetify)
-Vue.use(BootstrapVue)
+// Vue.use(BootstrapVue)
 Vue.use(VueSweetAlert)
+
+Vue.config.productionTip = false
 
 Vue.component('v-gravatar', Gravatar);
 

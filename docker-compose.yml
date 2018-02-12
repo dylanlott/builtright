@@ -51,6 +51,14 @@ services:
       - "server:server"
     restart: always
 
+  ghost:
+    image: ghost:1-alpine
+    ports:
+      - "3001:2368"
+    volumes:
+      - /opt/builtright/blog:/var/lib/ghosts
+    restart: always
+
 volumes:
   mongodb_master_data:
     driver: local

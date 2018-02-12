@@ -1,28 +1,6 @@
 <template>
   <v-container flex>
     <h1>Dashboard</h1>
-      <v-card>
-        <v-card-title class="headline">Recently Submitted Builds</v-card-title>
-        <v-card-text>
-            
-        </v-card-text>
-      </v-card>
-      <v-card>
-        <v-card-title class="headline">Recent Comments</v-card-title>
-        <v-card-text> 
-          <v-list>
-
-          </v-list>
-        </v-card-text>
-      </v-card>
-      <v-card>
-        <v-card-title class="headline">Favorited Posts</v-card-title>
-        <v-card-text> 
-          <v-list>
-            
-          </v-list>
-        </v-card-text>
-      </v-card>
   </v-container>
 </template>
 
@@ -45,7 +23,6 @@ export default {
     })
   }
 }
-
 </script>
 
 <style media="screen" lang="stylus">

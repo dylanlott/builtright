@@ -30,3 +30,7 @@ plan.remote('deploy', function (remote) {
     remote.exec('sudo pm2 restart index.js');
   });
 });
+
+plan.local('deploy', function (local) {
+
+})
