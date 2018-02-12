@@ -46,7 +46,7 @@ services:
       context: ./client
       dockerfile: Dockerfile
     ports:
-      - "80:80"
+      - "8000:80"
     links:
       - "server:server"
     restart: always
