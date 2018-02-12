@@ -130,9 +130,9 @@ const actions = {
   },
   getUserInfo ({commit, state}, id) {
     commit(types.RECEIVE_USER_INFO)
-    return client.request('GET', `/api/users/${id}`)
-      .then((user) => {
-        commit(types.RECEIVE_USER_SUCCESS, user)
+    return client.get(`/api/users/${id}`)
+      .then((res) => {
+        commit(types.RECEIVE_USER_SUCCESS, res)
         return user;
       })
       .catch((err) => {

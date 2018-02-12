@@ -6,6 +6,7 @@ const log = require('../logger');
 
 exports.create = (req, res) => {
   const post = new Post(req.body);
+  post._user = req.user;
   post.save()
     .then(data => res.status(200).json(data))
     .catch(err => res.status(500).json(err));

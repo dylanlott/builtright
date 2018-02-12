@@ -1,14 +1,17 @@
 <template>
   <v-container fluid>
-    <v-card>
-      <v-card-title>
-        {{ user.email }}
-      </v-card-title>
-
-      <v-card-content> 
-        
-      </v-card-content> 
-    </v-card>
+    <v-layout>
+      <v-flex>
+        <v-card>
+          <v-card-title>
+            User Profile and Settings
+          </v-card-title>
+          <v-card-text>
+            {{ user.email }}
+          </v-card-text>
+        </v-card>
+      </v-flex>
+    </v-layout>
   </v-container>
 </template>
 

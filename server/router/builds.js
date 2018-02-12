@@ -11,7 +11,7 @@ router.post('/', requireAuth, builds.create);
 router.get('/:id', builds.detail);
 router.put('/:id', requireAuth, builds.update);
 router.delete('/:id', requireAuth, builds.delete);
-router.post('/search', builds.search);
+// router.post('/search', builds.search);
 router.post('/:id/comment', requireAuth, builds.addComment);
 router.post('/:id/new', requireAuth, builds.addPart);
 router.post('/:id/existing', requireAuth, builds.addExistingPart);
