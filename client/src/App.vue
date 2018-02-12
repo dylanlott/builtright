@@ -1,5 +1,5 @@
 <template>
-  <v-app id="builtright-app">
+  <v-app dark id="builtright-app">
     <v-navigation-drawer temporary v-model="drawer" dark>
       <v-toolbar flat class="transparent">
         <v-list class="pa-0">
@@ -106,7 +106,7 @@
       </v-toolbar-title>
     </v-toolbar>
     <main>
-      <v-alert info dismissible v-model="alert" v-if="alerts.length"></v-alert> 
+      <v-alert info dismissible v-model="alert" v-if="alerts.length"></v-alert>
       <router-view></router-view>
       <AppFooter></AppFooter>
       <BottomNav user="user"></BottomNav>
@@ -164,7 +164,7 @@ export default {
     color: charcoal
 
     @media (max-width: 500px)
-      padding-bottom: 1px 
+      padding-bottom: 1px
 
   .content
     margin-top: 0px

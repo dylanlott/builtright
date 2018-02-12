@@ -17,7 +17,7 @@ const PostSchema = new Schema({
   steps: [{ type: Schema.Types.Mixed }],
   slug: { type: String, unique: true },
   tags: [{ type: String, es_indexed: true }],
-  _user: { type: Schema.Types.ObjectId, ref: 'User' },
+  _user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   _comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
   _upvotes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   _downvotes: [{ type: Schema.Types.ObjectId, ref: 'User' }]

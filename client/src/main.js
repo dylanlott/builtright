@@ -10,11 +10,11 @@ import VueSweetAlert from 'vue-sweetalert'
 import config from './config'
 import user from './api/user'
 import Gravatar from 'vue-gravatar'
+import VueMoment from 'vue-moment'
 
 Vue.use(Vuetify)
-// Vue.use(BootstrapVue)
 Vue.use(VueSweetAlert)
-
+Vue.use(VueMoment)
 Vue.config.productionTip = false
 
 Vue.component('v-gravatar', Gravatar);

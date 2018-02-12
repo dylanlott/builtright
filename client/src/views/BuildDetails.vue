@@ -1,61 +1,63 @@
 <template lang="html">
   <div class="content__bg">
     <div class="secondary__nav">
-      <router-link :to="{ name: 'dashboard' }">Dashboard</router-link> / 
+      <router-link :to="{ name: 'dashboard' }">Dashboard</router-link> /
       <router-link :to="{ name: 'builds' }">Builds</router-link> /
       {{ details.title }}
     </div>
-  
+
     <router-link class="routerlink" v-if="details._user._id === user.user_id" :to="{ name: 'addPart' }">
-      <v-btn class="cyan white--text"> 
+      <v-btn class="cyan white--text">
         Add a part
       </v-btn>
     </router-link>
 
-    <v-container>
-      <v-card>
-        <v-card-media :src="details.display">
-          <v-layout column class="media">
-            <v-card-title class="headline">{{details.title}}</v-card-title> 
-            <v-card-text class="left">
-              {{details.vehicle.year}} {{details.vehicle.make}} {{details.vehicle.model}} {{details.vehicle.trim}}
-            </v-card-text>
-          </v-layout>
-        </v-card-media>
-      </v-card>
+    <v-container fluid>
+      <v-layout column>
+        <v-card>
+          <v-card-media :src="details.display">
+            <v-layout column class="media">
+              <v-card-title class="headline">{{details.title}}</v-card-title>
+              <v-card-text class="left">
+                {{details.vehicle.year}} {{details.vehicle.make}} {{details.vehicle.model}} {{details.vehicle.trim}}
+              </v-card-text>
+            </v-layout>
+          </v-card-media>
+        </v-card>
 
-      <v-card v-if="details._parts.length > 0">
-        <v-list two-line>
-          <v-list-tile v-for="item in details._parts" @click="">
-            <v-list-tile-action>
-              <v-icon class="darkgrey--text">settings</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title v-text="item.title"></v-list-tile-title>
-              <v-list-tile-sub-title>
-                {{ item.make }} {{item.model}} {{item.trim}}
-              </v-list-tile-sub-title>
-              <v-list-tile-sub-title>${{item.price}}</v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
-      </v-card>
-     
-      <v-card>
-        <v-card-title class="headline">Stats</v-card-title>
-        <v-card-text>
-          <span>Total cost: </span>
-          <span>0 - 60mph time:</span>
-          <span>Horsepower: </span>
-          <span>Torque: </span>
-        </v-card-text>
-      </v-card>
+        <v-card v-if="details._parts.length > 0">
+          <v-list two-line>
+            <v-list-tile v-for="item in details._parts" @click="">
+              <v-list-tile-action>
+                <v-icon class="darkgrey--text">settings</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title v-text="item.title"></v-list-tile-title>
+                <v-list-tile-sub-title>
+                  {{ item.make }} {{item.model}} {{item.trim}}
+                </v-list-tile-sub-title>
+                <v-list-tile-sub-title>${{item.price}}</v-list-tile-sub-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list>
+        </v-card>
+
+        <v-card>
+          <v-card-title class="headline">Stats</v-card-title>
+          <v-card-text>
+            <span>Total cost: </span>
+            <span>0 - 60mph time:</span>
+            <span>Horsepower: </span>
+            <span>Torque: </span>
+          </v-card-text>
+        </v-card>
+      </v-layout>
 
       <v-card>
         <CommentList :comments="comments"></CommentList>
       </v-card>
       <v-card>
-        <AddComment 
+        <AddComment
           :source_id="details._id"
           resource="builds"
           update="getBuildDetails"

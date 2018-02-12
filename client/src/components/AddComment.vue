@@ -9,10 +9,10 @@
           v-model="comment.text"
           multi-line
         ></v-text-field>
-      
+
         <v-btn primary dark @click.native="submitComment()" class="white--text">Submit</v-btn>
         <div class="preview">
-        <v-card dark>
+        <v-card class="grey darken-1">
           <v-card-title>Preview</v-card-title>
           <v-card-text v-html="compiledMarkdown()" class="preview"></v-card-text>
         </v-card>
@@ -45,7 +45,7 @@ export default {
   }),
   methods: {
     compiledMarkdown () {
-      return marked(this.comment.text, { sanitize: true }) 
+      return marked(this.comment.text, { sanitize: true })
     },
     submitComment () {
       const _comment = {
@@ -56,9 +56,9 @@ export default {
         parent: this.comment.parent
       }
 
-      this.$store.dispatch('addComment', { 
+      this.$store.dispatch('addComment', {
         resource: this.resource,
-        id: this.$route.params.id, 
+        id: this.$route.params.id,
         comment: _comment
       }).then((res) => {
         this.$swal({

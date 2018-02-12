@@ -1,17 +1,13 @@
 <template lang="html">
   <div>
-    <div class="secondary__nav">
-      Dashboard / Forum
-    </div>
-
     <v-container flex>
       <router-link :to="{ name: 'addPost' }" class="routerlink">
-        <v-btn light v-tooltip:top="{ html: 'Write A Forum Post' }" name="addPost" raised floating class="primary floating">
+        <v-btn light v-tooltip:top="{ html: 'Write A Forum Post' }" name="addPost" raised floating class="teal lighten-2 floating">
           <v-icon class="white--text">create</v-icon>
         </v-btn>
       </router-link>
 
-      <v-expansion-panel>
+      <!-- <v-expansion-panel>
         <v-expansion-panel-content>
           <div slot="header">Filter and sort posts</div>
           <v-card>
@@ -53,16 +49,16 @@
             </v-card-text>
           </v-card>
         </v-expansion-panel-content>
-      </v-expansion-panel>
+      </v-expansion-panel> -->
 
       <div class="posts">
-        <div v-if="!posts.data">
+        <div v-if="!(posts.data)">
           <p style="color: #fff">There are no posts to show here.</p>
         </div>
         <div v-for="item in posts">
           <router-link :to="{ name: 'postDetail', params: { id: item.slug }}">
             <div class="post-list elevation-1">
-              <v-list two-line>
+              <v-list two-line class="post-list">
                 <v-list-tile>
                   <v-list-tile-content>
                     <v-list-tile-title v-html="item.title" />
@@ -104,5 +100,8 @@ export default {
 
 .posts
   margin: 20px
+
+.post-list
+  margin: 0px 0px !important
 
 </style>

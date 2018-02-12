@@ -1,36 +1,48 @@
 <template lang="html">
-  <v-layout>
-    <v-flex>
-      <v-container> 
-        <v-card transition="slide-y-transition">
+  <v-container fluid>
+    <v-layout row>
+      <v-btn router :to="{ name: 'forum' }">
+        <v-icon dark>arrow_left</v-icon> Back to forum</v-btn>
+    </v-layout>
+    <v-layout column>
+      <v-flex xs12>
+        <v-card class="mb-4" transition="slide-y-transition">
           <v-card-title class="title" v-html="this.formatted(details.title)"></v-card-title>
           <v-card-text>
-            <v-layout>
+            <v-layout column>
               <v-card-text class="tags">
                 <v-chip v-for="tag in details.tags">{{tag}}</v-chip>
               </v-card-text>
-              <v-card-text class="text-left" v-html="this.formatted(details.body)"></v-card-text>
+              <v-card-text class="left">
+                <p v-html="this.formatted(details.body)"></p>
+              </v-card-text>
             </v-layout>
           </v-card-text>
-
-          <CommentList :comments="details._comments"></CommentList>
-          <AddComment 
-            :source_id="details._id"
-            update="getPostDetails"
-            resource="posts">
-          </AddComment>
-
+          <v-card-actions>
+            <v-btn @click="">{{ details._downvotes.length }}
+              Downvote
+            </v-btn>
+            <v-btn @click="">{{ details._upvotes.length}} upvote</v-btn>
+          </v-card-actions>
         </v-card>
-      </v-container>
-    </v-flex>
-  </v-layout>
+
+        <CommentList :comments="details._comments"></CommentList>
+        <AddComment
+          :source_id="details._id"
+          update="getPostDetails"
+          resource="posts">
+        </AddComment>
+
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import CommentList from '../components/CommentList.vue'
 import AddComment from '../components/AddComment.vue'
-import marked from 'marked' 
+import marked from 'marked'
 
 export default {
   computed: mapState({
@@ -42,7 +54,9 @@ export default {
   },
   methods: {
     formatted (data) {
-      return marked(data, { sanitize: true })
+      if (data) {
+        return marked(data, { sanitize: true })
+      }
     }
   },
   components: {
@@ -53,9 +67,7 @@ export default {
 </script>
 
 <style lang="stylus">
-.text-left
-  text-align: left
 .title
   font-size: 1.4rem
-  margin: 15px 15px 0px 15px 
+  margin: 15px 15px 0px 15px
 </style>
