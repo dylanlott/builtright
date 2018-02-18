@@ -1,15 +1,10 @@
 <template>
-  <div>
-    <v-container fluid>
-      <v-layout row wrap>
-        <v-flex xs12 md4 offset-md4>
-            <h1 class="text-xs-center">Login</h1>
-            <h3>{{message}}</h3>
-              <LoginForm></LoginForm>
-        </v-flex>
-      </v-layout>
-    </v-container>
-  </div>
+  <v-container fluid grid-list-xl>
+    <v-layout column>
+      <h1>Login to BuiltRight</h1>
+      <LoginForm></LoginForm>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>

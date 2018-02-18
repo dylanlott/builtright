@@ -1,6 +1,6 @@
 <template lang="html">
-  <div>
-    <div class="form__signup well">
+<v-card class="ma-1">
+  <v-card-text>
       <div class="inputs">
         <v-text-field
           id="DisplayName"
@@ -34,14 +34,14 @@
           required
         ></v-text-field>
       </div>
-      <v-btn primary class="button__signup" @click.native="submit()">
+      <v-btn dark primary class="button__signup" @click.native="submit()">
         Sign Up
       </v-btn>
       <p>
         Already a member? <a href="/login">Login</a>.
       </p>
-    </div>
-  </div>
+  </v-card-text>
+</v-card>
 </template>
 
 <script>

@@ -1,8 +1,8 @@
 <template>
   <div style="padding: 20px;">
-    <v-layout row wrap>
+    <v-layout column wrap>
       <v-flex xs12>
-        <h1>Sign up for BuiltRight</h1>
+        <h1 class="white--text">Sign up for BuiltRight</h1>
         <SignUpForm></SignUpForm>
       </v-flex>
     </v-layout>

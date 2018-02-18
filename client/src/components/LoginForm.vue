@@ -1,36 +1,40 @@
 <template>
-  <div>
-    <div class="well">
-      <form class="" action="submit" @keyup.enter="submit()">
-        <v-text-field
-          id="Email"
-          name="Email"
-          label="Email"
-          v-model="user.email"
+  <v-container fluid>
+    <v-card>
+      <v-card-text>
+        <v-flex>
+          <v-text-field
+            id="Email"
+            name="Email"
+            label="Email"
+            v-model="user.email"
+            prepend-icon="account_circle"
+            required
+          ></v-text-field>
+          <v-text-field
+            id="Password"
+            name="Password"
+            type="password"
+            label="Password"
+            v-model="user.password"
+            min="8"
+            prepend-icon="lock"
+            required
+          ></v-text-field>
+            <v-btn 
+              color="primary"
+              @click.native="submit()">
+              Login
+            </v-btn>
+        </v-flex>
 
-          prepend-icon="account_circle"
-          required
-        ></v-text-field>
-        <v-text-field
-          id="Password"
-          name="Password"
-          type="password"
-          label="Password"
-          v-model="user.password"
-          min="8"
-          prepend-icon="lock"
-          required
-        ></v-text-field>
-        <div>
-          <v-btn name="loginsubmit" raised primary class="button__login"
-          @click.native="submit()">Login</v-btn>
-          <p>Not a member yet? <router-link :to="{ name: 'signup' }">
-            <a href="#">Sign up here</a>.</router-link></p>
-        </div>
-      </form>
-    </div>
-  </div>
-
+        <v-flex>
+          Not a member yet? <router-link :to="{ name: 'signup' }">
+            <a href="#">Sign up here</a>.</router-link>
+        </v-flex>
+      </v-card-text>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
@@ -57,11 +61,4 @@ export default {
 </script>
 
 <style lang="stylus">
-  .well {
-    background: #eee
-    padding: 40px
-  }
-  .button__login {
-    margin: 20px
-  }
 </style>
