@@ -1,47 +1,49 @@
 <template lang="html">
-<v-card class="ma-1">
-  <v-card-text>
-      <div class="inputs">
-        <v-text-field
-          id="DisplayName"
-          name="displayname"
-          type="text"
-          label="Display Name"
-          v-model="user.displayName"
-          required
-        ></v-text-field>
-        <v-text-field
-          id="Email"
-          name="Email"
-          label="Email"
-          v-model="user.email"
-          required
-        ></v-text-field>
-        <v-text-field
-          id="Password"
-          name="Password"
-          type="password"
-          label="Password"
-          v-model="user.password"
-          required
-        ></v-text-field>
-        <v-text-field
-          id="ConfirmPassword"
-          name="confirmpassword"
-          type="password"
-          label="Confirm Password"
-          v-model="user.confirmPassword"
-          required
-        ></v-text-field>
-      </div>
-      <v-btn dark primary class="button__signup" @click.native="submit()">
-        Sign Up
-      </v-btn>
-      <p>
+  <v-card class="ma-1">
+    <v-card-text>
+        <v-flex>
+          <v-text-field
+            id="DisplayName"
+            name="displayname"
+            type="text"
+            label="Display Name"
+            v-model="user.displayName"
+            required
+          ></v-text-field>
+          <v-text-field
+            id="Email"
+            name="Email"
+            label="Email"
+            v-model="user.email"
+            required
+          ></v-text-field>
+          <v-text-field
+            id="Password"
+            name="Password"
+            type="password"
+            label="Password"
+            v-model="user.password"
+            required
+          ></v-text-field>
+          <v-text-field
+            id="ConfirmPassword"
+            name="confirmpassword"
+            type="password"
+            label="Confirm Password"
+            v-model="user.confirmPassword"
+            required
+          ></v-text-field>
+        </v-flex>
+        <v-flex>
+          <v-btn dark primary @click.native="submit()">
+            Sign Up
+          </v-btn>
+        </v-flex>
+        <v-flex>
         Already a member? <a href="/login">Login</a>.
-      </p>
-  </v-card-text>
-</v-card>
+        </v-flex>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
@@ -92,13 +94,4 @@ export default {
 </script>
 
 <style lang="stylus">
-  .form__signup
-    width: 400px
-    text-align: center
-    margin: 0px auto
-    margin-top: 40px
-  .inputs
-  .button__signup
-    margin: 20px
-
 </style>

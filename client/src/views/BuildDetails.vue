@@ -1,15 +1,7 @@
 <template lang="html">
   <div class="content__bg">
-    <div class="secondary__nav">
-      <router-link :to="{ name: 'dashboard' }">Dashboard</router-link> /
-      <router-link :to="{ name: 'builds' }">Builds</router-link> /
-      {{ details.title }}
-    </div>
-
     <router-link class="routerlink" v-if="details._user._id === user.user_id" :to="{ name: 'addPart' }">
-      <v-btn class="cyan white--text">
-        Add a part
-      </v-btn>
+      
     </router-link>
 
     <v-container fluid>
@@ -17,7 +9,7 @@
         <v-card>
           <v-card-media :src="details.display">
             <v-layout column class="media">
-              <v-card-title class="headline">{{details.title}}</v-card-title>
+              <v-card-title class="headline"><h2>{{details.title}}</h2></v-card-title>
               <v-card-text class="left">
                 {{details.vehicle.year}} {{details.vehicle.make}} {{details.vehicle.model}} {{details.vehicle.trim}}
               </v-card-text>
@@ -43,12 +35,55 @@
         </v-card>
 
         <v-card>
-          <v-card-title class="headline">Stats</v-card-title>
+          <v-card-title><h2>Parts and Fabrication</h2></v-card-title>
           <v-card-text>
-            <span>Total cost: </span>
-            <span>0 - 60mph time:</span>
-            <span>Horsepower: </span>
-            <span>Torque: </span>
+            <v-btn class="cyan white--text">
+              Add a part
+            </v-btn>
+          </v-card-text>
+        </v-card>
+
+        <v-card>
+          <v-card-title><h2>Stats</h2></v-card-title>
+          <v-card-text>
+            <v-btn color="accent">Add Stats</v-btn>
+            <v-list dense v-if="details.stats">
+              <v-list-tile >
+                <v-list-tile-content>
+                Horsepower
+                </v-list-tile-content>
+                <v-list-tile-content>
+                  {{ details.stats.wheel_horsepower }} hp
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-divider></v-divider>
+              <v-list-tile>
+                <v-list-tile-content>
+                Torque 
+                </v-list-tile-content>
+                <v-list-tile-content>
+                  {{ details.stats.torque }} ft lb
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-divider></v-divider>
+              <v-list-tile>
+                <v-list-tile-content>
+                0-60 time
+                </v-list-tile-content>
+                <v-list-tile-content>
+                  {{ details.stats.zerotosixty }}
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-divider></v-divider>
+              <v-list-tile>
+                <v-list-tile-content>
+                1/4 Mile
+                </v-list-tile-content>
+                <v-list-tile-content>
+                  {{ details.stats.quarter_mile }}
+                </v-list-tile-content>
+              </v-list-tile>
+            </v-list>
           </v-card-text>
         </v-card>
       </v-layout>

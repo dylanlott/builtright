@@ -49,7 +49,8 @@ const mutations = {
   [types.CREATE_BUILD_SUCCESS] (state, build) {
     state.loading = false
     state.success = true
-    state.build = build
+    state.builds.push(build)
+    console.log('create build success', state.builds)
   },
   [types.CREATE_BUILD_FAILURE] (state, errors) {
     state.loading = false
@@ -113,7 +114,7 @@ const actions = {
   },
   createNewBuild ({commit, state}, build) {
     commit(types.CREATE_BUILD_REQUEST)
-    return builds.createBuild(build)
+    return client.post(`/api/builds`, build)
       .then((response) => commit(types.CREATE_BUILD_SUCCESS, response))
       .catch((err) => commit(types.CREATE_BUILD_FAILURE, err))
   },
