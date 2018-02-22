@@ -10,13 +10,13 @@ services:
     ports:
       - 27017:27017
 
-  elasticsearch:
-    image: 'bitnami/elasticsearch:latest'
-    volumes:
-      - 'elasticsearch_master_data:/bitnami/elasticsearch'
-    ports:
-      - 9200:9200
-      - 9300:9300
+        #  elasticsearch:
+        #    image: 'bitnami/elasticsearch:latest'
+        #    volumes:
+        #      - 'elasticsearch_master_data:/bitnami/elasticsearch'
+        #    ports:
+        #      - 9200:9200
+        #      - 9300:9300
 
   server:
     build:
@@ -35,10 +35,10 @@ services:
       - "3000:3000"
     links:
       - "mongo:mongo"
-      - "elasticsearch:elasticsearch"
+        # - "elasticsearch:elasticsearch"
     restart: always
     depends_on:
-      - elasticsearch
+      # - elasticsearch
       - mongo
 
   gui:

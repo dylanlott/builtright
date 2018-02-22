@@ -30,6 +30,7 @@ const BuildSchema = new Schema({
     crank_horsepower: { type: Number },
     torque: { type: Number },
     zerotosixty: { type: Number },
+    quarter_mile: { type: Number },
     topSpeed: { type: Number }
   },
   recipe: {
