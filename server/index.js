@@ -11,7 +11,7 @@ const helmet = require('helmet');
 const log = require('./logger');
 const app = express();
 const server = app.listen(config.port);
-
+console.log('connecting to db', config.database)
 mongoose.connect(config.database, { useMongoClient: true }, (err) => {
   if (err) log.error('error connecting to mongo: ', err);
   log.info('connected to mongoose');

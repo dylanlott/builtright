@@ -36,31 +36,31 @@ services:
     links:
       - "mongo:mongo"
         # - "elasticsearch:elasticsearch"
-    restart: always
+        # restart: always
     depends_on:
       # - elasticsearch
       - mongo
 
-  gui:
-    build:
-      context: ./client
-      dockerfile: Dockerfile
-    ports:
-      - "8000:80"
-    links:
-      - "server:server"
-    restart: always
+        #  gui:
+        #    build:
+        #      context: ./client
+        #      dockerfile: Dockerfile
+        #    ports:
+        #      - "8000:80"
+        #    links:
+        #      - "server:server"
+        #    restart: always
 
-  ghost:
-    image: ghost:1-alpine
-    ports:
-      - "3001:2368"
-    volumes:
-      - /opt/builtright/blog:/var/lib/ghosts
-    restart: always
+    ##  ghost:
+    ##  ghimage: ghost:1-alpine
+    ##  ghports:
+    ##  gh  - "3001:2368"
+    ##  ghvolumes:
+    ##  gh  - /opt/builtright/blog:/var/lib/ghosts
+    ##  ghrestart: always
 
 volumes:
   mongodb_master_data:
     driver: local
-  elasticsearch_master_data:
-    driver: local
+    # elasticsearch_master_data:
+    # eldriver: local
