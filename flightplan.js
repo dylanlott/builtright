@@ -25,3 +25,7 @@ plan.remote('deploy', function (remote) {
     remote.exec('docker ps');
   });
 });
+
+plan.remote('check', function (remote) {
+  remote.exec('docker ps')
+})
