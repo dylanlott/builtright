@@ -1,9 +1,12 @@
 builtrightapp.com www.builtrightapp.com {
   root /opt/builtright/client
   gzip
-  tls
   rewrite {
     regexp .*
     to {path} /
   }
+}
+
+api.builtrightapp.com {
+  proxy / localhost:3000
 }
