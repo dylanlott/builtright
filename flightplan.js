@@ -12,7 +12,7 @@ plan.target('prod', {
 });
 
 plan.local('deploy', function (local) {
-  local.log('sending main payload');
+  //local.log('sending main payload');
   // const payload = local.exec('git ls-files', { silent: true });
   // local.transfer(payload, '/opt/builtright/');
   local.log('transferring secrets');
@@ -20,15 +20,22 @@ plan.local('deploy', function (local) {
 });
 
 plan.remote('deploy', function (remote) {
+  // deploy servers
   remote.with('cd /opt/builtright', function () {
     remote.exec('git pull http master');
     remote.exec('docker-compose up --build -d server');
     remote.exec('which npm');
     remote.sudo('which npm');
-    remote.exec('./deploy.sh');
-    remote.exec('docker ps');
-    remote.log('#### DEPLOY SUCCESSFUL ####');
   });
+
+  // deploy client
+  remote.with('cd /opt/builtright/client', function () {
+    remote.exec('npm install')
+    remote.exec('npm run build')
+  });
+
+  remote.exec('docker ps');
+  remote.log('#### DEPLOY SUCCESSFUL ####');
 });
 
 plan.remote('check', function (remote) {
