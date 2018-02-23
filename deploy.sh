@@ -1,4 +1,9 @@
+echo "PULLING LATEST CODE"
 git pull origin master
+echo "INSTALLING CLIENT DEPENDENCIES"
 cd client && npm install
+echo "INSTALLING SERVER DEPENDENCIES"
 cd ../server && npm install
-cd ../ && docker-compose up --build
+cd ../
+echo "RESTARTING DOCKER SERVER"
+docker-compose up server
