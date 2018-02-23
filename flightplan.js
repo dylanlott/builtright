@@ -22,7 +22,11 @@ plan.local('deploy', function (local) {
 plan.remote('deploy', function (remote) {
   remote.with('cd /opt/builtright', function () {
     remote.exec('docker-compose up -d server');
+    remote.exec('which npm');
+    remote.sudo('which npm');
+    remote.exec('./deploy.sh');
     remote.exec('docker ps');
+    remote.log('#### DEPLOY SUCCESSFUL ####');
   });
 });
 
