@@ -1,0 +1,9 @@
+builtrightapp.com www.builtrightapp.com {
+  root /opt/builtright/client
+  gzip
+  tls
+  rewrite {
+    regexp .*
+    to {path} /
+  }
+}
