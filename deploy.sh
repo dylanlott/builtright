@@ -1,5 +1,5 @@
 echo "PULLING LATEST CODE"
-git pull origin master
+git pull http master
 echo "INSTALLING CLIENT DEPENDENCIES"
 cd client && npm install
 echo "INSTALLING SERVER DEPENDENCIES"
