@@ -20,5 +20,6 @@ module.exports = {
   // necessary in order to run tests in parallel of the main app
   test_port: 3001,
   test_db: 'builtright_test_db',
-  test_env: 'test'
+  test_env: 'test',
+  logLevel: 'debug'
 }
