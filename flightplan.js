@@ -35,8 +35,10 @@ plan.remote('deploy', function (remote) {
 });
 
 plan.remote('ghost', function (remote) {
-  remote.exec('docker-compose up -d ghost')
-  remote.exec('docker ps')
+  remote.with('cd /opt/builtright', function () {
+    remote.exec('docker-compose up -d ghost')
+    remote.exec('docker ps')
+  })
 })
 
 plan.remote('check', function (remote) {
