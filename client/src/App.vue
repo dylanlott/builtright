@@ -62,7 +62,7 @@
 
     <v-toolbar color="primary" app fixed clipped-left>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <a router :to="{ name: 'dashboard' }" class="routerlink"><img src="./img/logo-horizontal.png" height="30px"></a>
+      <a router :to="{ name: 'dashboard' }" class="routerlink"><img src="./static/img/logo-horizontal.png" height="30px"></a>
     </v-toolbar>
 
     <v-content>
@@ -95,7 +95,6 @@ export default {
   name: 'builtright',
   data () {
     return {
-      logo: './img/logo-horizontal.png'
     }
   },
   computed: mapState({
