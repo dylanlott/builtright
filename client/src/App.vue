@@ -62,7 +62,7 @@
 
     <v-toolbar color="primary" app fixed clipped-left>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <img src="./img/logo-horizontal.png" height="30px"> 
+      <a router :to="{ name: 'dashboard' }" class="routerlink"><img src="./img/logo-horizontal.png" height="30px"></a>
     </v-toolbar>
 
     <v-content>
@@ -71,10 +71,10 @@
 
     <v-footer height="auto" class="grey darken-3">
     <v-layout row wrap justify-center>
-        <v-btn color="white" flat>Reddit</v-btn>
-        <v-btn>Faceboook</v-btn>
-        <v-btn>Twitter</v-btn>
-        <v-btn>Blog</v-btn>
+        <a class="routerlink" flat dark href="https://www.reddit.com/builtright"><v-btn color="white" flat>Reddit</v-btn></a>
+        <a class="routerlink" flat dark href="https://www.facebook.com/builtrightapp"><v-btn color="white" flat>Faceboook</v-btn></a>
+        <a class="routerlink" flat dark href="https://www.twitter.com/builtrightapp"><v-btn color="white" flat>Twitter</v-btn></a>
+        <a class="routerlink" flat dark href="https://www.builtrightapp.com/blog"><v-btn color="white" flat>Blog</v-btn></a>
       <v-flex xs12 py-3 text-xs-center white--text>
         &copy;2018 — <strong>BuiltRight</strong>
       </v-flex>
@@ -137,4 +137,7 @@ export default {
 
   #app-logo
     margin-top: 5px
+
+  .routerlink
+    text-decoration: none
 </style>
