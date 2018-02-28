@@ -1,6 +1,28 @@
 <template>
   <v-container flex>
-    <h1>Dashboard</h1>
+    <v-layout>
+      <v-flex>
+
+        <template>
+          <v-card color="grey lighten-4 mt-2" tile>
+            <v-toolbar dark extended>
+              <v-toolbar-title>Your Builds</v-toolbar-title>
+            </v-toolbar>
+              <v-card v-if="builds.length === 0">
+                  <v-card-title>Oops! You don't have any builds.</v-card-title>
+                </v-card>
+                <v-card v-for="build in builds">
+                  <v-card-title>{{ build.title }}</v-card-title>
+                  <v-card-actions>
+                    <v-btn>View</v-btn>
+                    <v-spacer></v-spacer>
+                    <v-btn color="red">Delete</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-card>
+        </template>
+      </v-flex>
+    </v-layout>
   </v-container>
 </template>
 
@@ -12,14 +34,12 @@ export default {
   name: 'dashboard',
   computed: mapState({
     user: state => state.user,
-    builds: state => state.builds,
+    builds: state => state.builds.builds,
     comments: state => state.comments
   }),
   created () {
     this.$store.dispatch('getBuilds', {
-      limit: 5,
-      skip: 0,
-      sort: -1
+      _user: this.user.user_id 
     })
   }
 }

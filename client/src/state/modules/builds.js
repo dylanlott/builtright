@@ -88,15 +88,6 @@ const mutations = {
 }
 
 const actions = {
-  getBuildsByUser ({commit, state}) {
-    commit(types.GET_BUILDS_REQUEST)
-    return client.request({
-      method: 'GET',
-      path: '/api/builds'
-    })
-    .then((res) => commit(types.GET_BUILDS_SUCCESS, res.data))
-    .catch((err) => commit(types.GET_BUILDS_FAILURE, err))
-  },
   getBuilds ({commit, state}, params) {
     commit(types.GET_BUILDS_REQUEST)
     return builds.get(params)

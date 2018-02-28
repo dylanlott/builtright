@@ -73,12 +73,7 @@ export default {
       }
 
       if (this.user.password === this.user.confirmPassword) {
-        this.$store.dispatch('signup', user)
-        this.$swal({
-          type: 'success',
-          title: 'Confirmed',
-          text: 'Welcome to the BuiltRight community!'
-        })
+        this.$store.dispatch('signup', user) 
       }
 
       if (this.user.password !== this.user.confirmPassword)  {

@@ -36,7 +36,7 @@ exports.list = (req, res) => {
   const limit = parseInt(req.query.limit) || 50
   const sort = parseInt(req.query.sort) || -1
 
-  return Build.find()
+  return Build.find(req.query)
     .populate('_user')
     .populate('_user', '-password')
     .where('hidden').equals('false')
