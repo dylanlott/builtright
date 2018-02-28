@@ -41,6 +41,13 @@ plan.remote('ghost', function (remote) {
   })
 })
 
+plan.remote('caddy', function (remote) {
+  remote.with('cd /opt/builtright', function () {
+    remote.exec('git pull http master');
+    remote.exec('systemctl restart caddy.service')
+  })
+})
+
 plan.remote('check', function (remote) {
   remote.exec('docker ps')
 })
