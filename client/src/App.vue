@@ -62,7 +62,7 @@
 
     <v-toolbar color="primary" app fixed clipped-left>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title>BuiltRight</v-toolbar-title>
+      <img src="./img/logo-horizontal.png" height="30px"> 
     </v-toolbar>
 
     <v-content>
@@ -93,6 +93,11 @@ import config from './config'
 
 export default {
   name: 'builtright',
+  data () {
+    return {
+      logo: './img/logo-horizontal.png'
+    }
+  },
   computed: mapState({
     user: state => state.user,
     token: state => state.user.token,
