@@ -1,18 +1,21 @@
 builtrightapp.com www.builtrightapp.com {
   root /opt/builtright/client
   gzip
+
+  proxy /blog localhost:3001 {
+    transparent
+  }
+
   rewrite {
     regexp .*
     to {path} /
   }
-
-  proxy /blog localhost:3001
 }
 
 api.builtrightapp.com {
   proxy / localhost:3000
 }
 
-blog.builtright.com {
+blog.builtrightapp.com {
   proxy / localhost:3001
 }
