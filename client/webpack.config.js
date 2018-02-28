@@ -5,8 +5,8 @@ const Dotenv = require('dotenv-webpack')
 module.exports = {
   entry: './src/main.js',
   output: {
-    path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist',
+    path: path.resolve(__dirname, './dist/'),
+    publicPath: '/dist/',
     filename: 'build.js'
   },
   resolve: {
@@ -17,27 +17,33 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        loaders: ['file-loader?context=src/images&name=images/[path][name].[ext]', {
-          loader: 'image-webpack-loader',
-          query: {
-            mozjpeg: {
-              progressive: true,
+        test: /\.(gif|png|jpe?g|svg)$/i,
+        use: [
+          'file-loader',
+          {
+            loader: 'image-webpack-loader',
+            query: {
+              mozjpeg: {
+                progressive: true,
+              },
+              gifsicle: {
+                interlaced: false,
+              },
+              optipng: {
+                optimizationLevel: 4,
+              },
+              pngquant: {
+                quality: '75-90',
+                speed: 3,
+              }
             },
-            gifsicle: {
-              interlaced: false,
+            options: {
+              bypassOnDebug: true,
             },
-            optipng: {
-              optimizationLevel: 4,
-            },
-            pngquant: {
-              quality: '75-90',
-              speed: 3,
-            }
-          }
-        }],
+          },
+        ],
         exclude: /node_modules/,
-        include: __dirname,
+        include: __dirname
       },
       {
         test: /\.vue$/,
