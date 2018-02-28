@@ -124,8 +124,7 @@ const actions = {
     commit(types.LOGOUT_USER_REQUEST)
     storage.clear()
     location.reload()
-    this.$swal('You have been logged out.')
-    router.push({ name: 'landing' })
+    router.push({ name: 'logout' })
     commit(types.LOGOUT_USER_SUCCESS)
   },
   getUserInfo ({commit, state}, id) {

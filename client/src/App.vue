@@ -31,6 +31,32 @@
             <v-list-tile-title>Forum</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+        <v-divider></v-divider>
+        <v-list-tile v-if="token" @click="logout()">
+          <v-list-tile-action>
+            <v-icon>lock</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Logout</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile router :to="{ name: 'login' }" v-if="!token">
+          <v-list-tile-action>
+            <v-icon>person</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Login</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile router :to="{ name: 'signup' }" v-if="!token">
+          <v-list-tile-action>
+            <v-icon>create</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Sign up</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
       </v-list>
     </v-navigation-drawer>
     <v-toolbar color="primary" app fixed clipped-left>
@@ -63,8 +89,7 @@ export default {
   }),
   data() {
     return {
-      drawer: null,
-      show: false
+      drawer: !!this.token
     }
   },
   props: {

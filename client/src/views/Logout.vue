@@ -6,8 +6,14 @@
 </template>
 
 <script>
+import { router } from '../router'
 export default {
-  name: 'logout'
+  name: 'logout',
+  created () {
+    setInterval(function () {
+      router.push({ name: 'landing' })
+    }, 3000)
+  }
 }
 </script>
 
