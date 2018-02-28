@@ -26,6 +26,7 @@ plan.remote('deploy', function (remote) {
   // deploy client
   remote.with('cd /opt/builtright/client', function () {
     remote.exec('npm install')
+    remote.exec('npm rebuild')
     remote.exec('npm run build')
   });
 
