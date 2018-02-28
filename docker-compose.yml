@@ -9,6 +9,7 @@ services:
       - ./server/.env
     ports:
       - 27017:27017
+    restart: always
 
   server:
     build:
