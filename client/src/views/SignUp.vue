@@ -1,12 +1,12 @@
 <template>
-  <div style="padding: 20px;">
-    <v-layout column wrap>
-      <v-flex xs12>
+  <v-container>
+    <v-layout column align-center>
+      <v-flex xs12 sm6>
         <h1 class="white--text">Sign up for BuiltRight</h1>
         <SignUpForm></SignUpForm>
       </v-flex>
     </v-layout>
-</div>
+  </v-container>
 </template>
 
 <script>

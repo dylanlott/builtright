@@ -31,18 +31,55 @@
             <v-list-tile-title>Forum</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+        <v-divider></v-divider>
+        <v-list-tile v-if="token" @click="logout()">
+          <v-list-tile-action>
+            <v-icon>lock</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Logout</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile router :to="{ name: 'login' }" v-if="!token">
+          <v-list-tile-action>
+            <v-icon>person</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Login</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile router :to="{ name: 'signup' }" v-if="!token">
+          <v-list-tile-action>
+            <v-icon>create</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Sign up</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
       </v-list>
     </v-navigation-drawer>
+
     <v-toolbar color="primary" app fixed clipped-left>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title>BuiltRight</v-toolbar-title>
+      <a router :to="{ name: 'dashboard' }" class="routerlink"><img src="./img/logo-horizontal.png" height="30px"></a>
     </v-toolbar>
+
     <v-content>
       <router-view></router-view>
     </v-content>
-    <v-footer app fixed dark>
-      <span>&copy; 2018</span>
-    </v-footer>
+
+    <v-footer height="auto" class="grey darken-3">
+    <v-layout row wrap justify-center>
+        <a class="routerlink" flat dark href="https://www.reddit.com/builtright"><v-btn color="white" flat>Reddit</v-btn></a>
+        <a class="routerlink" flat dark href="https://www.facebook.com/builtrightapp"><v-btn color="white" flat>Faceboook</v-btn></a>
+        <a class="routerlink" flat dark href="https://www.twitter.com/builtrightapp"><v-btn color="white" flat>Twitter</v-btn></a>
+        <a class="routerlink" flat dark href="https://www.builtrightapp.com/blog"><v-btn color="white" flat>Blog</v-btn></a>
+      <v-flex xs12 py-3 text-xs-center white--text>
+        &copy;2018 — <strong>BuiltRight</strong>
+      </v-flex>
+    </v-layout>
+  </v-footer>
   </v-app>
 </template>
 
@@ -56,6 +93,11 @@ import config from './config'
 
 export default {
   name: 'builtright',
+  data () {
+    return {
+      logo: './img/logo-horizontal.png'
+    }
+  },
   computed: mapState({
     user: state => state.user,
     token: state => state.user.token,
@@ -63,8 +105,7 @@ export default {
   }),
   data() {
     return {
-      drawer: null,
-      show: false
+      drawer: !!this.token
     }
   },
   props: {
@@ -96,4 +137,7 @@ export default {
 
   #app-logo
     margin-top: 5px
+
+  .routerlink
+    text-decoration: none
 </style>
