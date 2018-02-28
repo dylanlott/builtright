@@ -5,12 +5,14 @@ builtrightapp.com www.builtrightapp.com {
     regexp .*
     to {path} /
   }
+
+  proxy /blog localhost:3001
 }
 
 api.builtrightapp.com {
   proxy / localhost:3000
 }
 
-builtright.com/blog {
+blog.builtright.com {
   proxy / localhost:3001
 }
