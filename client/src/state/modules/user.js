@@ -142,8 +142,9 @@ const actions = {
   signup ({commit, state}, user) {
     commit(types.SIGNUP_USER_REQUEST)
     return api.signup(user)
-      .then((user) => {
-        commit(types.SIGNUP_USER_SUCCESS, user)
+      .then((res) => {
+        console.log('got res', res)
+        commit(types.SIGNUP_USER_SUCCESS, res)
         router.push({ name: 'dashboard' })
         return user
       })
