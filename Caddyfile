@@ -10,3 +10,7 @@ builtrightapp.com www.builtrightapp.com {
 api.builtrightapp.com {
   proxy / localhost:3000
 }
+
+builtright.com/blog {
+  proxy / localhost:2368
+}
