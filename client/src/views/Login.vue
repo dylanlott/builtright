@@ -1,8 +1,11 @@
 <template>
-  <v-container fluid grid-list-xl>
-    <v-layout column>
-      <h1>Login to BuiltRight</h1>
-      <LoginForm></LoginForm>
+  <v-container>
+    <v-layout column align-center>
+      <v-flex md6 xs12>
+        <h1>Login to BuiltRight</h1>
+        <v-icon size="60px" class="ma-3">build</v-icon>
+        <LoginForm></LoginForm>
+      </v-flex>
     </v-layout>
   </v-container>
 </template>

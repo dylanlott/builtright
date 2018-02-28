@@ -59,16 +59,27 @@
 
       </v-list>
     </v-navigation-drawer>
+
     <v-toolbar color="primary" app fixed clipped-left>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>BuiltRight</v-toolbar-title>
     </v-toolbar>
+
     <v-content>
       <router-view></router-view>
     </v-content>
-    <v-footer app fixed dark>
-      <span>&copy; 2018</span>
-    </v-footer>
+
+    <v-footer height="auto" class="grey darken-3">
+    <v-layout row wrap justify-center>
+        <v-btn color="white" flat>Reddit</v-btn>
+        <v-btn>Faceboook</v-btn>
+        <v-btn>Twitter</v-btn>
+        <v-btn>Blog</v-btn>
+      <v-flex xs12 py-3 text-xs-center white--text>
+        &copy;2018 — <strong>BuiltRight</strong>
+      </v-flex>
+    </v-layout>
+  </v-footer>
   </v-app>
 </template>
 
