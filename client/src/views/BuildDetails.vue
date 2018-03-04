@@ -37,7 +37,7 @@
         <v-card>
           <v-card-title><h2>Parts and Fabrication</h2></v-card-title>
           <v-card-text>
-            <v-btn class="cyan white--text">
+            <v-btn router :to="{ name: 'addPart', params: { id: details._id }}" class="cyan white--text">
               Add a part
             </v-btn>
           </v-card-text>
@@ -134,10 +134,7 @@ export default {
       this.details._parts.reduce(function(acc, curr) {
         return acc + curr;
       });
-    },
-    addPart: function () {
-      this.$store.dispatch('addPart', this.part, this.details, this.details.id)
-    }
+    } 
   }
 }
 </script>

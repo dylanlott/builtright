@@ -25,14 +25,18 @@
             v-model="part.model"
           ></v-text-field>
 
-          <v-text-field
-            label="Type"
-            v-model="part.type"
-          ></v-text-field>
+          <v-select
+            :items="part_types"
+            v-model="types_selector"
+            label="Part Type"
+            single-line
+            bottom>
+          </v-select>
 
           <v-text-field
             label="Price"
             v-model="part.price"
+            type="number"
           ></v-text-field>
           <v-text-field
             label="Trim"
@@ -55,16 +59,34 @@
 <script>
 import { mapState } from 'vuex'
 import { router } from '../router/index'
+import constants from '../constants'
+
+const types = constants.PART_TYPES
+
 export default {
   name: 'AddPartForm',
   data () {
     return {
+      part_types: [
+        { text: types.forcedInduction },
+        { text: types.suspension },
+        { text: types.body },
+        { text: types.engine },
+        { text: types.transmission },
+        { text: types.wheels },
+        { text: types.exhaust },
+        { text: types.electronics },
+        { text: types.fuel },
+        { text: types.ignition },
+        { text: types.audio }
+      ],
+      types_selector: null,
       part: {
         title: '',
         description: '',
         make: '',
         model: '',
-        type: '',
+        type: null,
         price: '',
         trim: '',
         data: {},
@@ -84,8 +106,8 @@ export default {
         description: part.description,
         make: part.make,
         model: part.model,
-        type: part.type,
-        price: part.price,
+        type: this.types_selector.text,
+        price: parseFloat(part.price),
         trim: part.trim,
         data: {
           build: this.$route.params.id,
@@ -93,10 +115,16 @@ export default {
         url: part.trim
       }
 
-      console.log(_part)
+      const payload = {
+        part: _part,
+        build: this.details._id
+      }
 
-      this.$store.dispatch('addPartToBuild', _part);
+      console.log(payload)
+        
+      this.$store.dispatch('addPartToBuild', payload);
       this.part = {}
+
       router.push({ 
         name: 'buildDetails', 
         params: { id: this.$route.params.id }

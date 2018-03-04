@@ -109,10 +109,11 @@ const actions = {
       .then((response) => commit(types.CREATE_BUILD_SUCCESS, response))
       .catch((err) => commit(types.CREATE_BUILD_FAILURE, err))
   },
-  addPartToBuild ({commit, state}, part) {
+  addPartToBuild ({commit, state}, payload) {
     commit(types.ADD_PART_REQUEST)
-    return builds.addPartToBuild(part.data.build, part)
-      .then((part) => commit(types.ADD_PART_SUCCESS, part))
+    // return builds.addPartToBuild(part.data.build, part)
+    return client.post(`/api/builds/${payload.build}/new`, payload.part)
+      .then((build) => commit(types.ADD_PART_SUCCESS, build))
       .catch((err) => commit(types.ADD_PART_FAILURE, err))
   },
   getPartsForBuild ({commit, state}, id) {
