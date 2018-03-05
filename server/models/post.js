@@ -6,6 +6,13 @@ const mongoosastic = require('mongoosastic');
 
 const Schema = mongoose.Schema;
 
+const StepSchema = new Schema({
+  name: { type: String },
+  description: { type: String },
+  image: { type: String },
+  warnings: { type: String }
+})
+
 const PostSchema = new Schema({
   title: { type: String, unique: true, required: true, es_indexed: true },
   body: { type: String, required: true, es_indexed: true },

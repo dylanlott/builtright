@@ -1,11 +1,8 @@
 <template lang="html">
   <div class="content__bg">
-    <router-link class="routerlink" v-if="details._user._id === user.user_id" :to="{ name: 'addPart' }">
-      
-    </router-link>
-
     <v-container fluid>
       <v-layout column>
+        <v-btn v-if="owner" color="danger">Edit</v-btn>
         <v-card>
           <v-card-media :src="details.display">
             <v-layout column class="media">
@@ -19,7 +16,7 @@
 
         <v-card v-if="details._parts.length > 0">
           <v-list two-line>
-            <v-list-tile v-for="item in details._parts" @click="">
+            <v-list-tile v-for="item in details._parts" router :to="{ name: 'partDetails', params: { id: item._id }}">
               <v-list-tile-action>
                 <v-icon class="darkgrey--text">settings</v-icon>
               </v-list-tile-action>

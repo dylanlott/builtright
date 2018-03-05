@@ -1,22 +1,47 @@
 <template>
-  <div>
-    <div class="secondary__nav">
-      Dashboard / Builds
-    </div>
-    <router-link class="routerlink hidden-xs-only" to="/builds/create">
-      <v-btn floating class="success floating">
-        <v-icon class="white--text">add</v-icon>
-      </v-btn>
-    </router-link>
-    <v-layout row wrap>
-      <v-flex xs12> 
-        View builds from the community
-      </v-flex>
+  <v-container fluid> 
+    <v-layout row wrap justify-space-around>
       <v-flex xs12>
-        <BuildsList :builds="builds.builds" loading="loading"></BuildsList>
+        <v-btn color="accent" router :to="{ name: 'addBuild' }" class="hidden-xs-only">
+          <v-icon class="white--text">add</v-icon>
+        </v-btn>
+      </v-flex>
+      <v-flex xs12 sm5 md5>
+        <v-layout column> 
+          <v-card> <!-- make this into a collapse panel --> 
+            <v-card-title><h3>Filters</h3></v-card-title>
+            <v-flex xs12>
+              <v-select label="Make"></v-select>
+            </v-flex>
+            <v-flex xs12>
+              <v-select label="Model"></v-select>
+            </v-flex>
+            <v-flex xs12>
+              <v-select
+                  label="Engine"
+                  ></v-select>
+            </v-flex>
+            <v-flex xs12>
+              <v-select
+                  label="Class"
+                  ></v-select>
+            </v-flex>
+            <v-flex xs12>
+              <v-select
+                  label="Price"
+                  ></v-select>
+            </v-flex>
+          </v-card>
+        </v-layout>
+      </v-flex>
+      <v-flex xs12 sm7 md6> 
+        <v-card>
+          <v-card-title><h3>Builds</h3></v-card-title>
+          <BuildsList :builds="builds.builds" :loading="builds.loading"></BuildsList>
+        </v-card>
       </v-flex>
     </v-layout>
-  </div>
+  </v-container>
 </template>
 
 <script>

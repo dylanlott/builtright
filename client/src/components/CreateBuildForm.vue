@@ -1,72 +1,66 @@
 <template>
   <v-container class="builds">
-    <v-card> 
-      <h1 class="header">Create A New Build</h1>
+    <v-text-field
+      class="build__input"
+      id="Build Name"
+      name="Build Name"
+      label="Build Name"
+      v-model="build.title"
+      required
+    ></v-text-field>
 
-      <v-container> 
-        <v-text-field
-          class="build__input"
-          id="Build Name"
-          name="Build Name"
-          label="Build Name"
-          v-model="build.title"
-          required
-        ></v-text-field>
+    <v-text-field
+      class="build__input"
+      id="Build make"
+      name="Build make"
+      label="Build make"
+      v-model="build.vehicle.make"
+      required
+    ></v-text-field>
 
-        <v-text-field
-          class="build__input"
-          id="Build make"
-          name="Build make"
-          label="Build make"
-          v-model="build.vehicle.make"
-          required
-        ></v-text-field>
+    <v-text-field
+      class="build__input"
+      id="Build Model"
+      name="Build Model"
+      label="Build Model"
+      v-model="build.vehicle.model"
+      required
+    ></v-text-field>
 
-        <v-text-field
-          class="build__input"
-          id="Build Model"
-          name="Build Model"
-          label="Build Model"
-          v-model="build.vehicle.model"
-          required
-        ></v-text-field>
+    <v-text-field
+      class="build__input"
+      id="Build Year"
+      name="Build Year"
+      label="Build Year"
+      v-model="build.vehicle.year"
+      required
+    ></v-text-field>
 
-        <v-text-field
-          class="build__input"
-          id="Build Year"
-          name="Build Year"
-          label="Build Year"
-          v-model="build.vehicle.year"
-          required
-        ></v-text-field>
+    <v-text-field
+      class="build__input"
+      id="Build Trim"
+      name="Build Trim"
+      label="Build Trim"
+      v-model="build.vehicle.trim"
+      required
+    ></v-text-field>
 
-        <v-text-field
-          class="build__input"
-          id="Build Trim"
-          name="Build Trim"
-          label="Build Trim"
-          v-model="build.vehicle.trim"
-          required
-        ></v-text-field>
-
-        <v-text-field
-          class="build__input"
-          id="Imgur"
-          name="imgur"
-          label="Imgur Link"
-          v-model="build.imgur"
-        ></v-text-field>
-      </v-container>
-      <div>
-        <v-btn 
-          raised 
-          primary
-          @click.native='submit()' 
-          class="build__btn">
-            Create Build
-        </v-btn>
-      </div>
-    </v-card>
+    <v-text-field
+      class="build__input"
+      id="Imgur"
+      name="imgur"
+      label="Imgur Link"
+      v-model="build.imgur"
+    ></v-text-field>
+    <div>
+      <v-btn 
+        raised 
+        color="primary"
+        @click.native='submit()' 
+        class="build__btn">
+          Create Build
+      </v-btn>
+    </div>
   </v-container>
 </template>
 
@@ -114,10 +108,6 @@ export default {
   .builds
     margin-top: 20px
     
-  .header
-    color: charcoal
-    padding: 20px
-
   .input-group label
     color: light-blue
 

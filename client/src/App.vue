@@ -62,7 +62,7 @@
 
     <v-toolbar color="primary" app fixed clipped-left>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <a router :to="{ name: 'dashboard' }" class="routerlink"><img src="./static/img/logo-horizontal.png" height="30px"></a>
+      <img @click="goToDashboard()" src="./static/img/logo-horizontal.png" height="30px">
     </v-toolbar>
 
     <v-content>
@@ -113,7 +113,7 @@ export default {
   methods: {
     goToDashboard () {
       if (this.token) {
-        router.push('dashboard')
+        router.push({ name: 'dashboard' })
       }
     },
     logout () {

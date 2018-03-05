@@ -38,16 +38,18 @@
             v-model="part.price"
             type="number"
           ></v-text-field>
+
           <v-text-field
             label="Trim"
             v-model="part.trim"
           ></v-text-field>
+
           <v-text-field
             label="URL"
             v-model="part.url"
           ></v-text-field>
         </form>
-        <v-btn primary
+        <v-btn color="primary" 
           @click.native="addPart(part)">
           Submit
         </v-btn>
