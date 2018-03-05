@@ -1,6 +1,7 @@
 <template>
   <v-flex>
     <v-container padding>
+      <div v-if="loading">Loading...</div>
       <v-card v-if="!builds">
         <v-card-text>We didn't find any builds. :(</v-card-text>
       </v-card>
@@ -9,7 +10,7 @@
     <v-container>
       <v-card v-for="build in builds">
           <v-flex xs12>
-            <v-card class="blue-grey darken-2 white--text">
+            <v-card dark class="primary white--text">
               <v-card-title primary-title>
                 <div class="headline" v-text="build.title"></div>
                 <div></div>
@@ -39,7 +40,10 @@ const storage = window.localStorage
 
 export default {
   name: 'buildsList',
-  props: ['builds']
+  props: [
+    'builds',
+    'loading'
+  ]
 }
 </script>
 

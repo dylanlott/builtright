@@ -8,6 +8,7 @@ import signup from '../views/SignUp.vue'
 import dashboard from '../views/Dashboard.vue'
 import builds from '../views/Builds.vue'
 import addbuild from '../views/AddBuild.vue'
+import partDetails from '../views/PartDetails.vue'
 import profile from '../views/UserProfile.vue'
 import forgotpassword from '../views/ForgotPassword.vue'
 import buildDetails from '../views/BuildDetails.vue'
@@ -95,6 +96,13 @@ export const router = new VueRouter({
     component: addPart,
     meta: {
       auth: true
+    }
+  }, {
+    path: '/parts/:id',
+    name: 'partDetails',
+    component: partDetails,
+    meta: {
+      auth: false
     }
   }, {
     path: '/posts',

@@ -1,10 +1,10 @@
 <template>
-  <v-layout row wrap class="p-2">
-    <v-flex xs12>
+  <v-layout row justify-space-around wrap class="p-2">
+    <v-flex xs12 sm6>
       <v-container>
-        <v-card-text>
-          <CreateBuildForm></CreateBuildForm>
-        </v-card-text>
+        <v-card>
+            <CreateBuildForm></CreateBuildForm>
+        </v-card>
       </v-container>
     </v-flex>
   </v-layout>

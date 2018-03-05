@@ -40,6 +40,17 @@ services:
       - /opt/builtright/blog:/var/lib/ghost/content
     restart: always
 
+    services:
+
+  mongo-backup:
+    image: "istepanov/mongodump:3.4"
+    volumes:
+      - mongo-backup:/backup
+    environment:
+      CRON_SCHEDULE: '0 1 * * *'
+    depends_on:
+      - mongo
+
 volumes:
   mongodb_master_data:
     driver: local

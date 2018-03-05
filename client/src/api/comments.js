@@ -15,7 +15,6 @@ export default {
    * @return {type}    returns an axios promise
    */
   getComments (resource, id) {
-    console.log('getComments: ', resource, id)
     return axios.get(`/api/${resource}/${id}`)
       .then((res) => res.data)
       .catch((err) => err)

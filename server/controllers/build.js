@@ -36,6 +36,10 @@ exports.list = (req, res) => {
   const limit = parseInt(req.query.limit) || 50
   const sort = parseInt(req.query.sort) || -1
 
+  if (req.query.user_id) {
+
+  }
+
   return Build.find(req.query)
     .populate('_user')
     .populate('_user', '-password')
@@ -118,11 +122,16 @@ exports.addComment = (req, res) => {
 
 // create a new Part and add it to the build
 exports.addPart = (req, res) => {
+  console.log('adding part', req.body)
+
+  console.log(req.body.price)
+
   const part = new Part(req.body)
   return part.save()
     .then(part => {
       Build.findById(req.params.id)
         .then((build) => {
+          console.log('found build by params id ', req.params.id);
           build._parts.push(part._id)
           log.info('added part to build', part, build);
           build.save()
