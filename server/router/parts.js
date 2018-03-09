@@ -10,5 +10,6 @@ router.post('/', parts.createPart);
 router.get('/:id', parts.getPart);
 router.put('/:id', parts.updatePart);
 router.delete('/:id', parts.deletePart);
+router.post('/:id/comment', parts.addComment);
 
 module.exports = router;
