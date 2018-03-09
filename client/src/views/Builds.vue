@@ -2,35 +2,50 @@
   <v-container fluid> 
     <v-layout row wrap justify-space-around>
       <v-flex xs12>
-        <v-btn color="accent" router :to="{ name: 'addBuild' }" class="hidden-xs-only">
-          <v-icon class="white--text">add</v-icon>
-        </v-btn>
+        <v-tooltip top>
+          <v-btn slot="activator" color="accent" fab floating router :to="{ name: 'addBuild' }" class="hidden-xs-only">
+            <v-icon class="white--text">add</v-icon>
+          </v-btn>
+          Add A Build
+        </v-tooltip>
       </v-flex>
       <v-flex xs12 sm5 md5>
         <v-layout column> 
           <v-card> <!-- make this into a collapse panel --> 
-            <v-card-title><h3>Filters</h3></v-card-title>
-            <v-flex xs12>
-              <v-select label="Make"></v-select>
-            </v-flex>
-            <v-flex xs12>
-              <v-select label="Model"></v-select>
-            </v-flex>
-            <v-flex xs12>
-              <v-select
+            <v-container>
+              <v-card-title><h3>Filters</h3></v-card-title>
+              <v-flex xs12>
+                <v-select 
+                  v-model="query.make" 
+                  label="Make" 
+                  :items="makes" 
+                ></v-select>
+              </v-flex>
+              <v-flex xs12>
+                <v-select 
+                  v-model="query.model" 
+                  label="Model">
+                </v-select>
+              </v-flex>
+              <v-flex xs12>
+                <v-select
+                  v-model="query.engine"
                   label="Engine"
                   ></v-select>
-            </v-flex>
-            <v-flex xs12>
-              <v-select
-                  label="Class"
+              </v-flex>
+              <v-flex xs12>
+                <v-select
+                  v-model="query.tags"
+                  label="Tags"
                   ></v-select>
-            </v-flex>
-            <v-flex xs12>
-              <v-select
-                  label="Price"
-                  ></v-select>
-            </v-flex>
+              </v-flex>
+              <v-flex xs12>
+                <v-text-field
+                  v-model="query.keywords"
+                  label="Keywords (comma separated)"
+                  ></v-text-field>
+              </v-flex>
+            </v-container>
           </v-card>
         </v-layout>
       </v-flex>
@@ -47,14 +62,21 @@
 <script>
 import BuildsList from '../components/BuildsList.vue'
 import { mapState } from 'vuex'
+import constants from '../constants'
 
 export default {
   data () {
     return {
       query: {
         limit: 50,
-        skip: 0
-      }
+        skip: 0,
+        make: null,
+        model: null,
+        engine: null,
+        tags: null,
+        keywords: null
+      },
+      makes: constants.AUTO_MAKES
     }
   },
   computed: mapState({

@@ -1,9 +1,10 @@
 <template>
-  <v-layout row justify-space-around wrap class="p-2">
+  <v-layout align-center justify-space-around wrap class="pa-2">
     <v-flex xs12 sm6>
       <v-container>
         <v-card>
-            <CreateBuildForm></CreateBuildForm>
+          <h3 class="display-2"><v-icon size="36px">settings</v-icon> Add a build</h3>
+          <CreateBuildForm></CreateBuildForm>
         </v-card>
       </v-container>
     </v-flex>
