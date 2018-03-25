@@ -38,7 +38,6 @@ const mutations = {
   [types.ADD_PART_SUCCESS] (state, part) {
     state.loading = false
     state.success = true
-    console.log('pushed part', part.part)
     state.parts.push(part.part)
     state.errors = ''
   },

@@ -68,6 +68,9 @@ const actions = {
       payload)
       .then((res) => commit(types.ADD_COMMENT_SUCCESS, res.data))
       .catch((err) => commit(types.ADD_COMMENT_FAILURE, err))
+  },
+
+  deleteComment ({ commit }, id) {
   }
 }
 

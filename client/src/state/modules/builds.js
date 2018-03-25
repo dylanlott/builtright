@@ -111,7 +111,6 @@ const actions = {
   },
   addPartToBuild ({commit, state}, payload) {
     commit(types.ADD_PART_REQUEST)
-    // return builds.addPartToBuild(part.data.build, part)
     return client.post(`/api/builds/${payload.build}/new`, payload.part)
       .then((res) => commit(types.ADD_PART_SUCCESS, res.data))
       .catch((err) => commit(types.ADD_PART_FAILURE, err))
