@@ -50,7 +50,6 @@ const mutations = {
     state.loading = false
     state.success = true
     state.builds.push(build)
-    console.log('create build success', state.builds)
   },
   [types.CREATE_BUILD_FAILURE] (state, errors) {
     state.loading = false
@@ -64,7 +63,8 @@ const mutations = {
   [types.ADD_PART_SUCCESS] (state, part) {
     state.loading = false
     state.success = true
-    state.part = part
+    state.details._parts.push(part)
+    console.log(state.details._parts)
   },
   [types.ADD_PART_FAILURE] (state, errors) {
     state.loading = false
@@ -111,9 +111,8 @@ const actions = {
   },
   addPartToBuild ({commit, state}, payload) {
     commit(types.ADD_PART_REQUEST)
-    // return builds.addPartToBuild(part.data.build, part)
     return client.post(`/api/builds/${payload.build}/new`, payload.part)
-      .then((build) => commit(types.ADD_PART_SUCCESS, build))
+      .then((res) => commit(types.ADD_PART_SUCCESS, res.data))
       .catch((err) => commit(types.ADD_PART_FAILURE, err))
   },
   getPartsForBuild ({commit, state}, id) {

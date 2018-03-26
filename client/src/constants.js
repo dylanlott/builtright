@@ -11,6 +11,20 @@ export default {
     fuel: 'fuel',
     ignition: 'ignition',
     audio: 'audio'
-  }
+  },
+  AUTO_MAKES: [
+    'Chevy',
+    'Ford',
+    'Jeep',
+    'Chrysler',
+    'Geo',
+    'Honda',
+    'Toyota',
+    'Subaru',
+    'Scion',
+    'Pontiac',
+    'Mazda',
+    'Mitsubishi'
+  ]
 }
 

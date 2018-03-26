@@ -38,13 +38,28 @@ const mutations = {
   [types.ADD_PART_SUCCESS] (state, part) {
     state.loading = false
     state.success = true
-    state.parts.push(part)
+    state.parts.push(part.part)
     state.errors = ''
   },
   [types.ADD_PART_FAILURE] (state, errors) {
     state.loading = false
     state.success = false
     state.errors = errors
+  },
+  [types.GET_PARTS_DETAILS_REQUEST] (state) {
+    state.loading = true
+    state.success = false
+    state.errors = null
+  },
+  [types.GET_PARTS_DETAILS_SUCCESS] (state, data) {
+    state.success = true
+    state.loading = false
+    state.details = data
+  },
+  [types.GET_PARTS_DETAILS_FAILURE] (state, err) {
+    state.loading = false
+    state.success = false
+    state.errors = err
   }
 }
 

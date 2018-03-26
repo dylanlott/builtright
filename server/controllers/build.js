@@ -36,10 +36,6 @@ exports.list = (req, res) => {
   const limit = parseInt(req.query.limit) || 50
   const sort = parseInt(req.query.sort) || -1
 
-  if (req.query.user_id) {
-
-  }
-
   return Build.find(req.query)
     .populate('_user')
     .populate('_user', '-password')
@@ -48,7 +44,8 @@ exports.list = (req, res) => {
     .skip(skip)
     .then((data) => {
       return res.status(200).json(data);
-    });
+    })
+    .catch((err) => res.status(500).send(err));
 }
 
 exports.detail = (req, res) => {
@@ -122,21 +119,19 @@ exports.addComment = (req, res) => {
 
 // create a new Part and add it to the build
 exports.addPart = (req, res) => {
-  console.log('adding part', req.body)
-
-  console.log(req.body.price)
-
-  const part = new Part(req.body)
-  return part.save()
+  const _part = new Part(req.body)
+  return _part.save()
     .then(part => {
       Build.findById(req.params.id)
         .then((build) => {
-          console.log('found build by params id ', req.params.id);
           build._parts.push(part._id)
-          log.info('added part to build', part, build);
           build.save()
             .then((build) => {
-              return res.status(201).json(build);
+              log.info('added part to build', part, build);
+              return res.status(201).json({
+                build,
+                part
+              });
             })
         })
     })
@@ -197,7 +192,10 @@ exports.upvote = (req, res) => {
       vote.addUpvote(build, req.user._id);
 
       return build.save()
-        .then(updated => res.status(201).json(updated));;
+        .then(updated => {
+          log.info('upvoted build', build._id);
+          return res.status(201).json(updated)
+        })
     })
     .catch(err => logger.error('Error upvoting post', err));
 }

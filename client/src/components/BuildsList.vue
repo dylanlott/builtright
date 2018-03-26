@@ -19,11 +19,9 @@
                 <div class="light-2" v-text="build.vehicle.make"></div>
               </v-card-text>
               <v-card-actions>
-                <router-link class="router" :to="{ name: 'buildDetails', params: { id: build.slug }}">
-                  <v-btn flat dark> View details
-                    <v-icon>details</v-icon> 
-                  </v-btn>
-                </router-link> 
+                <v-btn flat dark router :to="{ name: 'buildDetails', params: { id: build.slug }}"> View details
+                  <v-icon>details</v-icon> 
+                </v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>

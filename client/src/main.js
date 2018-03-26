@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import Vuetify from 'vuetify'
+import Buefy from 'buefy'
 import {router} from './router/index.js'
 import store from './state/index.js'
 import user from './api/user'
@@ -10,10 +11,12 @@ import config from './config'
 import user from './api/user'
 import Gravatar from 'vue-gravatar'
 import VueMoment from 'vue-moment'
+import 'buefy/lib/buefy.css'
 
 Vue.component('v-gravatar', Gravatar);
 Vue.use(VueSweetAlert)
 Vue.use(VueMoment)
+Vue.use(Buefy)
 Vue.config.productionTip = false
 Vue.use(Vuetify, {
   theme: {
