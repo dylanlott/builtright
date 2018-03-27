@@ -32,7 +32,7 @@
           </v-list-tile-content>
         </v-list-tile>
         <v-divider></v-divider>
-        <v-list-tile v-if="token" @click="logout()">
+        <v-list-tile v-if="token" router :to="{name: 'profile'}">
           <v-list-tile-action>
             <v-icon>lock</v-icon>
           </v-list-tile-action>

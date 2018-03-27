@@ -9,6 +9,7 @@
             label="Email"
             v-model="user.email"
             prepend-icon="account_circle"
+            @keyup.enter="submit()"
             required
           ></v-text-field>
           <v-text-field
@@ -19,6 +20,7 @@
             v-model="user.password"
             min="8"
             prepend-icon="lock"
+            @keyup.enter="submit()"
             required
           ></v-text-field>
             <v-btn 
