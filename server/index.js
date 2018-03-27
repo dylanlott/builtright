@@ -1,5 +1,4 @@
 require('dotenv').config();
-const pm2GUI = require('pm2-gui');
 const express = require('express');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
