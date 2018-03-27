@@ -52,5 +52,8 @@ server/flightplan.js
 # Optional REPL history
 .node_repl_history
 
+# Blog 
+/blog
+
 # IDE
 .idea/
