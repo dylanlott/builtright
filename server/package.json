@@ -38,6 +38,7 @@
     "passport": "^0.3.2",
     "passport-jwt": "^2.0.0",
     "passport-local": "^1.0.0",
+    "pm2-gui": "^0.1.4",
     "restful-mongoose": "^1.0.1",
     "sendgrid": "^4.7.1",
     "slug": "^0.9.1",
