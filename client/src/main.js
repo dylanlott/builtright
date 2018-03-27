@@ -38,7 +38,7 @@ router.beforeEach((to, from, next) => {
     return next({ path: '/login' })
   }
 
-  (to.meta.auth && !user.checkAuth() && user.checkAuth() !== undefined)
+  (to.meta.auth && !user.checkAuth())
     ? next({ path: '/login' })
     : next(true)
 })

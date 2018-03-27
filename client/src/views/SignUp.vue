@@ -2,7 +2,7 @@
   <v-container>
     <v-layout column align-center>
       <v-flex xs12 sm6>
-        <h1 class="white--text">Sign up for BuiltRight</h1>
+        <h1>Sign up for BuiltRight</h1>
         <SignUpForm></SignUpForm>
       </v-flex>
     </v-layout>

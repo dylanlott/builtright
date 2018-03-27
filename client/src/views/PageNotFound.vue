@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1 style="color: #fff">404 Page not available</h1>
-    <p style="color: #fff">
+    <h1>404 Page not available</h1>
+    <p>
       {{message}}
     </p>
   </div>

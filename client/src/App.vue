@@ -32,7 +32,7 @@
           </v-list-tile-content>
         </v-list-tile>
         <v-divider></v-divider>
-        <v-list-tile v-if="token" @click="logout()">
+        <v-list-tile v-if="token" router :to="{name: 'profile'}">
           <v-list-tile-action>
             <v-icon>lock</v-icon>
           </v-list-tile-action>
@@ -83,7 +83,7 @@
         <a class="routerlink" flat dark href="https://www.reddit.com/builtright"><v-btn color="white" flat>Reddit</v-btn></a>
         <a class="routerlink" flat dark href="https://www.facebook.com/builtrightapp"><v-btn color="white" flat>Faceboook</v-btn></a>
         <a class="routerlink" flat dark href="https://www.twitter.com/builtrightapp"><v-btn color="white" flat>Twitter</v-btn></a>
-        <a class="routerlink" flat dark href="https://www.builtrightapp.com/blog"><v-btn color="white" flat>Blog</v-btn></a>
+        <a class="routerlink" flat dark href="https://blog.builtrightapp.com/"><v-btn color="white" flat>Blog</v-btn></a>
       <v-flex xs12 py-3 text-xs-center white--text>
         &copy;2018 — <strong>BuiltRight</strong>
       </v-flex>

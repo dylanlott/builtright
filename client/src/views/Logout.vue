@@ -10,7 +10,7 @@ import { router } from '../router'
 export default {
   name: 'logout',
   created () {
-    setInterval(function () {
+    setTimeout(function () {
       router.push({ name: 'landing' })
     }, 3000)
   }

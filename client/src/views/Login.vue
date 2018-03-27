@@ -23,9 +23,7 @@ import {router} from '../router/index.js'
       }
     },
     created () {
-      if (user.checkAuth()) {
-        router.push('dashboard')
-      }
+      if (user.checkAuth()) return router.push('dashboard')
     },
     components: { LoginForm }
   }
