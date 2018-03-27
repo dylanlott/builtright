@@ -69,8 +69,6 @@ import user from '../api/user'
 import { router } from '../router/index'
 import { mapState } from 'vuex'
 
-const storage = window.localStorage
-
 export default {
   data () {
     return {

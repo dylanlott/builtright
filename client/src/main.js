@@ -34,10 +34,12 @@ axios.defaults.baseURL = config.API_URL
 axios.defaults.headers.common['Authorization'] = user.getToken();
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.admin && !user.checkRole('admin')) next({ path: '/login' });
+  if (to.meta.admin && !user.checkRole('admin')) {
+    return next({ path: '/login' })
+  }
 
   (to.meta.auth && !user.checkAuth() && user.checkAuth() !== undefined)
-    ? next({path: '/login'})
+    ? next({ path: '/login' })
     : next(true)
 })
 

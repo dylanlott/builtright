@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire" dark>
+  <v-app id="inspire">
     <v-navigation-drawer
       clipped
       fixed
@@ -69,7 +69,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-toolbar color="primary" app fixed clipped-left>
+    <v-toolbar color="grey darken-4" dark app fixed clipped-left>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <img @click="goToDashboard()" src="./static/img/logo-horizontal.png" height="30px">
     </v-toolbar>
