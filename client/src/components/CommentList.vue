@@ -12,16 +12,22 @@
             <v-list-tile-text class="detail-text">
               {{user.email}} on {{comment.createdAt | moment("DD-MMM-YY")}}
             </v-list-tile-text>
-            <v-list-tile-text>{{ comment.text }}</v-list-tile-text>
+            <v-list-tile-text v-html="markdown(comment.text)"></v-list-tile-text>
           </v-list-tile-content>
         </v-list-tile>
-        <!-- <v-list-tile-action>
-          <v-icon @click.native=""
-            class="red--text text--lighten-1"
+        <v-list-tile-action>
+          <v-btn 
+            @click.native="deleteComment(comment._id)" 
+            class="delete" 
+            icon 
+            small 
+            color="error"
+          ><v-icon small 
             v-if="user.user_id === comment._user">
               delete
-          </v-icon>
-        </v-list-tile-action> -->
+            </v-icon>
+          </v-btn>
+        </v-list-tile-action>
       </v-list>
     </v-list>
   </v-card>
@@ -29,6 +35,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import marked from 'marked'
 
 export default {
   name: 'comment-list',
@@ -42,7 +49,12 @@ export default {
     user: state => state.user
   }),
   methods: {
-    formatDate (data) {
+    markdown (text) {
+      return marked(text, { sanitize: true })
+    },
+    deleteComment (id) {
+      console.log('deleting comment', id)
+      return this.$store.dispatch('deleteComment', id)
     }
   }
 }
@@ -62,4 +74,7 @@ export default {
 
 .comment-list
   margin: 0px 0px !important
+
+.delete
+  margin: 0px 0px 0px 15px
 </style>

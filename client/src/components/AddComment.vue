@@ -8,11 +8,11 @@
           label="Add a comment"
           v-model="comment.text"
           multi-line
+          @keyup.enter="submitComment()"
         ></v-text-field>
-
         <v-btn primary dark @click.native="submitComment()" class="white--text">Submit</v-btn>
         <div class="preview">
-        <v-card class="grey darken-1">
+        <v-card dark class="grey darken-1">
           <v-card-title>Preview</v-card-title>
           <v-card-text v-html="compiledMarkdown()" class="preview"></v-card-text>
         </v-card>
@@ -48,6 +48,7 @@ export default {
       return marked(this.comment.text, { sanitize: true })
     },
     submitComment () {
+      console.log(this.comment.text)
       const _comment = {
         text: this.comment.text,
         _user: this.user.user_id,

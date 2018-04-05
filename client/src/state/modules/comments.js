@@ -70,7 +70,10 @@ const actions = {
       .catch((err) => commit(types.ADD_COMMENT_FAILURE, err))
   },
 
-  deleteComment ({ commit }, id) {
+  deleteComment ({ commit, state }, id) {
+    return api.delete(`/api/comments/${id}`)
+      .then((res) => res)
+      .catch((err) => console.error('error deleting comment', err))
   }
 }
 
