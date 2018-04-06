@@ -76,6 +76,7 @@ exports.comment = (req, res) => {
 exports.upvote = (req, res) => {
   return Post.findById(req.params.id)
     .then(post => {
+      console.log('#### POST', post)
       utils.upvote(post, req.user._id);
       return post.save()
         .then(post => res.status(201).json(post));

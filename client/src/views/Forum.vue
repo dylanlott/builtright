@@ -1,11 +1,40 @@
 <template lang="html">
   <div>
-    <v-container flex>
-      <router-link :to="{ name: 'addPost' }" class="routerlink">
-        <v-btn fab light v-tooltip:top="{ html: 'Write A Forum Post' }" name="addPost" raised floating class="cyan lighten-2 floating">
-          <v-icon class="white--text">create</v-icon>
-        </v-btn>
-      </router-link>
+      <v-layout column>
+        <v-flex>
+          <v-btn 
+            fab 
+            top
+            name="addPost" 
+            style="z-index: 9999;"
+            :to="{ name: 'addPost' }" 
+            class="cyan lighten-2 floating"
+            ><v-icon class="white--text">create</v-icon>
+          </v-btn>
+        </v-flex>
+        <v-flex class="posts">
+            <v-card>
+              <v-toolbar color="primary" dark>
+                <v-toolbar-side-icon></v-toolbar-side-icon>
+                <v-toolbar-title>Posts & Discussion</v-toolbar-title>
+              </v-toolbar>
+              <v-list three-line>
+                <template v-for="(item, index) in posts">
+                  <v-list-tile avatar :key="item.title" :to="{ name: 'postDetail', params: { id: item.slug }}"> 
+                    <v-list-tile-content>
+                      <v-list-tile-title v-html="item.title"></v-list-tile-title>
+                      <v-list-tile-sub-title class="subtitle" v-html="item.body"></v-list-tile-sub-title>
+                      <v-list-tile-sub-title class="small--text">
+                        posted by {{ item._user.email }}
+                      </v-list-tile-sub-title>
+                    </v-list-tile-content>
+                  </v-list-tile>
+                  <v-divider></v-divider>
+                </template>
+              </v-list>
+              </v-card>
+        </v-flex>
+      </v-layout>
 
       <!-- <v-expansion-panel>
         <v-expansion-panel-content>
@@ -50,27 +79,6 @@
           </v-card>
         </v-expansion-panel-content>
       </v-expansion-panel> -->
-
-      <div class="posts">
-        <div v-if="!(posts.data)">
-          <p style="color: #fff">There are no posts to show here.</p>
-        </div>
-        <div v-for="item in posts">
-          <router-link :to="{ name: 'postDetail', params: { id: item.slug }}">
-            <div class="post-list elevation-1">
-              <v-list two-line class="post-list">
-                <v-list-tile>
-                  <v-list-tile-content>
-                    <v-list-tile-title v-html="item.title" />
-                    <v-list-tile-sub-title v-html="item.text" />
-                  </v-list-tile-content>
-                </v-list-tile>
-              </v-list>
-            </div>
-          </router-link>
-        </div>
-      </div>
-    </v-container>
   </div>
 </template>
 
@@ -104,4 +112,9 @@ export default {
 .post-list
   margin: 0px 0px !important
 
+.small--text
+  font-size: 10px
+
+.subtitle
+  font-size:12px
 </style>

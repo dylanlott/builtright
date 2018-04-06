@@ -75,6 +75,18 @@ const mutations = {
     state.loading = false
     state.success = false
     state.errors = err
+  },
+  [types.UPVOTE_POST_SUCCESS] (state, post) {
+    state.postDetails = post
+  },
+  [types.UPVOTE_POST_FAILURE] (state, err) {
+    state.errors = err.message
+  },
+  [types.DOWNVOTE_POST_SUCCESS] (state, post) {
+    state.postDetails = post
+  },
+  [types.DOWNVOTE_POST_FAILURE] (state, err) {
+    state.errors = err.message
   }
 }
 
@@ -140,6 +152,18 @@ const actions = {
     return posts.comment(id, comment)
       .then((res) => commit(types.ADD_COMMENT_SUCCESS))
       .catch((err) => commit(types.ADD_COMMENT_FAILURE, err))
+  },
+
+  upvotePost ({ commit }, id) {
+    return client.post(`/api/posts/${id}/upvote`)
+      .then((res) => commit(types.UPVOTE_POST_SUCCESS, res.data))
+      .catch((err) => commit(types.UPVOTE_POST_FAILURE, err))
+  },
+
+  downvotePost ({ commit }, id) {
+    return client.post(`/api/posts/${id}/downvote`)
+      .then((res) => commit(types.UPVOTE_POST_SUCCESS, res.data))
+      .catch((err) => commit(types.UPVOTE_POST_FAILURE, err))
   }
 }
 
@@ -149,6 +173,18 @@ const getters = {
   },
   flaggedPosts: state => {
     return state.posts.filter((post) => post.flagged)
+  },
+  upvotes: state => {
+    if (!!state._upvotes) {
+      return state._upvotes.length
+    }
+    return 0
+  },
+  downvotes: state => {
+    if (!!state._downvotes) {
+      return state._downvotes.length
+    }
+    return 0
   }
 }
 

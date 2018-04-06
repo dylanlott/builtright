@@ -18,18 +18,20 @@ plan.local('secrets', function (local) {
 });
 
 plan.remote('deploy', function (remote) {
+  // remote.with('cd /opt/builtright', function () {
+  //   remote.exec('git pull http master');
+  //   remote.exec('docker-compose up --build -d server');
+  // });
+
+  // // deploy client
+  // remote.with('cd /opt/builtright/client', function () {
+  //   remote.exec('npm install')
+  //   remote.exec('npm rebuild')
+  //   remote.exec('npm run build')
+  // });
   remote.with('cd /opt/builtright', function () {
-    remote.exec('git pull http master');
-    remote.exec('docker-compose up --build -d server');
+    remote.exec('./deploy.sh');
   });
-
-  // deploy client
-  remote.with('cd /opt/builtright/client', function () {
-    remote.exec('npm install')
-    remote.exec('npm rebuild')
-    remote.exec('npm run build')
-  });
-
   remote.exec('docker ps');
   remote.log('#### DEPLOY SUCCESSFUL ####');
 });

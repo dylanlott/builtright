@@ -26,7 +26,8 @@ const UserSchema = new Schema({
     firstName: { type: String },
     lastName: { type: String },
     location: { type: String },
-    flair: [{ type: String }]
+    flair: [{ type: String }],
+    username: { type: String }
   },
   role: {
     type: String,

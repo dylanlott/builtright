@@ -1,8 +1,9 @@
 <template lang="html">
   <v-container fluid>
     <v-layout row>
-      <v-btn router :to="{ name: 'forum' }">
-        <v-icon dark>arrow_left</v-icon> Back to forum</v-btn>
+      <v-btn dark color="grey" router :to="{ name: 'forum' }">
+        <v-icon dark>arrow_left</v-icon> Back to forum
+      </v-btn>
     </v-layout>
     <v-layout column>
       <v-flex xs12>
@@ -19,10 +20,12 @@
             </v-layout>
           </v-card-text>
           <v-card-actions>
-            <v-btn @click="">{{ details._downvotes.length }}
-              Downvote
+            <v-btn @click="downvote(details._id)">{{ details._downvotes.length }}
+              <v-icon>keyboard_arrow_down</v-icon>
             </v-btn>
-            <v-btn @click="">{{ details._upvotes.length}} upvote</v-btn>
+            <v-btn @click="upvote(details._id)">{{ details._upvotes.length}}
+              <v-icon>keyboard_arrow_up</v-icon>
+            </v-btn>
           </v-card-actions>
         </v-card>
 
@@ -57,6 +60,12 @@ export default {
       if (data) {
         return marked(data, { sanitize: true })
       }
+    },
+    downvote (id) {
+      this.$store.dispatch('downvotePost', id)
+    },
+    upvote (id) {
+      this.$store.dispatch('upvotePost', id)
     }
   },
   components: {
