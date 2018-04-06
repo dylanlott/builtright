@@ -11,9 +11,11 @@ import config from './config'
 import user from './api/user'
 import Gravatar from 'vue-gravatar'
 import VueMoment from 'vue-moment'
+import InputTag from 'vue-input-tag'
 import 'buefy/lib/buefy.css'
 
 Vue.component('v-gravatar', Gravatar);
+Vue.component('input-tag', InputTag);
 Vue.use(VueSweetAlert)
 Vue.use(VueMoment)
 Vue.use(Buefy)

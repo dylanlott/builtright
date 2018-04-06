@@ -21,7 +21,7 @@ const PostSchema = new Schema({
   category: { type: String },
   build: { type: Schema.Types.ObjectId, ref: 'Build' },
   type: { type: String, enum: ["blog", "forum", "guide"]},
-  steps: [{ type: Schema.Types.Mixed }],
+  steps: [ StepSchema ],
   slug: { type: String, unique: true },
   tags: [{ type: String, es_indexed: true }],
   _user: { type: Schema.Types.ObjectId, ref: 'User', required: true },

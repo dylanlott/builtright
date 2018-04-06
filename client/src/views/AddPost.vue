@@ -9,31 +9,32 @@
           <v-card-text class="subheading grey--text">
             Post a question, a discussion topic, whatever is on your mind, share it!
           </v-card-text>
-          <div class="addpart__form">
-            <form>
-              <v-card-row>
+            <v-container>
+              <v-form>
                 <v-text-field
                   id="postTitle"
                   name="postTitle"
                   label="Post Title"
                   v-model="post.title"
-                  class="form__title"
                 ></v-text-field>
-              </v-card-row>
-              <v-card-row>
                 <v-text-field
                  name="postBody"
                  label="Body"
                  v-model="post.body"
                  multi-line
                 ></v-text-field>
-              </v-card-row>
-            </form>
-          </div>
-          <v-card-row actions>
+                <v-layout column>
+                  <div class="grey--text darken-1 left-align">Tags (separate with commas)</div>
+                  <input-tag :tags.sync="post.tags"></input-tag>
+                </v-layout>
+              </v-form>
+            </v-container>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
             <v-btn flat class="primary--text" @click.native="goToForum()">Cancel</v-btn>
             <v-btn flat v-on:click.native="submit()" class="primary--text">Submit</v-btn>
-          </v-card-row>
+          </v-card-actions>
         </v-card>
       </v-flex>
     </v-layout>
@@ -53,8 +54,9 @@ export default {
       modal: false,
       post: {
         title: '',
-        body: ''
-      }
+        body: '',
+        tags: []
+      },
     }
   },
   computed: mapState({
@@ -66,9 +68,7 @@ export default {
     },
     submit () {
       this.post.type = 'forum'
-      console.log('post: ', this.post)
       this.$store.dispatch('createPost', this.post)
-      //fire off toast
     }
   }
 }
