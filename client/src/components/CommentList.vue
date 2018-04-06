@@ -12,14 +12,16 @@
             <v-list-tile-text class="detail-text">
               {{user.email}} on {{comment.createdAt | moment("DD-MMM-YY")}}
             </v-list-tile-text>
-            <v-list-tile-text v-html="markdown(comment.text)"></v-list-tile-text>
+            <v-list-tile-text class="html" v-html="markdown(comment.text)"></v-list-tile-text>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile-action>
+          <v-spacer></v-spacer>
           <v-btn 
             @click.native="deleteComment(comment._id)" 
             class="delete" 
             icon 
+            outline
             small 
             color="error"
           ><v-icon small 
@@ -75,6 +77,10 @@ export default {
 .comment-list
   margin: 0px 0px !important
 
+.html
+  margin: 5px
+  padding: 5px
+
 .delete
-  margin: 0px 0px 0px 15px
+  margin-right: 20px
 </style>

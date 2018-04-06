@@ -84,7 +84,7 @@
         <a class="routerlink" flat dark href="https://www.facebook.com/builtrightapp"><v-btn color="white" flat>Faceboook</v-btn></a>
         <a class="routerlink" flat dark href="https://www.twitter.com/builtrightapp"><v-btn color="white" flat>Twitter</v-btn></a>
         <a class="routerlink" flat dark href="https://blog.builtrightapp.com/"><v-btn color="white" flat>Blog</v-btn></a>
-      <v-flex xs12 py-3 text-xs-center white--text>
+      <v-flex xs12 py-3 text-small text-xs-center white--text>
         &copy;2018 — <strong>BuiltRight</strong>
       </v-flex>
     </v-layout>

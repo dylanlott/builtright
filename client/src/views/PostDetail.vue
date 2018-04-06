@@ -20,10 +20,10 @@
             </v-layout>
           </v-card-text>
           <v-card-actions>
-            <v-btn @click="downvote(details._id)">{{ details._downvotes.length }}
+            <v-btn color="info"  @click="downvote(details._id)">{{ details._downvotes.length }}
               <v-icon>keyboard_arrow_down</v-icon>
             </v-btn>
-            <v-btn @click="upvote(details._id)">{{ details._upvotes.length}}
+            <v-btn color="info" @click="upvote(details._id)">{{ details._upvotes.length}}
               <v-icon>keyboard_arrow_up</v-icon>
             </v-btn>
           </v-card-actions>
