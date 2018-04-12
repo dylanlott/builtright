@@ -21,3 +21,18 @@ Alternatively, you could use the flightplan.js deploy script that has been inclu
 - [ ] front end MVP 
 - [ ] build timelines 
 - [ ] SSL Termination 
+
+# API Documentation 
+
+## Builds Endpoint
+
+This is the real focus point of this API. Most resources tie back into the `builds` endpoint in some way or another. 
+
+*RESOURCE*
+GET `/api/builds` 
+
+*PARAMS*
+- minYear (integer)
+- maxYear (integer)
+
+

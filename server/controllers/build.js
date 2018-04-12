@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const moment = require('moment');
 const Build = require('../models/build.js');
 const Comment = require('../models/comment.js');
 const Part = require('../models/part.js');
@@ -35,11 +36,16 @@ exports.list = (req, res) => {
   const skip = parseInt(req.query.skip) || 0
   const limit = parseInt(req.query.limit) || 50
   const sort = parseInt(req.query.sort) || -1
+  const year = moment().year()
+  const maxYear = parseInt(req.query.maxYear) || year
+  const minYear = parseInt(req.query.minYear) || 0
 
-  return Build.find(req.query)
-    .populate('_user')
+  return Build.find()
+    //.where('vehicle.year').gte(minYear).lte(maxYear)
+    // .where('vehicle.make', req.query.make || '')
+    // .where('vehicle.model', req.query.model || '')
+    .in('keywords', req.query.keywords || [])
     .populate('_user', '-password')
-    .where('hidden').equals('false')
     .limit(limit)
     .skip(skip)
     .then((data) => {

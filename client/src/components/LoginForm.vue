@@ -56,7 +56,7 @@ export default {
         email: this.user.email,
         password: this.user.password
       }
-      this.$store.dispatch('loginUser', user)
+      this.$ga.event('authentication', 'login', 'app', 0)
     }
   }
 }

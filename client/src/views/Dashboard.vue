@@ -16,9 +16,9 @@
               <v-card v-for="build in builds">
                 <v-card-title>{{ build.title }}</v-card-title>
                 <v-card-actions>
-                  <v-btn router :to="{ name: 'buildDetails', params: { id: build._id }}">View</v-btn>
+                  <v-btn icon router :to="{ name: 'buildDetails', params: { id: build._id }}"><v-icon>more</v-icon></v-btn>
                   <v-spacer></v-spacer>
-                  <v-btn color="red">Delete</v-btn>
+                  <v-btn icon color="red" dark><v-icon>delete</v-icon></v-btn>
                 </v-card-actions>
               </v-card>
             </v-card>

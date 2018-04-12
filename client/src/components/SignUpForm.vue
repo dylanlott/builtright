@@ -74,6 +74,12 @@ export default {
 
       if (this.user.password === this.user.confirmPassword) {
         this.$store.dispatch('signup', user) 
+        this.$ga.event({
+          eventCategory: 'users',
+          eventAction: 'sign up',
+          eventLabel: 'app',
+          eventValue: 0
+        })
       }
 
       if (this.user.password !== this.user.confirmPassword)  {
