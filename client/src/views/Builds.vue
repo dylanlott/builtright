@@ -1,13 +1,17 @@
 <template>
-  <v-container fluid> 
+  <v-container fluid>
     <v-layout row wrap justify-space-around>
       <v-flex xs12>
-        <v-tooltip top>
-          <v-btn slot="activator" fab floating color="accent" router :to="{ name: 'addBuild' }" class="hidden-xs-only add__build">
-            <v-icon class="white--text">add</v-icon>
-          </v-btn>
-          Add A Build
-        </v-tooltip>
+        <v-card height="90">
+          <v-card-text>
+            <v-text-field 
+              v-model="search" 
+              value="Search builds..."
+              label="Search keywords like make, model, etc..."
+              v-on:keyup="searchBuilds"
+            ></v-text-field>
+        </v-card-text>
+        </v-card>
       </v-flex>
       <v-flex xs12 sm5 md5>
         <v-layout column> 
@@ -57,6 +61,7 @@
         </v-card>
       </v-flex>
     </v-layout>
+  </v-flex>
   </v-container>
 </template>
 
@@ -64,6 +69,7 @@
 import BuildsList from '../components/BuildsList.vue'
 import { mapState } from 'vuex'
 import constants from '../constants'
+import _ from 'lodash'
 
 export default {
   data () {
@@ -77,7 +83,15 @@ export default {
         tags: null,
         keywords: null
       },
-      makes: constants.AUTO_MAKES
+      makes: constants.AUTO_MAKES,
+      search: '',
+      fab: null,
+      top: false,
+      bottom: true,
+      right: true,
+      left: false,
+      transition: '',
+      hover: true
     }
   },
   computed: mapState({
@@ -86,7 +100,14 @@ export default {
     loading: state => state.loading
   }),
   created () {
-    this.$store.dispatch('getBuilds', {})
+    this.$store.dispatch('getAllBuilds', 0)
+  },
+  methods: {
+    searchBuilds () {
+      console.log('HIT')
+      console.log('search: ', this.search)
+      this.$store.dispatch('searchBuilds', this.search)
+    }
   },
   components: { BuildsList }
 }

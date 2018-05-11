@@ -2,7 +2,9 @@ import * as types from '../mutation-types'
 import builds from '../../api/builds'
 import parts from '../../api/parts'
 import { router } from '../../router/index'
-import client from '../../api'
+import API from '../../api'
+
+const client = API()
 const localStorage = window.localStorage
 
 const state = {
@@ -134,7 +136,12 @@ const actions = {
       .catch((err) => commit(types.DELETE_BUILD_FAILURE, err))
   },
   searchBuilds ({commit, state}, search) {
-
+    commit(types.GET_BUILDS_REQUEST)
+    return client.get(`/api/builds/search`, {
+      keywords: search
+    })
+      .then((response) => commit(types.GET_BUILDS_SUCCESS, response.data))
+      .catch((err) => commit(types.GET_BUILDS_FAILURE, err))
   }
 }
 

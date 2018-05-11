@@ -9,7 +9,8 @@
           <v-list-tile
             avatar
             ripple
-            @click="toggle(index)"
+            router
+            :to="{ name: 'buildDetails', params: { id: build._id }}"
             :key="build.title"
           >
             <v-list-tile-content>

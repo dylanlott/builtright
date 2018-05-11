@@ -2,7 +2,9 @@ import * as types from '../mutation-types'
 import builds from '../../api/builds'
 import parts from '../../api/parts'
 import { router } from '../../router/index'
-import client from '../../api'
+import api from '../../api'
+
+const client = api()
 
 const state = {
   parts: [],

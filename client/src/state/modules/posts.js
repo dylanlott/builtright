@@ -1,8 +1,9 @@
 import * as types from '../mutation-types'
 import posts from '../../api/posts'
 import { router } from '../../router/index'
-import client from '../../api'
+import api from '../../api'
 
+const client = api()
 const storage = window.localStorage
 const user = storage.getItem('user_id')
 const token = storage.getItem('token')

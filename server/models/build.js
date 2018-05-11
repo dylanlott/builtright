@@ -7,7 +7,7 @@ const constants = require('../constants');
 const Schema = mongoose.Schema;
 
 const BuildSchema = new Schema({
-  title: { type: String, unique: true, required: true, es_indexed: true },
+  title: { type: String, required: true, es_indexed: true },
   info: { type: String, es_indexed: true },
   tags: [{ type: String, es_indexed: true }],
   keywords: [{

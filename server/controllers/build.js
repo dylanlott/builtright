@@ -15,6 +15,7 @@ Build.createMapping((err, mapping) => {
 });
 
 exports.create = (req, res) => {
+  console.log('CREATING BUILD', req.body)
   const build = new Build(req.body);
   build.save()
     .then(data => {
@@ -41,10 +42,6 @@ exports.list = (req, res) => {
   const minYear = parseInt(req.query.minYear) || 0
 
   return Build.find()
-    //.where('vehicle.year').gte(minYear).lte(maxYear)
-    // .where('vehicle.make', req.query.make || '')
-    // .where('vehicle.model', req.query.model || '')
-    .in('keywords', req.query.keywords || [])
     .populate('_user', '-password')
     .limit(limit)
     .skip(skip)
@@ -178,11 +175,6 @@ exports.addExistingPart = (req, res) => {
 exports.upload = (req, res) => {
   return Build.findById(req.params.id)
     .then((build) => {
-      // upload image
-      // store image in S3
-      // Get URL back
-      // store URL in build.images
-      // send back updated build object
       return res.status(200).json({ message: 'not implemented yet' });
     })
     .catch((err) => {
@@ -222,4 +214,25 @@ exports.downvote = (req, res) => {
       log.error('error downvoting build', err);
       res.status(500).send(err)
     });
+}
+
+exports.search = (req, res) => {
+  Build.search({
+    // query_string: {
+    //   query: req.query.keywords
+    // }
+    "simple_query_string": {
+      "query": req.query.keywords
+    }
+  },
+  {
+    hydrate: true,
+    hydrateWithESResults: true
+  }, function (err, results) {
+    if (err) {
+      log.debug('ERROR: ', err)
+      return res.send(err)
+    }
+    return res.json(results)
+  })
 }
