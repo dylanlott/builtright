@@ -186,9 +186,7 @@ exports.upload = (req, res) => {
 exports.upvote = (req, res) => {
   return Build.findById(req.params.id)
     .then(build => {
-      vote.removeDownvote(build, req.user._id);
-      vote.addUpvote(build, req.user._id);
-
+      vote.upvote(build, req.user._id);
       return build.save()
         .then(updated => {
           log.info('upvoted build', build._id);
@@ -201,9 +199,7 @@ exports.upvote = (req, res) => {
 exports.downvote = (req, res) => {
   return Build.findById(req.params.id)
     .then(build => {
-      vote.removeUpvote(build, req.user._id);
-      vote.addDownvote(build, req.user._id);
-
+      vote.downvote(build, req.user._id);
       return build.save()
         .then(updated => {
           log.info('downvoted build', build._id);

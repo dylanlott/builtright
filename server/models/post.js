@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const slug = require('slug');
-//const assert = require('assert');
-//const errors = require('storj-service-error-types');
+const searchable = require('mongoose-searchable');
 const mongoosastic = require('mongoosastic');
 
 const Schema = mongoose.Schema;

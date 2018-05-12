@@ -1,9 +1,9 @@
 <template>
   <v-container>
-    <v-toolbar>
-      <v-toolbar-title>Login</v-toolbar-title>
-    </v-toolbar>
     <v-card toolbar>
+      <v-toolbar card dark color="primary">
+        <v-toolbar-title>Login</v-toolbar-title>
+      </v-toolbar>
       <v-card-text>
         <v-flex>
           <v-text-field
@@ -58,6 +58,7 @@ export default {
         password: this.user.password
       }
       this.$ga.event('authentication', 'login', 'app', 0)
+      this.$store.dispatch('loginUser', user)
     }
   }
 }

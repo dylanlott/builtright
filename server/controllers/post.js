@@ -99,3 +99,19 @@ exports.downvote = (req, res) => {
       return res.status(500).send('error downvoting post');
     });
 }
+
+exports.search = (req, res) => {
+  return Post.search({
+    "simple_query_string": {
+      "query": req.query.keywords
+    }
+  }, { hydrate: true,
+      hydrateWithESResults: true
+  }, function (err, results) {
+    if (err) {
+      log.debug('ERROR: ', err)
+      return res.send(err)
+    }
+    return res.json(results)
+  })
+}

@@ -1,5 +1,4 @@
 import * as types from '../mutation-types'
-import api from '../../api/user'
 import { router } from '../../router/index'
 import api from '../../api'
 
@@ -100,18 +99,11 @@ const mutations = {
 const actions = {
   loginUser ({commit, state}, user) {
     commit(types.LOGIN_USER_REQUEST)
-    return api.login(user)
-      .then((user) => {
-        commit(types.LOGIN_USER_SUCCESS, user)
-        return user
-      })
-      .then((user) => {
+    return client.post(`/api/auth/login`, user)
+      .then((response) => {
+        commit(types.LOGIN_USER_SUCCESS, response.data)
         router.push({ name: 'dashboard' })
-        return user
-      })
-      .then((user) => {
-        commit(types.LOGIN_USER_SUCCESS, user)
-        return user
+        return response.data
       })
       .catch((err) => {
         commit(types.LOGIN_USER_FAILURE, err)
@@ -140,13 +132,16 @@ const actions = {
       })
   },
   signup ({commit, state}, user) {
+    console.log('signing up', user)
     commit(types.SIGNUP_USER_REQUEST)
-    return api.signup(user)
+    return client.post(`/api/auth/register`, user)
       .then((res) => {
-        console.log('got res', res)
-        commit(types.SIGNUP_USER_SUCCESS, res)
-        router.push({ name: 'dashboard' })
-        return user
+        commit(types.SIGNUP_USER_SUCCESS, res.data)
+        return res
+      })
+      .then(res => {
+        console.log('res: ', res)
+        router.push({ name: 'builds' })
       })
       .catch((err) => {
         commit(types.SIGNUP_USER_FAILURE, err)

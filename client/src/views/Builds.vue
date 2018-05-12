@@ -45,12 +45,6 @@
                   label="Tags"
                   ></v-select>
               </v-flex>
-              <v-flex xs12>
-                <v-text-field
-                  v-model="query.keywords"
-                  label="Keywords (comma separated)"
-                  ></v-text-field>
-              </v-flex>
             </v-container>
           </v-card>
         </v-layout>
@@ -104,8 +98,6 @@ export default {
   },
   methods: {
     searchBuilds () {
-      console.log('HIT')
-      console.log('search: ', this.search)
       this.$store.dispatch('searchBuilds', this.search)
     }
   },

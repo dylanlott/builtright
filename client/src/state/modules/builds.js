@@ -66,7 +66,6 @@ const mutations = {
     state.loading = false
     state.success = true
     state.details._parts.push(part)
-    console.log(state.details._parts)
   },
   [types.ADD_PART_FAILURE] (state, errors) {
     state.loading = false
@@ -137,10 +136,10 @@ const actions = {
   },
   searchBuilds ({commit, state}, search) {
     commit(types.GET_BUILDS_REQUEST)
-    return client.get(`/api/builds/search`, {
+    return client.get(`/api/builds/search`, { params: {
       keywords: search
-    })
-      .then((response) => commit(types.GET_BUILDS_SUCCESS, response.data))
+    }})
+      .then((response) => commit(types.GET_BUILDS_SUCCESS, response.data.hits.hits))
       .catch((err) => commit(types.GET_BUILDS_FAILURE, err))
   }
 }
