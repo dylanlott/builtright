@@ -13,9 +13,10 @@
         </v-card-text>
         </v-card>
       </v-flex>
+      <!-- 
       <v-flex xs12 sm5 md5>
         <v-layout column> 
-          <v-card> <!-- make this into a collapse panel --> 
+          <v-card>  
             <v-toolbar color="grey darken-2" dark>
               <v-toolbar-title>Filters</v-toolbar-title>
             </v-toolbar>
@@ -49,6 +50,7 @@
           </v-card>
         </v-layout>
       </v-flex>
+      -->
       <v-flex xs12 sm7 md6> 
         <v-card>
           <BuildsList :builds="builds.builds" :loading="builds.loading"></BuildsList>
