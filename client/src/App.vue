@@ -75,6 +75,7 @@
     </v-toolbar>
 
     <v-content>
+      <Alerts></Alerts>
       <router-view></router-view>
     </v-content>
 
@@ -99,6 +100,7 @@ import {router} from './router/index'
 import BottomNav from './components/BottomNav.vue'
 import AppFooter from './components/footer/Footer.vue'
 import config from './config'
+import Alerts from './components/AlertSystem.vue'
 
 export default {
   name: 'builtright',
@@ -128,6 +130,9 @@ export default {
     logout () {
       this.$store.dispatch('logoutUser')
     },
+  },
+  components: {
+    Alerts
   }
 }
 </script>

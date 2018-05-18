@@ -97,15 +97,17 @@ const mutations = {
 }
 
 const actions = {
-  loginUser ({commit, state}, user) {
+  loginUser ({commit, state, dispatch}, user) {
     commit(types.LOGIN_USER_REQUEST)
     return client.post(`/api/auth/login`, user)
       .then((response) => {
         commit(types.LOGIN_USER_SUCCESS, response.data)
+        dispatch('flashSuccess', 'Logged in')
         router.push({ name: 'dashboard' })
         return response.data
       })
       .catch((err) => {
+        dispatch('flashError', 'Failed to login. Try again.')
         commit(types.LOGIN_USER_FAILURE, err)
         console.log('err logging in user:', err);
       })
@@ -113,8 +115,9 @@ const actions = {
   getAuthToken ({commit, state}) {
     return storage.getItem('token')
   },
-  logoutUser ({commit, state}) {
+  logoutUser ({commit, state, dispatch}) {
     commit(types.LOGOUT_USER_REQUEST)
+    dispatch('flashInfo', 'Logged out')
     storage.clear()
     location.reload()
     router.push({ name: 'logout' })
@@ -131,19 +134,20 @@ const actions = {
         commit(types.RECEIVE_USER_FAILURE, err)
       })
   },
-  signup ({commit, state}, user) {
+  signup ({commit, state, dispatch}, user) {
     console.log('signing up', user)
     commit(types.SIGNUP_USER_REQUEST)
     return client.post(`/api/auth/register`, user)
       .then((res) => {
+        dispatch('flashSuccess', 'Sign up successful')
         commit(types.SIGNUP_USER_SUCCESS, res.data)
         return res
       })
       .then(res => {
-        console.log('res: ', res)
         router.push({ name: 'builds' })
       })
       .catch((err) => {
+        dispatch('flashError', 'Error signing up')
         commit(types.SIGNUP_USER_FAILURE, err)
       })
   }
