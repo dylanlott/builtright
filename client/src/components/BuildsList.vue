@@ -1,33 +1,27 @@
 <template>
-  <v-flex>
-    <v-container padding>
-      <div v-if="loading">Loading...</div>
-      <v-card v-if="!builds">
-        <v-card-text>We didn't find any builds. :(</v-card-text>
-      </v-card>
-    </v-container>
-
-    <v-container>
-      <v-card v-for="build in builds">
-          <v-flex xs12>
-            <v-card dark class="primary white--text">
-              <v-card-title primary-title>
-                <div class="headline" v-text="build.title"></div>
-                <div></div>
-              </v-card-title>
-              <v-card-text class="left">
-                <div class="light-2" v-text="build.vehicle.make"></div>
-              </v-card-text>
-              <v-card-actions>
-                <v-btn flat dark router :to="{ name: 'buildDetails', params: { id: build.slug }}"> View details
-                  <v-icon>details</v-icon> 
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-flex>
-      </v-card> 
-    </v-container>
-  </v-flex>
+  <v-layout justify-center>
+    <v-flex xs12>
+      <v-toolbar color="primary" dark>
+        <v-toolbar-title>Builds</v-toolbar-title>
+      </v-toolbar>
+      <v-list two-line>
+        <template v-for="(build, index) in builds">
+          <v-list-tile
+            avatar
+            ripple
+            router
+            :to="{ name: 'buildDetails', params: { id: build._id }}"
+            :key="build.title"
+          >
+            <v-list-tile-content>
+              <v-list-tile-title>{{ build.title }}</v-list-tile-title>
+              <v-list-tile-sub-title class="text--primary">{{ build.vehicle.make }}</v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </template>
+      </v-list>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>

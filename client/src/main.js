@@ -13,7 +13,20 @@ import Gravatar from 'vue-gravatar'
 import VueMoment from 'vue-moment'
 import InputTag from 'vue-input-tag'
 import 'buefy/lib/buefy.css'
+// import VueAnalytics from 'vue-ua'
+import VueAnalytics from 'vue-analytics'
 
+// Vue.use(VueAnalytics, {
+//   appName: 'BuiltRight',
+//   appVersion: '0.0.1',
+//   trackingId: 'UA-116394831-2',
+//   vueRouter: router
+// })
+
+Vue.use(VueAnalytics, {
+  id: 'UA-116394831-2',
+  router
+})
 Vue.component('v-gravatar', Gravatar);
 Vue.component('input-tag', InputTag);
 Vue.use(VueSweetAlert)

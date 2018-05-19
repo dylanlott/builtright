@@ -15,3 +15,10 @@ api.builtrightapp.com {
 blog.builtrightapp.com {
   proxy / localhost:3001
 }
+
+ratelimit 2 2 minute {
+  whitelist 127.0.0.1
+  whitelist localhost
+  whitelist 0.0.0.0
+  ^/dir/app.js
+}

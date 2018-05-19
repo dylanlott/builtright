@@ -62,6 +62,7 @@ export default {
         id: this.$route.params.id,
         comment: _comment
       }).then((res) => {
+        this.$ga.event('comments', 'added comment', 'no campaign')
         this.$swal({
           type: 'success',
           title: 'Comment Submitted'

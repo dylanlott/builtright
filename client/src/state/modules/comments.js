@@ -3,6 +3,8 @@ import * as types from '../mutation-types'
 import comments from '../../api/comments'
 import api from '../../api'
 
+const client = api()
+
 const state = {
   comments: [],
   limit: 0,
@@ -64,14 +66,14 @@ const actions = {
 
   addComment ({ commit }, payload) {
     commit(types.ADD_COMMENT_REQUEST)
-    return api.post(`/api/${payload.resource}/${payload.comment._source_id}/comment`,
+    return client.post(`/api/${payload.resource}/${payload.comment._source_id}/comment`,
       payload)
       .then((res) => commit(types.ADD_COMMENT_SUCCESS, res.data))
       .catch((err) => commit(types.ADD_COMMENT_FAILURE, err))
   },
 
   deleteComment ({ commit, state }, id) {
-    return api.delete(`/api/comments/${id}`)
+    return client.delete(`/api/comments/${id}`)
       .then((res) => res)
       .catch((err) => console.error('error deleting comment', err))
   }

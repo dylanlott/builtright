@@ -1,6 +1,9 @@
 <template>
   <v-container>
-    <v-card>
+    <v-card toolbar>
+      <v-toolbar card dark color="primary">
+        <v-toolbar-title>Login</v-toolbar-title>
+      </v-toolbar>
       <v-card-text>
         <v-flex>
           <v-text-field
@@ -29,7 +32,6 @@
               Login
             </v-btn>
         </v-flex>
-
         <v-flex>
           Not a member yet? <router-link :to="{ name: 'signup' }">
             <a href="#">Sign up here</a>.</router-link>
@@ -38,7 +40,6 @@
     </v-card>
   </v-container>
 </template>
-
 <script>
 export default {
   data () {
@@ -56,6 +57,7 @@ export default {
         email: this.user.email,
         password: this.user.password
       }
+      this.$ga.event('authentication', 'login', 'app', 0)
       this.$store.dispatch('loginUser', user)
     }
   }

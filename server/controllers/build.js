@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const moment = require('moment');
 const Build = require('../models/build.js');
 const Comment = require('../models/comment.js');
 const Part = require('../models/part.js');
@@ -14,6 +15,7 @@ Build.createMapping((err, mapping) => {
 });
 
 exports.create = (req, res) => {
+  console.log('CREATING BUILD', req.body)
   const build = new Build(req.body);
   build.save()
     .then(data => {
@@ -35,11 +37,12 @@ exports.list = (req, res) => {
   const skip = parseInt(req.query.skip) || 0
   const limit = parseInt(req.query.limit) || 50
   const sort = parseInt(req.query.sort) || -1
+  const year = moment().year()
+  const maxYear = parseInt(req.query.maxYear) || year
+  const minYear = parseInt(req.query.minYear) || 0
 
-  return Build.find(req.query)
-    .populate('_user')
+  return Build.find()
     .populate('_user', '-password')
-    .where('hidden').equals('false')
     .limit(limit)
     .skip(skip)
     .then((data) => {
@@ -172,11 +175,6 @@ exports.addExistingPart = (req, res) => {
 exports.upload = (req, res) => {
   return Build.findById(req.params.id)
     .then((build) => {
-      // upload image
-      // store image in S3
-      // Get URL back
-      // store URL in build.images
-      // send back updated build object
       return res.status(200).json({ message: 'not implemented yet' });
     })
     .catch((err) => {
@@ -188,9 +186,7 @@ exports.upload = (req, res) => {
 exports.upvote = (req, res) => {
   return Build.findById(req.params.id)
     .then(build => {
-      vote.removeDownvote(build, req.user._id);
-      vote.addUpvote(build, req.user._id);
-
+      vote.upvote(build, req.user._id);
       return build.save()
         .then(updated => {
           log.info('upvoted build', build._id);
@@ -203,9 +199,7 @@ exports.upvote = (req, res) => {
 exports.downvote = (req, res) => {
   return Build.findById(req.params.id)
     .then(build => {
-      vote.removeUpvote(build, req.user._id);
-      vote.addDownvote(build, req.user._id);
-
+      vote.downvote(build, req.user._id);
       return build.save()
         .then(updated => {
           log.info('downvoted build', build._id);
@@ -216,4 +210,25 @@ exports.downvote = (req, res) => {
       log.error('error downvoting build', err);
       res.status(500).send(err)
     });
+}
+
+exports.search = (req, res) => {
+  Build.search({
+    // query_string: {
+    //   query: req.query.keywords
+    // }
+    "simple_query_string": {
+      "query": req.query.keywords
+    }
+  },
+  {
+    hydrate: true,
+    hydrateWithESResults: true
+  }, function (err, results) {
+    if (err) {
+      log.debug('ERROR: ', err)
+      return res.send(err)
+    }
+    return res.json(results)
+  })
 }

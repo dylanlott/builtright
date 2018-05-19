@@ -32,12 +32,12 @@ exports.addDownvote = (resource, userId) => {
 
 exports.upvote = (resource, userId) => {
   this.removeDownvote(resource, userId);
-  return this.addUpvote(resource, userId);
+  this.addUpvote(resource, userId);
 }
 
 exports.downvote = (resource, userId) => {
   this.removeUpvote(resource, userId);
-  return this.addDownvote(resource, userId);
+  this.addDownvote(resource, userId);
 }
 
 exports.handleError = (message, error) => {

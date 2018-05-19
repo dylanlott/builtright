@@ -10,4 +10,6 @@ cd ../server && npm install
 cd ../
 echo "RESTARTING DOCKER SERVER"
 docker-compose up --build -d server
+echo "RESTARTING CADDY SERVER"
+systemctl restart caddy
 echo "DEPLOY SUCCESSFUL"

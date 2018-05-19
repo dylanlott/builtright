@@ -10,6 +10,7 @@ const requireAuth = passport.authenticate('jwt', { session: false });
 const requireLogin = passport.authenticate('local', { session: false });
 
 router.get('/', PostsController.list);
+router.get('/search', PostsController.search);
 router.post('/', requireAuth, PostsController.create);
 router.post('/:id/comment', requireAuth, PostsController.comment);
 router.get('/:id', PostsController.detail);

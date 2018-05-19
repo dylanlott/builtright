@@ -1,20 +1,20 @@
 <template>
-  <v-container fluid class="main">
-    <div>
-      <v-jumbotron :gradient="gradient" dark>
-        <v-container fill-height>
-          <v-layout align-center>
-            <v-flex>
-              <h3 class="display-3">Welcome to BuiltRight</h3>
-              <span class="subheading">The #1 online project car community.</span>
-              <v-divider class="my-3"></v-divider>
-              <div class="title mb-3">Join now and browse builds, follow other builders, and create your own portfolio of projects.</div>
-              <v-btn large router to="signup" color="charcoal" class="mx-0">Sign up</v-btn>
-            </v-flex>
-          </v-layout>
+  <v-container fluid class="main" style="padding: 0px;">
+      <v-jumbotron src="https://cdn.stocksnap.io/img-thumbs/960w/EVX6GW7PQ3.jpg" class="header" dark>
+        <v-container class="header" fill-height>
+          <div class="header__overlay">
+            <v-layout align-center>
+              <v-flex xs12>
+                <h3 class="display-3"><b>Welcome to BuiltRight</b></h3>
+                <span class="subheading"><b>The #1 online project car community.</b></span>
+                <v-divider class="my-3"></v-divider>
+                <div class="title mb-3"><b>Join now and browse builds, follow other builders, and create your own portfolio of projects.</b></div>
+                <v-btn large router to="signup" color="primary" class="mx-0"><b>Sign up</b></v-btn>
+              </v-flex>
+            </v-layout>
+          </div>
         </v-container>      
       </v-jumbotron>
-    </div>
     
     <v-container>
       <v-layout justify-center>
@@ -78,5 +78,15 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
+.header__overlay
+  width: 100%
+  height: 100%
+  background-color: rgba(0,0,0, 0.4) !important
+
+.header
+  padding: 0px
+
+.container
+  max-width: 100%
 </style>

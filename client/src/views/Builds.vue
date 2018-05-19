@@ -1,19 +1,26 @@
 <template>
-  <v-container fluid> 
+  <v-container fluid>
     <v-layout row wrap justify-space-around>
       <v-flex xs12>
-        <v-tooltip top>
-          <v-btn slot="activator" color="accent" fab floating router :to="{ name: 'addBuild' }" class="hidden-xs-only">
-            <v-icon class="white--text">add</v-icon>
-          </v-btn>
-          Add A Build
-        </v-tooltip>
+        <v-card height="90">
+          <v-card-text>
+            <v-text-field 
+              v-model="search" 
+              value="Search builds..."
+              label="Search keywords like make, model, etc..."
+              v-on:keyup="searchBuilds"
+            ></v-text-field>
+        </v-card-text>
+        </v-card>
       </v-flex>
+      <!-- 
       <v-flex xs12 sm5 md5>
         <v-layout column> 
-          <v-card> <!-- make this into a collapse panel --> 
+          <v-card>  
+            <v-toolbar color="grey darken-2" dark>
+              <v-toolbar-title>Filters</v-toolbar-title>
+            </v-toolbar>
             <v-container>
-              <v-card-title><h3>Filters</h3></v-card-title>
               <v-flex xs12>
                 <v-select 
                   v-model="query.make" 
@@ -39,23 +46,18 @@
                   label="Tags"
                   ></v-select>
               </v-flex>
-              <v-flex xs12>
-                <v-text-field
-                  v-model="query.keywords"
-                  label="Keywords (comma separated)"
-                  ></v-text-field>
-              </v-flex>
             </v-container>
           </v-card>
         </v-layout>
       </v-flex>
+      -->
       <v-flex xs12 sm7 md6> 
         <v-card>
-          <v-card-title><h3>Builds</h3></v-card-title>
           <BuildsList :builds="builds.builds" :loading="builds.loading"></BuildsList>
         </v-card>
       </v-flex>
     </v-layout>
+  </v-flex>
   </v-container>
 </template>
 
@@ -63,6 +65,7 @@
 import BuildsList from '../components/BuildsList.vue'
 import { mapState } from 'vuex'
 import constants from '../constants'
+import _ from 'lodash'
 
 export default {
   data () {
@@ -76,7 +79,15 @@ export default {
         tags: null,
         keywords: null
       },
-      makes: constants.AUTO_MAKES
+      makes: constants.AUTO_MAKES,
+      search: '',
+      fab: null,
+      top: false,
+      bottom: true,
+      right: true,
+      left: false,
+      transition: '',
+      hover: true
     }
   },
   computed: mapState({
@@ -85,21 +96,15 @@ export default {
     loading: state => state.loading
   }),
   created () {
-    this.$store.dispatch('getBuilds', {})
+    this.$store.dispatch('getAllBuilds', 0)
+  },
+  methods: {
+    searchBuilds () {
+      this.$store.dispatch('searchBuilds', this.search)
+    }
   },
   components: { BuildsList }
 }
 </script>
-
 <style media="screen" lang="stylus">
-  .floating
-    position: absolute
-    top: 120px
-    right: 20px
-
-  .secondary__nav
-    margin-bottom: 20px
-
-  .routerlink
-    text-decoration: none
 </style>
