@@ -31,14 +31,6 @@ services:
     depends_on:
       - mongo
 
-        #   ghost:
-        #     image: ghost:1-alpine
-        #     ports:
-        #       - "3001:2368"
-        #     volumes:
-        #       - /opt/builtright/blog:/var/lib/ghost/content
-        #     restart: always
-
   mongo-backup:
     image: "istepanov/mongodump:3.4"
     volumes:
