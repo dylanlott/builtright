@@ -1,60 +1,54 @@
 <template lang="html">
   <v-layout column>
-    <v-card>
-      <v-card-title class="text-center">
-        <h1>{{ this.details.title }}</h1>
-      </v-card-title>
-      <v-container> 
-        <form v-model="part"> 
-          <h1>Add a part</h1>
-          <v-text-field
-            label="Title"
-            v-model="part.title"
-          ></v-text-field>
-          <v-text-field
-            label="Description"
-            v-model="part.description"
-          ></v-text-field>
-          <v-text-field
-            label="Make"
-            v-model="part.make"
-          ></v-text-field>
-
-          <v-text-field
-            label="Model"
-            v-model="part.model"
-          ></v-text-field>
-
-          <v-select
-            :items="part_types"
-            v-model="types_selector"
-            label="Part Type"
-            single-line
-            bottom>
-          </v-select>
-
-          <v-text-field
-            label="Price"
-            v-model="part.price"
-            type="number"
-          ></v-text-field>
-
-          <v-text-field
-            label="Trim"
-            v-model="part.trim"
-          ></v-text-field>
-
-          <v-text-field
-            label="URL"
-            v-model="part.url"
-          ></v-text-field>
-        </form>
-        <v-btn color="primary" 
-          @click.native="addPart(part)">
-          Submit
-        </v-btn>
-      </v-container>
-    </v-card> 
+    <v-container>
+      <v-card>
+        <v-card-title><h1>Add a part</h1></v-card-title>
+        <v-card-text>
+          <v-form ref="form" lazy-validation>
+            <v-text-field
+              label="Name / Title"
+              v-model="part.title"
+              required>
+            </v-text-field>
+            <v-text-field
+              label="Description / Additional information"
+              v-model="part.description"
+              ></v-text-field>
+            <v-text-field
+              label="Brand / Make"
+              v-model="part.make"
+              required
+            ></v-text-field>
+            <v-text-field
+              label="Model"
+              v-model="part.model"
+              required
+              ></v-text-field>
+            <v-select
+              label="Type"
+              v-model="part.type"
+              :items="part_types"
+              required
+            ></v-select>
+            <v-text-field
+              label="Price"
+              v-model="part.price"
+              :rules="priceValidator"
+              required
+              ></v-text-field>
+            <v-text-field 
+              label="URL"
+              v-model="part.url"
+              :rules="urlValidator"
+              ></v-text-field>
+            <v-btn
+              color="primary"
+              @click.native="addPart(part)"
+            >Add part</v-btn>
+          </v-form>
+        </v-card-text>
+      </v-card>
+    </v-container>
   </v-layout>
 </template>
 
@@ -69,6 +63,14 @@ export default {
   name: 'AddPartForm',
   data () {
     return {
+      priceValidator: [
+        v => !!v,
+        v => this.price_regex.test(v),
+      ],
+      urlValidator: [
+        v => !!v,
+        v => this.url_regex.test(v)
+      ],
       part_types: [
         { text: types.forcedInduction },
         { text: types.suspension },
@@ -82,13 +84,15 @@ export default {
         { text: types.ignition },
         { text: types.audio }
       ],
+      price_regex: /\d+((,\d+)+)?(.\d+)?(.\d+)?(,\d+)?/,
+      url_regex: /^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))\.?)(?::\d{2,5})?(?:[/?#]\S*)?$/i,
       types_selector: null,
       part: {
         title: '',
         description: '',
         make: '',
         model: '',
-        type: null,
+        type: '',
         price: '',
         trim: '',
         data: {},
@@ -108,7 +112,7 @@ export default {
         description: part.description,
         make: part.make,
         model: part.model,
-        type: this.types_selector.text,
+        type: part.type.text,
         price: parseFloat(part.price),
         trim: part.trim,
         data: {
@@ -137,6 +141,4 @@ export default {
 </script>
 
 <style lang="stylus">
-.addpart__form
-  margin: 40px
 </style>

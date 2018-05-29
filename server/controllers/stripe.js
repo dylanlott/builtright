@@ -22,12 +22,14 @@ exports.webhook = function (req, res, next) {
         // On successful invoice payment
       case 'invoice.payment_succeeded':
         User.findOne({ customerId: verifiedEvent.data.object.customer }, (err, user) => {
-          if (err) { return next(err); }
+          if (err) {
+            return next(err);
+          }
 
-            // Add a month to the user's subscription
+          // Add a month to the user's subscription
           user.stripe.activeUntil = moment().add(1, 'months');
 
-            // Save user with subscription
+          // Save user with subscription
           user.save((err) => {
             if (err) { return err; }
 

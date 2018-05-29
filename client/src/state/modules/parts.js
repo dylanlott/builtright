@@ -66,11 +66,15 @@ const mutations = {
 }
 
 const actions = {
-  addPart ({commit, state}, part, build, id) {
+  addPart ({commit, state, dispatch}, part, build, id) {
     commit(types.ADD_PART_REQUEST)
+    dispatch('flashSuccess', 'Part added')
     return parts.addPartToBuild(part, build, id)
       .then((res) => commit(types.ADD_PART_SUCCESS), part)
-      .catch((err) => commit(types.ADD_PART_FAILURE, err))
+      .catch((err) => {
+        dispatch('flashError', 'There was an error adding this part.')
+        commit(types.ADD_PART_FAILURE, err)
+      })
   },
   deletePart ({commit, state}, build, id) {
 

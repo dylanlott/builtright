@@ -17,7 +17,7 @@ const PartSchema = new Schema({
   price: { type: Float },
   trim: { type: Schema.Types.Mixed, es_indexed: true },
   data: { type: Schema.Types.Mixed, es_indexed: true },
-  url: { type: String, required: true },
+  url: { type: String },
   source: { type: String },
   notes: { type: String },
   options: [{ type: String }],

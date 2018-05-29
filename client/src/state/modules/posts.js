@@ -4,9 +4,8 @@ import { router } from '../../router/index'
 import api from '../../api'
 
 const client = api()
-const storage = window.localStorage
-const user = storage.getItem('user_id')
-const token = storage.getItem('token')
+
+// TODO: Figure out why this code doesn't owrk unless page refreshes
 
 const state = {
   posts: [],
@@ -117,17 +116,19 @@ const actions = {
       })
   },
 
-  createPost ({commit, state}, post) {
+  createPost ({commit, state, dispatch}, post) {
     commit(types.CREATE_POST_REQUEST)
     return posts.createPost(post)
       .then((res) => {
         commit(types.CREATE_POST_SUCCESS)
+        dispatch('flashSuccess', 'Your post has been created.')
         router.push({ name: 'forum' })
         return res
       })
       .catch((err) => {
         console.log(`Error creating post ${err}`)
         commit(types.CREATE_POST_FAILURE)
+        dispatch('flashError', 'Failed to create post.')
         return err
       })
   },
@@ -136,16 +137,25 @@ const actions = {
     return client.request('PUT', `/api/posts/${updated.id}`, updated)
       .then((res) => {
         console.log('update post response: ', res)
+        dispatch('flashInfo', 'Updated.')
         commit(types.UPDATE_POST_SUCCESS, res.data)
       })
-      .catch((err) => commit(types.UPDATE_POST_FAILURE, err))
+      .catch((err) => {
+        dispatch('flashError', 'Error updating post')
+        commit(types.UPDATE_POST_FAILURE, err)
+      })
   },
 
   deletePost ({commit, state}, id) {
     commit(types.DELETE_POST_REQUEST)
     return posts.deletePost(id)
-      .then((res) => res.data)
-      .catch((err) => err)
+      .then((res) => {
+        dispatch('flashInfo', 'Post deleted.')
+        return res
+      })
+      .catch((err) => {
+        dispatch('flashError', 'Error deleting post.')
+      })
   },
 
   comment ({commit, state}, id, comment) {
@@ -156,6 +166,7 @@ const actions = {
   },
 
   upvotePost ({ commit }, id) {
+    console.log(client)
     return client.post(`/api/posts/${id}/upvote`)
       .then((res) => commit(types.UPVOTE_POST_SUCCESS, res.data))
       .catch((err) => commit(types.UPVOTE_POST_FAILURE, err))

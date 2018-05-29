@@ -2,7 +2,8 @@
   <div class="content__bg">
     <v-container fluid>
       <v-layout column>
-        <v-btn v-if="owner" color="danger">Edit</v-btn>
+        <v-btn v-if="isOwner()" color="danger">Edit</v-btn>
+        <v-btn v-else color="info">Owned by {{ details._user.profile.firstName }} {{ details._user.profile.lastName }} {{ details._user.email }}</v-btn>
         <v-card>
           <v-card-media :src="details.display">
             <v-layout column class="media">
@@ -32,18 +33,22 @@
         </v-card>
 
         <v-card>
-          <v-card-title><h2>Parts and Fabrication</h2></v-card-title>
+          <v-card-title><h2>Parts</h2></v-card-title>
+          <code>
+            {{ parts }}
+          </code>
+          <v-card v-if="parts && parts.length == 0">No parts have been added to this build yet</v-card>
           <v-card-text>
-            <v-btn router :to="{ name: 'addPart', params: { id: details._id }}" class="cyan white--text">
+            <v-btn router v-if="isOwner()" :to="{ name: 'addPart', params: { id: details._id }}" class="cyan white--text">
               Add a part
             </v-btn>
           </v-card-text>
         </v-card>
-
+<!-- 
         <v-card>
           <v-card-title><h2>Stats</h2></v-card-title>
           <v-card-text>
-            <v-btn color="accent">Add Stats</v-btn>
+            <v-btn @click="" color="accent">Add Stats</v-btn>
             <v-list dense v-if="details.stats">
               <v-list-tile >
                 <v-list-tile-content>
@@ -83,6 +88,7 @@
             </v-list>
           </v-card-text>
         </v-card>
+        --> 
       </v-layout>
 
       <v-card>
@@ -131,7 +137,13 @@ export default {
       this.details._parts.reduce(function(acc, curr) {
         return acc + curr;
       });
-    } 
+    },
+    isOwner: function () {
+      const current = this.user.user_id
+      const buildOwner = this.details._user._id
+      if (current == buildOwner) return true
+      return false
+    }
   }
 }
 </script>
