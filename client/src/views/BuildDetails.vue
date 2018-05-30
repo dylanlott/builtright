@@ -2,7 +2,7 @@
   <div class="content__bg">
     <v-container fluid>
       <v-layout column>
-        <v-btn v-if="isOwner()" color="danger">Edit</v-btn>
+        <v-btn v-if="isOwner()" color="danger" router :to="{name: 'editBuild', params: {id: details._id}}">Edit</v-btn>
         <v-btn v-else color="info">Owned by {{ details._user.profile.firstName }} {{ details._user.profile.lastName }} {{ details._user.email }}</v-btn>
         <v-card>
           <v-card-media :src="details.display">

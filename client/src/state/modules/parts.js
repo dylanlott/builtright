@@ -76,14 +76,34 @@ const actions = {
         commit(types.ADD_PART_FAILURE, err)
       })
   },
-  deletePart ({commit, state}, build, id) {
-
+  deletePart ({commit, state, dispatch}, build, id) {
+    return client.delete(`/api/parts/${id}`)
+      .then((res) => {
+        dispatch('flashInfo', 'Part deleted')
+      })
+      .catch((err) => {
+        dispatch('flashError', 'Internal error. Please try again.')
+      })
   },
-  editPart ({commit, state}, part, newPart) {
-
+  editPart ({commit, state}, part) {
+    return client.put(`/api/parts/${id}`, part)
+      .then((res) => {
+        dispatch('flashInfo', 'Part updated.')
+      })
+      .catch((err) => {
+        dispatch('flashError', 'Error updating part. Please try again.')
+      })
   },
   getParts ({commit, state}, params) {
-
+    commit(types.GET_PARTS_REQUEST)
+    return client.get(`/api/parts`, params)
+      .then((res) => {
+        commit(types.GET_PARTS_SUCCESS, res.data)
+        return res
+      })
+      .catch((err) => {
+        dispatch('flashError', 'Error retrieving parts. Please try again.')
+      })
   },
   getPartDetails ({commit, state}, id) {
     return client.get(`/api/parts/${id}`)

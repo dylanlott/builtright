@@ -7,6 +7,7 @@ import login from '../views/Login.vue'
 import signup from '../views/SignUp.vue'
 import dashboard from '../views/Dashboard.vue'
 import builds from '../views/Builds.vue'
+import editBuild from '../views/EditBuild.vue'
 import addbuild from '../views/AddBuild.vue'
 import parts from '../views/PartsList.vue'
 import partDetails from '../views/PartDetails.vue'
@@ -95,6 +96,13 @@ export const router = new VueRouter({
     path: '/builds/:id/add',
     name: 'addPart',
     component: addPart,
+    meta: {
+      auth: true
+    }
+  }, {
+    path: '/builds/:id/edit',
+    name: 'editBuild',
+    component: editBuild,
     meta: {
       auth: true
     }
