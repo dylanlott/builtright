@@ -9,10 +9,10 @@
         <v-divider></v-divider>
         <v-list-tile>
           <v-list-tile-content>
-            <v-list-tile-text class="detail-text">
+            <v-list-tile-title class="detail-text">
               {{user.email}} on {{comment.createdAt | moment("DD-MMM-YY")}}
-            </v-list-tile-text>
-            <v-list-tile-text class="html" v-html="markdown(comment.text)"></v-list-tile-text>
+            </v-list-tile-title>
+            <v-list-tile-title class="html" v-html="markdown(comment.text)"></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile-action>

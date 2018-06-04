@@ -16,13 +16,6 @@ import 'buefy/lib/buefy.css'
 // import VueAnalytics from 'vue-ua'
 import VueAnalytics from 'vue-analytics'
 
-// Vue.use(VueAnalytics, {
-//   appName: 'BuiltRight',
-//   appVersion: '0.0.1',
-//   trackingId: 'UA-116394831-2',
-//   vueRouter: router
-// })
-
 Vue.use(VueAnalytics, {
   id: 'UA-116394831-2',
   router
@@ -44,6 +37,19 @@ Vue.use(Vuetify, {
     success: "#7CB342"
   }
 })
+
+// Currency Filter
+Vue.filter('currency', function (value) {
+    if (typeof value !== "number") {
+        return value;
+    }
+    var formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 2
+    });
+    return formatter.format(value);
+});
 
 axios.defaults.baseURL = config.API_URL
 axios.defaults.headers.common['Authorization'] = user.getToken();

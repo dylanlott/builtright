@@ -79,6 +79,7 @@
       <router-view></router-view>
     </v-content>
 
+    <!-- 
     <v-footer height="auto" class="grey darken-3">
     <v-layout row wrap justify-center>
         <a class="routerlink" flat dark href="https://www.reddit.com/builtright"><v-btn color="white" flat>Reddit</v-btn></a>
@@ -90,6 +91,7 @@
       </v-flex>
     </v-layout>
   </v-footer>
+  -->
   </v-app>
 </template>
 

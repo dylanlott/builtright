@@ -89,14 +89,18 @@ const mutations = {
 }
 
 const actions = {
-  getBuilds ({commit, state}, params) {
+  getBuilds ({commit, state, dispatch}, params) {
     commit(types.GET_BUILDS_REQUEST)
     return builds.get(params)
       .then((builds) => {
         commit(types.GET_BUILDS_SUCCESS, builds);
-        return res;
+        return builds;
       })
-      .catch((err) => commit(types.GET_BUILDS_FAILURE, err))
+      .catch((err) => {
+        console.log('error: ', err)
+        dispatch('flashError', 'Error retrieving builds')
+        commit(types.GET_BUILDS_FAILURE, err)
+      })
   },
   getBuildDetails ({commit, state}, id) {
     commit(types.GET_BUILD_DETAILS_REQUEST)
@@ -104,17 +108,40 @@ const actions = {
       .then((res) => commit(types.GET_BUILD_DETAILS_SUCCESS, res))
       .catch((err) => commit(types.GET_BUILD_DETAILS_FAILURE, err))
   },
-  createNewBuild ({commit, state}, build) {
+  createNewBuild ({commit, state, dispatch}, build) {
     commit(types.CREATE_BUILD_REQUEST)
     return client.post(`/api/builds`, build)
-      .then((response) => commit(types.CREATE_BUILD_SUCCESS, response))
-      .catch((err) => commit(types.CREATE_BUILD_FAILURE, err))
+      .then((response) => {
+        dispatch('flashSuccess', 'Build created!')
+        commit(types.CREATE_BUILD_SUCCESS, response)
+      })
+      .catch((err) => {
+        dispatch('flashError', 'Error creating build.')
+        commit(types.CREATE_BUILD_FAILURE, err)
+      })
   },
-  addPartToBuild ({commit, state}, payload) {
+  updateBuild ({ commit, state, dispatch}, payload) {
+    return client.put(`/api/builds/${payload.id}`, payload.build)
+      .then((res) => {
+        dispatch('flashSuccess', 'Build updated')
+        router.push({ name: 'buildDetails', params: {id: payload.id}})
+      })
+      .catch((err) => {
+        console.error(err)
+        dispatch('flashError', 'Error updating build')
+      })
+  },
+  addPartToBuild ({commit, state, dispatch}, payload) {
     commit(types.ADD_PART_REQUEST)
     return client.post(`/api/builds/${payload.build}/new`, payload.part)
-      .then((res) => commit(types.ADD_PART_SUCCESS, res.data))
-      .catch((err) => commit(types.ADD_PART_FAILURE, err))
+      .then((res) => {
+        dispatch('flashSuccess', 'Part added to build.')
+        commit(types.ADD_PART_SUCCESS, res.data)
+      })
+      .catch((err) => {
+        dispatch('flashError', 'Error adding part. Please try again.')
+        commit(types.ADD_PART_FAILURE, err)
+      })
   },
   getPartsForBuild ({commit, state}, id) {
     commit(types.GET_PARTS_REQUEST)

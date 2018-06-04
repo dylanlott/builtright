@@ -8,12 +8,7 @@
 <script>
 import { router } from '../router'
 export default {
-  name: 'logout',
-  created () {
-    setTimeout(function () {
-      router.push({ name: 'landing' })
-    }, 3000)
-  }
+  name: 'logout'
 }
 </script>
 

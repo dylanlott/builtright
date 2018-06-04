@@ -4,7 +4,7 @@
       <v-flex>
         <v-card>
           <v-card-title>
-            User Profile and Settings
+            <h1>User Profile and Settings</h1>
           </v-card-title>
           <v-card-text>
             {{ user.email }}

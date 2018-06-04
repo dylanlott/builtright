@@ -2,15 +2,22 @@
   <v-container fluid>
     <v-layout row wrap justify-space-around>
       <v-flex xs12>
-        <v-card height="90">
+        <v-card height="110">
           <v-card-text>
-            <v-text-field 
-              v-model="search" 
-              value="Search builds..."
-              label="Search keywords like make, model, etc..."
-              v-on:keyup="searchBuilds"
-            ></v-text-field>
-        </v-card-text>
+            <v-layout column>
+              <v-flex xs12>
+                <h3>Search <v-icon color="black">search</v-icon></h3>
+              </v-flex>
+              <v-flex xs12>
+                <v-text-field 
+                  v-model="search" 
+                  value="Search builds..."
+                  label="Try keywords like make, model, etc..."
+                  v-on:keyup="searchBuilds"
+                ></v-text-field>
+              </v-flex>
+            </v-layout>
+          </v-card-text>    
         </v-card>
       </v-flex>
       <!-- 

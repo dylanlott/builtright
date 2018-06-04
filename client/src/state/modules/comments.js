@@ -64,18 +64,29 @@ const actions = {
       .catch((err) => commit(types.GET_POST_COMMENTS_FAILURE, err))
   },
 
-  addComment ({ commit }, payload) {
+  addComment ({ commit, dispatch }, payload) {
     commit(types.ADD_COMMENT_REQUEST)
     return client.post(`/api/${payload.resource}/${payload.comment._source_id}/comment`,
       payload)
-      .then((res) => commit(types.ADD_COMMENT_SUCCESS, res.data))
-      .catch((err) => commit(types.ADD_COMMENT_FAILURE, err))
+      .then((res) => {
+        dispatch('flashSuccess', 'Comment added')
+        commit(types.ADD_COMMENT_SUCCESS, res.data)
+      })
+      .catch((err) => {
+        dispatch('flashError', 'Error adding comment. Try again.')
+        commit(types.ADD_COMMENT_FAILURE, err)
+      })
   },
 
-  deleteComment ({ commit, state }, id) {
+  deleteComment ({ commit, state, dispatch }, id) {
     return client.delete(`/api/comments/${id}`)
-      .then((res) => res)
-      .catch((err) => console.error('error deleting comment', err))
+      .then((res) => {
+        dispatch('flashInfo', 'Comment deleted.')
+      })
+      .catch((err) => {
+        dispatch('flashError', 'Error adding comment. Try again.')
+        console.error('error deleting comment', err)
+      })
   }
 }
 

@@ -27,24 +27,17 @@
               type="password"
               label="Password"
               v-model="user.password"
-              required
-            ></v-text-field>
-            <v-text-field
-              id="ConfirmPassword"
-              name="confirmpassword"
-              type="password"
-              label="Confirm Password"
-              v-model="user.confirmPassword"
+              @keyup.enter="submit()"
               required
             ></v-text-field>
           </v-flex>
           <v-flex>
-            <v-btn dark primary @click.native="submit()">
+            <v-btn dark primary @keyup.enter="submit()" @click.native="submit()">
               Sign Up
             </v-btn>
           </v-flex>
           <v-flex>
-            Already a member? <a href="/login">Login</a>.
+            Already a member? <router-link :to="{ name: 'login' }">Login.</router-link>
           </v-flex>
       </v-card-text>
     </v-card>
