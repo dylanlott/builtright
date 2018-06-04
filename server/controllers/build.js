@@ -72,8 +72,9 @@ exports.update = (req, res) => {
   Build.findByIdAndUpdate(req.params.id, newBuild, (err, data) => {
     if (err) {
       log.error('error updating build', err);
-      res.status(500).json(err);
+      return res.status(500).json(err);
     }
+
     log.info('updated build', data);
     return res.status(200).json(data);
   });

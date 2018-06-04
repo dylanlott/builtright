@@ -16,6 +16,7 @@
         </v-card>
 
         <v-card v-if="details._parts.length > 0">
+          <v-card-title><h2>Parts</h2></v-card-title>
           <v-list two-line>
             <v-list-tile v-for="item in details._parts" router :to="{ name: 'partDetails', params: { id: item._id }}">
               <v-list-tile-action>
@@ -30,21 +31,15 @@
               </v-list-tile-content>
             </v-list-tile>
           </v-list>
-        </v-card>
-
-        <v-card>
-          <v-card-title><h2>Parts</h2></v-card-title>
-          <code>
-            {{ parts }}
-          </code>
-          <v-card v-if="parts && parts.length == 0">No parts have been added to this build yet</v-card>
-          <v-card-text>
-            <v-btn router v-if="isOwner()" :to="{ name: 'addPart', params: { id: details._id }}" class="cyan white--text">
+          <v-card-actions>
+            <v-btn router outline color="cyan" v-if="isOwner()" :to="{ name: 'addPart', params: { id: details._id }}">
               Add a part
             </v-btn>
-          </v-card-text>
+          </v-card-actions>
         </v-card>
-<!-- 
+
+        <v-card v-else>No parts have been added to this build yet</v-card>
+    <!-- 
         <v-card>
           <v-card-title><h2>Stats</h2></v-card-title>
           <v-card-text>

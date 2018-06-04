@@ -89,14 +89,15 @@ const mutations = {
 }
 
 const actions = {
-  getBuilds ({commit, state}, params) {
+  getBuilds ({commit, state, dispatch}, params) {
     commit(types.GET_BUILDS_REQUEST)
     return builds.get(params)
       .then((builds) => {
         commit(types.GET_BUILDS_SUCCESS, builds);
-        return res;
+        return builds;
       })
       .catch((err) => {
+        console.log('error: ', err)
         dispatch('flashError', 'Error retrieving builds')
         commit(types.GET_BUILDS_FAILURE, err)
       })
@@ -120,10 +121,10 @@ const actions = {
       })
   },
   updateBuild ({ commit, state, dispatch}, payload) {
-    return client.put(`/api/builds/${payload.id}`)
+    return client.put(`/api/builds/${payload.id}`, payload.build)
       .then((res) => {
         dispatch('flashSuccess', 'Build updated')
-        console.log('update build res', res.data)
+        router.push({ name: 'buildDetails', params: {id: payload.id}})
       })
       .catch((err) => {
         console.error(err)

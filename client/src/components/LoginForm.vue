@@ -33,8 +33,7 @@
             </v-btn>
         </v-flex>
         <v-flex>
-          Not a member yet? <router-link :to="{ name: 'signup' }">
-            <a href="#">Sign up here</a>.</router-link>
+          Not a member yet? <router-link :to="{ name: 'signup' }">Sign up here.</router-link>
         </v-flex>
       </v-card-text>
     </v-card>

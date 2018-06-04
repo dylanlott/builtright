@@ -6,14 +6,15 @@
       name="Build Name"
       label="Build Name"
       v-model="build.title"
+      :rules="length"
       required
     ></v-text-field>
 
     <v-text-field
       class="build__input"
       id="Build make"
-      name="Build make"
-      label="Build make"
+      name="Build Make"
+      label="Build Make"
       v-model="build.vehicle.make"
       required
     ></v-text-field>
@@ -32,6 +33,7 @@
       id="Build Year"
       name="Build Year"
       label="Build Year"
+      :rules="yearRules"
       v-model="build.vehicle.year"
       required
     ></v-text-field>
@@ -42,7 +44,6 @@
       name="Build Trim"
       label="Build Trim"
       v-model="build.vehicle.trim"
-      required
     ></v-text-field>
 
     <v-text-field
@@ -80,7 +81,13 @@ export default {
           year: '',
           trim: ''
         }
-      }
+      },
+      yearRules: [
+        v => v.length === 4 || 'Year must be 4 digits',
+      ],
+      length: [
+        v => v.length <= 60 || 'Title must be less than 60 characters'
+      ]
     }
   },
   computed: mapState({

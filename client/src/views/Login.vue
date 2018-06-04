@@ -3,7 +3,7 @@
     <v-layout column align-center>
       <v-flex md6 xs12>
         <h1>Login to BuiltRight</h1>
-        <v-icon size="60px" class="ma-3">build</v-icon>
+        <img src="../static/img/logo-2color-horizontal.png" class="logo"/>
         <LoginForm></LoginForm>
       </v-flex>
     </v-layout>
@@ -30,4 +30,6 @@ import {router} from '../router/index.js'
 </script>
 
 <style lang="stylus">
+.logo
+  width: 100%
 </style>

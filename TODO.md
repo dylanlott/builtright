@@ -1,10 +1,10 @@
 TODO
 ====
-- [ ] Deploy image upload server
+- [x] Deploy image upload server
 - [ ] Deploy elasticsearch server
-- [ ] Add privacy policy and terms of service page
-- [ ] Make sure builds page returns searches
-- [ ] Index forum posts
+- [x] Add privacy policy and terms of service page
+- [x] Make sure builds page returns searches
+- [x] Index forum posts
 - [ ] Index parts lists
 - [ ] Get blog updated and ready for launch 
 - [ ] Create youtube channel for BuiltRight
@@ -16,3 +16,5 @@ TODO
 - [ ] Wire up edit build page
 - [ ] Wire up search parts page
 - [ ] Validation on all important forms
+- [ ] Add interceptor function to clear cache and logout user n 401 responses
+- [ ] Fix the footer on the site
