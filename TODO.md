@@ -9,12 +9,14 @@ TODO
 - [ ] Get blog updated and ready for launch 
 - [ ] Create youtube channel for BuiltRight
 - [ ] Create initial project for mobile app
-- [ ] Only show edit buttons on builds if user is owner 
+- [x] Only show edit buttons on builds if user is owner 
 - [ ] Remove stats feature
 - [ ] Wire up add part functionality
 - [ ] Fix parts creation and validation 
-- [ ] Wire up edit build page
+- [x] Wire up edit build page
 - [ ] Wire up search parts page
 - [ ] Validation on all important forms
+- [ ] Delete Build functionality
+- [ ] Delete Part from Build functionality
 - [ ] Add interceptor function to clear cache and logout user n 401 responses
-- [ ] Fix the footer on the site
+- [ ] Fix the footer on the site (should resize/move with sidebar)
