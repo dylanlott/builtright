@@ -1,4 +1,10 @@
 builtrightapp.com www.builtrightapp.com {
+  log requests.log {
+    rotate_size 50  # Rotate after 50 MB
+    rotate_age  90  # Keep rotated files for 90 days
+    rotate_keep 20  # Keep at most 20 log files
+    rotate_compress # Compress rotated log files in gzip format
+  }
   root /opt/builtright/client
   gzip
 
@@ -14,11 +20,4 @@ api.builtrightapp.com {
 
 blog.builtrightapp.com {
   proxy / localhost:3001
-}
-
-ratelimit 2 2 minute {
-  whitelist 127.0.0.1
-  whitelist localhost
-  whitelist 0.0.0.0
-  ^/dir/app.js
 }

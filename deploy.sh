@@ -11,5 +11,6 @@ cd ../
 echo "RESTARTING DOCKER SERVER"
 docker-compose up --build -d server
 echo "RESTARTING CADDY SERVER"
-systemctl restart caddy
+service caddy start
+service caddy status
 echo "DEPLOY SUCCESSFUL"
