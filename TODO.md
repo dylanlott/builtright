@@ -19,4 +19,6 @@ TODO
 - [ ] Delete Build functionality
 - [ ] Delete Part from Build functionality
 - [ ] Add interceptor function to clear cache and logout user n 401 responses
-- [ ] Fix the footer on the site (should resize/move with sidebar)
+- [x] Fix the footer on the site (should resize/move with sidebar)
+- [x] Bug - empty search box on builds list shows no builds
+- [ ] Add loading bars to important screens

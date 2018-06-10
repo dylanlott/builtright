@@ -53,6 +53,10 @@ const mutations = {
   },
   [types.SET_COMMENT_LIMIT] (state, limit) {
     state.limit = limit
+  },
+  [types.REMOVE_COMMENT] (state, index) {
+    state.comments = state.comments.splice(index, 1)
+    console.log(state.comments)
   }
 }
 
@@ -87,6 +91,10 @@ const actions = {
         dispatch('flashError', 'Error adding comment. Try again.')
         console.error('error deleting comment', err)
       })
+  },
+
+  removeFromComments ({ commit, state }, index) {
+    commit(types.REMOVE_COMMENT, index)
   }
 }
 

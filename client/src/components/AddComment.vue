@@ -48,7 +48,6 @@ export default {
       return marked(this.comment.text, { sanitize: true })
     },
     submitComment () {
-      console.log(this.comment.text)
       const _comment = {
         text: this.comment.text,
         _user: this.user.user_id,
@@ -63,10 +62,6 @@ export default {
         comment: _comment
       }).then((res) => {
         this.$ga.event('comments', 'added comment', 'no campaign')
-        this.$swal({
-          type: 'success',
-          title: 'Comment Submitted'
-        })
         this.comment.text = ''
         this.$store.dispatch(`${this.update}`, this.$route.params.id)
       })

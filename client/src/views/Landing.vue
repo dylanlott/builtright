@@ -60,6 +60,17 @@
           </v-card>
         </v-flex>
       </v-layout>
+      <v-layout column justify-space-around>
+        <v-flex>
+          <h2>Follow the blog</h2>
+          <p>
+            Follow the Garage and get tutorials, how-to's, and guides on everything from engine building to bodywork to stancing your car.
+          </p>
+          <a target="_blank" href="https://blog.builtrightapp.com/" class="routerlink">
+            <v-btn large color="accent darken-1">Go to the Garage</v-btn>
+          </a>
+        </v-flex>
+      </v-layout>
     </v-container>
   </v-container>
 </template>

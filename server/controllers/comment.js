@@ -3,6 +3,14 @@ const log = require('../logger');
 const vote = require('../utils/votes');
 
 exports.create = (req, res) => {
+  if (!req.body.text) {
+    return res.status(400).send('incorrectly formatted comment')
+  }
+
+  if (!req.body._user) {
+    return res.status(400).send('must have associated user')
+  }
+
   const comment = new Comment(req.body);
   comment.save()
     .then(data => res.status(200).json(data))

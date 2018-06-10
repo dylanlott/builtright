@@ -6,7 +6,12 @@
       v-model="drawer"
       app
     >
-      <v-list dense>
+    <v-list dense>
+        <v-list-tile>
+          <v-list-tile-content>
+            <h4>App</h4>
+          </v-list-tile-content>
+        </v-list-tile>
         <v-list-tile router :to="{ name: 'dashboard' }">
           <v-list-tile-action>
             <v-icon>dashboard</v-icon>
@@ -32,9 +37,31 @@
           </v-list-tile-content>
         </v-list-tile>
         <v-divider></v-divider>
+        <v-list-tile>
+          <v-list-tile-content>
+            <h4>Social Media</h4>
+          </v-list-tile-content>
+        </v-list-tile>
+        <a href="https://www.reddit.com/r/builtright">
+          <v-list-tile>
+            <v-list-tile-action>
+              <v-icon>share</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>Reddit</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </a>
+
+        <v-divider></v-divider>
+        <v-list-tile>
+          <v-list-tile-content>
+            <h4>Account</h4>
+          </v-list-tile-content>
+        </v-list-tile>
         <v-list-tile v-if="token" router :to="{name: 'profile'}">
           <v-list-tile-action>
-            <v-icon>lock</v-icon>
+            <v-icon>person</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>Profile &amp; Account</v-list-tile-title>

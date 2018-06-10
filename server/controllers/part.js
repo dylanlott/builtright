@@ -1,5 +1,14 @@
 const Part = require('../models/part.js');
 const Comment = require('../models/comment.js');
+const log = require('../logger');
+
+Part.createMapping((err, mapping) => {
+  if (err) {
+    log.error('error creating mapping', err);
+  } else {
+    log.info('mapping created', mapping);
+  }
+})
 
 exports.createPart = (req, res) => {
   const part = new Part(req.body);
@@ -57,3 +66,20 @@ exports.addComment = (req, res) => {
 exports.deletePart = (req, res) => Part.findByIdAndRemove(req.params.id)
   .then(data => res.status(200).json(data))
   .catch(err => res.status(500).send(err));
+
+exports.search = (req, res) => {
+  Part.search({
+    "simple_query_string": {
+      "query": req.query.keywords
+    }
+  }, {
+    hydrate: true,
+    hydrateWithESResults: true
+  }, function (err, results) {
+    if (err) {
+      log.debug('Error searching parts: ', err)
+      return res.status(400).send(err)
+    }
+    return res.json(results)
+  })
+}

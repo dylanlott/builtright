@@ -1,5 +1,6 @@
 <template>
   <v-container fluid>
+    <Loader :loading="loading"></Loader>
     <v-layout row wrap justify-space-around>
       <v-flex xs12>
         <v-card height="110">
@@ -70,6 +71,7 @@
 
 <script>
 import BuildsList from '../components/BuildsList.vue'
+import Loader from '../components/Loader.vue'
 import { mapState } from 'vuex'
 import constants from '../constants'
 import _ from 'lodash'
@@ -100,17 +102,21 @@ export default {
   computed: mapState({
     user: state => state.user,
     builds: state => state.builds,
-    loading: state => state.loading
+    loading: state => state.builds.loading
   }),
   created () {
     this.$store.dispatch('getAllBuilds', 0)
   },
   methods: {
     searchBuilds () {
-      this.$store.dispatch('searchBuilds', this.search)
+      if (this.search !== "") {
+        this.$store.dispatch('searchBuilds', this.search)
+      } else {
+        this.$store.dispatch('getAllBuilds', 0)
+      }
     }
   },
-  components: { BuildsList }
+  components: { BuildsList, Loader }
 }
 </script>
 <style media="screen" lang="stylus">

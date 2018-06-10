@@ -3,6 +3,7 @@ const mongoosastic = require('mongoosastic');
 const slug = require('slug');
 const constants = require('../constants');
 const Float = require('mongoose-float').loadType(mongoose, 2);
+const searchable = require('mongoose-searchable');
 
 const TYPES = constants.PART_TYPES;
 const Schema = mongoose.Schema;
@@ -34,9 +35,15 @@ PartSchema.pre('save', function (next) {
   next();
 });
 
+PartSchema.plugin(searchable);
 PartSchema.plugin(mongoosastic, {
   host: process.env.ELASTICSEARCH_HOST,
   port: process.env.ELASTICSEARCH_PORT
+});
+
+PartSchema.pre('save', function (next) {
+  this.slug = slug(`${this.title} ${this.make} ${this.model}`, { lowercase: true });
+  next();
 });
 
 module.exports = mongoose.model('Part', PartSchema);

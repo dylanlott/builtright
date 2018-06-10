@@ -5,7 +5,7 @@
       There are no comments to display at this time.
     </v-card-text>
     <v-list two-line class="comment-list">
-      <v-list class="comment-list" v-for="comment in comments">
+      <v-list class="comment-list" :key="comment._id" v-for="(comment, index) in comments">
         <v-divider></v-divider>
         <v-list-tile>
           <v-list-tile-content>
@@ -18,7 +18,7 @@
         <v-list-tile-action>
           <v-spacer></v-spacer>
           <v-btn 
-            @click.native="deleteComment(comment._id)" 
+            @click.native="deleteComment(comment._id, index)" 
             class="delete" 
             icon 
             outline
@@ -54,9 +54,9 @@ export default {
     markdown (text) {
       return marked(text, { sanitize: true })
     },
-    deleteComment (id) {
-      console.log('deleting comment', id)
-      return this.$store.dispatch('deleteComment', id)
+    deleteComment (id, index) {
+      this.$store.dispatch('deleteComment', id)
+      this.$store.dispatch('removeFromComments', index)
     }
   }
 }
