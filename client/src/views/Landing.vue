@@ -27,7 +27,7 @@
     <v-container>
       <v-layout row wrap justify-space-around>
         <v-flex xs12 sm3>
-          <v-card dark color="primary">
+          <v-card dark>
             <v-card-text>
               <div>
                 <h3>Post Your Build</h3>
@@ -38,7 +38,7 @@
           </v-card>
         </v-flex>
         <v-flex xs12 sm3>
-          <v-card dark color="secondary">
+          <v-card dark>
             <v-card-text>
               <div>
                 <h3>Find Parts</h3>
@@ -49,7 +49,7 @@
           </v-card>
         </v-flex>
         <v-flex xs12 sm3>
-          <v-card dark color="accent">
+          <v-card dark>
             <v-card-text>
               <div>
                 <h3>Join the Community</h3>

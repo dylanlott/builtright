@@ -36,23 +36,7 @@
             <v-list-tile-title>Forum</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-divider></v-divider>
-        <v-list-tile>
-          <v-list-tile-content>
-            <h4>Social Media</h4>
-          </v-list-tile-content>
-        </v-list-tile>
-        <a href="https://www.reddit.com/r/builtright">
-          <v-list-tile>
-            <v-list-tile-action>
-              <v-icon>share</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>Reddit</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </a>
-
+       
         <v-divider></v-divider>
         <v-list-tile>
           <v-list-tile-content>
@@ -67,7 +51,6 @@
             <v-list-tile-title>Profile &amp; Account</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-
         <v-list-tile v-if="token" @click="logout()">
           <v-list-tile-action>
             <v-icon>lock</v-icon>
@@ -92,6 +75,22 @@
             <v-list-tile-title>Sign up</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+ 
+        <v-divider></v-divider>
+        <v-list-tile>
+          <v-list-tile-content>
+            <h4>Follow us</h4>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile @click="goToReddit()">
+          <v-list-tile-action>
+            <v-icon>share</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Reddit</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
 
       </v-list>
     </v-navigation-drawer>
@@ -155,6 +154,9 @@ export default {
       if (this.token) {
         router.push({ name: 'dashboard' })
       }
+    },
+    goToReddit () {
+      window.location = "https://www.reddit.com/r/builtright"
     },
     logout () {
       this.$store.dispatch('logoutUser')

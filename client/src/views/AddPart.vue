@@ -2,7 +2,7 @@
   <v-layout column>
     <v-container>
       <v-card>
-        <v-card-title><h1>Add a part</h1></v-card-title>
+        <v-card-title><h1><v-icon style="font-size: 30px;" color="primary">add_circle</v-icon>Add a part</h1></v-card-title>
         <v-card-text>
           <v-form ref="form" lazy-validation>
             <v-text-field

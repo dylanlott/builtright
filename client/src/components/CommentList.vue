@@ -1,6 +1,6 @@
 <template lang="html">
   <v-card class="pa-0 mb-4">
-    <v-card-title class="heading">Comments</v-card-title>
+    <v-card-title class="display-1">Comments</v-card-title>
     <v-card-text v-if="comments && comments.length === 0">
       There are no comments to display at this time.
     </v-card-text>

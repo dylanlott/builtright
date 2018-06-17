@@ -73,3 +73,37 @@ exports.favorite = (req, res) => {
     return res.status(200).send({ message: 'user already saved post' });
   });
 };
+
+exports.createPasswordResetToken = (req, res) => {
+  User.findOne({ email: req.body.email })
+    .then((user) => {
+      if (!user) {
+        return res.status(404).send('Error: User not found');
+      }
+      nonce = Date.now()
+      bcrypt.getSalt(5, (err, salt) => {
+        bcrypt.hash(nonce, salt, null, (err, hash) => {
+          user.resetPasswordToken = hash
+          user.save()
+            .then((saved) => {
+              const link = `https://www.builtrightapp.com/forgotpassword?user=lott.dylan@gmail.com?token=${hash}`
+              const message = `BuiltRight here - It looks like you recently
+                requested a password change. Follow this link - ${link} -
+                to reset your password and set a new one.
+
+                If you did not request this password change, then please
+                change your password soon, since this most likely means that
+                someone is trying to access your account that doesn't have permission to.
+              `
+              mailgun.sendEmail(user.email, message)
+              return res.status(201).send('Created')
+            })
+        })
+      })
+    })
+    .catch((err) => res.status(500).send(err))
+}
+
+exports.createNewUserPassword = (req, res) => {
+
+}

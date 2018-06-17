@@ -1,6 +1,6 @@
 <template lang="html">
   <v-card>
-    <v-card-title class="heading">Add a comment</v-card-title>
+    <v-card-title class="display-1">Add a comment</v-card-title>
     <v-card-text>
       <v-layout column padded>
         <v-text-field

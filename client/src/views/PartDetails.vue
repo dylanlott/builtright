@@ -1,15 +1,12 @@
 <template>
   <v-container>
     <v-layout row wrap justify-space-around>
-      <v-flex xs12 sm4 md5>
+      <v-flex xs12>
         <v-card> 
-          <v-card-title><h2 class="display-2">{{ part.title }}</h2></v-card-title>
+          <v-card-title><h1 class="display-2">{{ part.title }}</h1></v-card-title>
           <v-card-text>
-            <h4>
-              {{ part.make }}
-              {{ part.model }}
-            </h4>
-            <h4>${{ part.price }}</h4>
+            <h2>{{ part.make }} {{ part.model }}</h2>
+            <h2>${{ part.price }}</h2>
           </v-card-text>
           <v-card-actions>
             <v-btn flat v-bind:href="part.url">Visit Site</v-btn>
