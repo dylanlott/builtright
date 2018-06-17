@@ -31,5 +31,5 @@ blog.builtrightapp.com {
     rotate_keep 20  # Keep at most 20 log files
     rotate_compress # Compress rotated log files in gzip format
   }
-  proxy / localhost:3001
+  proxy / localhost:2368
 }
