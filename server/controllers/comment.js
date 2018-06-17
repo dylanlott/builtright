@@ -59,3 +59,13 @@ exports.downvote = (req, res) => Comment.findById(req.params.id)
 exports.delete = (req, res) => Comment.findByIdAndRemove(req.params.id)
   .then(data => res.status(200).json(data))
   .catch(err => res.status(500).send(err));
+
+exports.count = (req, res) => {
+  Comment.count({}, (err, count) => {
+    if (err) {
+      log.error('error getting total comments', err);
+      return res.status(500).send('error getting total builds');
+    }
+    return res.status(200).json({ count })
+  })
+}

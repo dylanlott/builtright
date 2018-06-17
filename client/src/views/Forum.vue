@@ -8,15 +8,15 @@
             name="addPost" 
             style="z-index: 9999;"
             :to="{ name: 'addPost' }" 
-            class="cyan lighten-2 floating"
+            class="cyan lighten-1 floating"
             ><v-icon class="white--text">create</v-icon>
           </v-btn>
         </v-flex>
         <v-flex class="posts">
             <v-card>
               <v-toolbar color="primary" dark>
-                <v-toolbar-side-icon></v-toolbar-side-icon>
-                <v-toolbar-title>Posts & Discussion</v-toolbar-title>
+                <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
+                <v-toolbar-title class="heading"><b>Posts &amp; Discussion</b></v-toolbar-title>
               </v-toolbar>
               <v-list three-line>
                 <template v-for="(item, index) in posts">

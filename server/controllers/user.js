@@ -107,3 +107,13 @@ exports.createPasswordResetToken = (req, res) => {
 exports.createNewUserPassword = (req, res) => {
 
 }
+
+exports.count = (req, res) => {
+  User.count({}, (err, count) => {
+    if (err) {
+      log.error('error getting total user count', err);
+      return res.status(500).send('error getting total user count');
+    }
+    return res.status(200).json({ count })
+  })
+}

@@ -114,3 +114,13 @@ exports.search = (req, res) => {
     return res.json(results)
   })
 }
+
+exports.count = (req, res) => {
+  Post.count({}, (err, count) => {
+    if (err) {
+      log.error('error getting total post count', err);
+      return res.status(500).send('error getting total post count');
+    }
+    return res.status(200).json({ count })
+  })
+}

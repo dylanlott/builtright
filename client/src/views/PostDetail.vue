@@ -1,17 +1,17 @@
 <template lang="html">
   <v-container fluid>
-    <v-layout row>
-      <v-btn dark color="grey" router :to="{ name: 'forum' }">
+    <v-layout row class="mb-3">
+      <v-btn small dark color="grey" router :to="{ name: 'forum' }">
         <v-icon dark>arrow_left</v-icon> Back to forum
       </v-btn>
     </v-layout>
     <v-layout column>
       <v-flex xs12>
         <v-card class="mb-4" transition="slide-y-transition">
-          <v-card-title class="title" v-html="this.formatted(details.title)"></v-card-title>
+          <v-card-title class="display-2"><b>{{ details.title }}</b></v-card-title>
           <v-card-text>
             <v-layout column>
-              <v-card-text class="tags">
+              <v-card-text class="tags" v-if="details.tags && details.tags.length">
                 <v-chip v-for="tag in details.tags">{{tag}}</v-chip>
               </v-card-text>
               <v-card-text class="left">
@@ -20,10 +20,10 @@
             </v-layout>
           </v-card-text>
           <v-card-actions>
-            <v-btn color="info"  @click="downvote(details._id)">{{ details._downvotes.length }}
+            <v-btn color="info"  @click="downvote(details._id)">{{ details._downvotes.length || 0 }}
               <v-icon>keyboard_arrow_down</v-icon>
             </v-btn>
-            <v-btn color="info" @click="upvote(details._id)">{{ details._upvotes.length}}
+            <v-btn color="info" @click="upvote(details._id)">{{ details._upvotes.length || 0 }}
               <v-icon>keyboard_arrow_up</v-icon>
             </v-btn>
           </v-card-actions>
@@ -77,6 +77,7 @@ export default {
 
 <style lang="stylus">
 .title
-  font-size: 1.4rem
+  font-size: 3.0rem
+  font-weight: 800
   margin: 15px 15px 0px 15px
 </style>

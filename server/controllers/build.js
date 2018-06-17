@@ -5,6 +5,7 @@ const Comment = require('../models/comment.js');
 const Part = require('../models/part.js');
 const vote = require('../utils/votes');
 const log = require('../logger');
+const slug = require('slug');
 
 Build.createMapping((err, mapping) => {
   if (err) {
@@ -69,6 +70,7 @@ exports.detail = (req, res) => {
 exports.update = (req, res) => {
   const newBuild = req.body;
   newBuild.updated = Date.now();
+  newBuild.slug = slug(req.body.title, { lower: true })
   Build.findByIdAndUpdate(req.params.id, newBuild, (err, data) => {
     if (err) {
       log.error('error updating build', err);
@@ -96,10 +98,10 @@ exports.search = (req, res) => {
     },
     { hydrate: true },
     (err, results) => {
-    if (err) res.status(500).send('error querying results');
-
-    console.log('build search results: ', results);
-
+      if (err) {
+        log.error('error searching builds', err);
+        return res.status(500).send('error querying results');
+      }
     return res.status(200).json(results);
   })
 }
@@ -113,7 +115,8 @@ exports.addComment = (req, res) => {
       build._comments.push(comment._id);
       build.save((saveError, updatedBuild) => {
         if (saveError) {
-          res.status(500).send(saveError);
+          log.error('error saving build after adding comment', err)
+          return res.status(500).send(saveError);
         }
         return res.status(200).send(updatedBuild);
       });
@@ -170,7 +173,10 @@ exports.addExistingPart = (req, res) => {
       return build.save()
         .then((build) => res.status(203).json(build))
     })
-    .catch(err => res.status(500).send(err));
+    .catch(err => {
+      log.error('error adding existing part', err);
+      return res.status(500).send(err);
+    });
 }
 
 exports.upload = (req, res) => {
@@ -231,5 +237,15 @@ exports.search = (req, res) => {
       return res.send(err)
     }
     return res.json(results)
+  })
+}
+
+exports.count = (req, res) => {
+  Build.count({}, (err, count) => {
+    if (err) {
+      log.error('error getting total builds', err);
+      return res.status(500).send('error getting total builds');
+    }
+    return res.status(200).json({ count })
   })
 }

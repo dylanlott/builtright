@@ -7,6 +7,7 @@ const requireAuth = passport.authenticate('jwt', { session: false });
 const requireLogin = passport.authenticate('local', { session: false });
 
 router.get('/', builds.list);
+router.get('/count', builds.count);
 router.get('/search', builds.search);
 router.post('/', requireAuth, builds.create);
 router.get('/:id', builds.detail);
