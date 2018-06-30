@@ -7,7 +7,6 @@
               <v-flex xs12>
                 <h3 class="display-3"><b>Welcome to BuiltRight</b></h3>
                 <span class="subheading"><b>The #1 online project car community.</b></span>
-                <v-divider class="my-3"></v-divider>
                 <div class="title mb-3"><b>Join now and browse builds, follow other builders, and create your own portfolio of projects.</b></div>
                 <v-btn large router to="signup" color="primary" class="mx-0"><b>Sign up</b></v-btn>
               </v-flex>
@@ -69,6 +68,14 @@
           <a target="_blank" href="https://blog.builtrightapp.com/" class="routerlink">
             <v-btn large color="accent darken-1">Go to the Garage</v-btn>
           </a>
+        </v-flex>
+      </v-layout>
+      <v-layout column justify-space-around class="ma-5">
+        <v-flex xs12>
+          <h1>Sign up now and be a builder.</h1>
+        </v-flex>
+        <v-flex xs12 sm6 md4 offset-md4 offset-md3>
+          <signup></signup>
         </v-flex>
       </v-layout>
     </v-container>

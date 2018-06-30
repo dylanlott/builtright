@@ -109,7 +109,6 @@ const actions = {
       .catch((err) => {
         dispatch('flashError', 'Failed to login. Try again.')
         commit(types.LOGIN_USER_FAILURE, err)
-        console.log('err logging in user:', err);
       })
   },
   getAuthToken ({commit, state}) {
@@ -135,7 +134,6 @@ const actions = {
       })
   },
   signup ({commit, state, dispatch}, user) {
-    console.log('signing up', user)
     commit(types.SIGNUP_USER_REQUEST)
     return client.post(`/api/auth/register`, user)
       .then((res) => {
@@ -147,7 +145,12 @@ const actions = {
         router.push({ name: 'builds' })
       })
       .catch((err) => {
-        dispatch('flashError', 'Error signing up')
+        if (err.response.status == 422) {
+          dispatch('flashError', 'That email is already taken. Please try a different one.')
+        } else {
+          dispatch('flashError', 'Error signing up')
+        }
+
         commit(types.SIGNUP_USER_FAILURE, err)
       })
   }

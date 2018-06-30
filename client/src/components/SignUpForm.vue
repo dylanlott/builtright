@@ -5,7 +5,8 @@
         <v-toolbar-title>Setup your account</v-toolbar-title>
       </v-toolbar>
       <v-card-text>
-          <v-flex>
+        <v-flex>
+          <v-form>
             <v-text-field
               id="DisplayName"
               name="displayname"
@@ -13,12 +14,14 @@
               label="Display Name"
               v-model="user.displayName"
               required
+              tabindex=0
             ></v-text-field>
             <v-text-field
               id="Email"
               name="Email"
               label="Email"
               v-model="user.email"
+              autocomplete="email"
               required
             ></v-text-field>
             <v-text-field
@@ -27,9 +30,12 @@
               type="password"
               label="Password"
               v-model="user.password"
+              required
               @keyup.enter="submit()"
               required
-            ></v-text-field>
+              autocomplete="current-password"
+              ></v-text-field>
+          </v-form>
           </v-flex>
           <v-flex>
             <v-btn dark primary @keyup.enter="submit()" @click.native="submit()">

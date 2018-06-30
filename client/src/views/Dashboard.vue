@@ -1,7 +1,12 @@
 <template>
   <v-container flex>
     <v-layout column justify-space-around>
-      <v-flex xs12>
+      <v-flex>
+        <v-card dark>
+          <v-btn outline router :to="{ name: 'addBuild' }">Create a build</v-btn>
+        </v-card>
+      </v-flex>
+      <v-flex xs12> 
         <v-card>
           <v-card-title>
             <v-icon style="font-size: 38px;" color="secondary">star</v-icon> 
@@ -64,9 +69,4 @@ export default {
 
   .dropdown__floating
     width: 200px
-</style>
-
-<style scoped>
-  .card__title
-    margin: 20px 20px
 </style>

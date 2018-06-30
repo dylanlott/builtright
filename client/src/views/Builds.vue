@@ -59,10 +59,15 @@
         </v-layout>
       </v-flex>
       -->
-      <v-flex xs12 sm7 md6> 
+      <v-flex xs12> 
         <v-card>
           <BuildsList :builds="builds.builds" :loading="builds.loading"></BuildsList>
         </v-card>
+      </v-flex>
+      <v-flex xs12>
+        <v-btn block router :to="{ name: 'addBuildA Build</' }" large color="accent">
+          <b>Start A Build</b>
+        </v-btn>
       </v-flex>
     </v-layout>
   </v-flex>

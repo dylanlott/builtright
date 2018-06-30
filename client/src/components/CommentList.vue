@@ -19,15 +19,13 @@
           <v-spacer></v-spacer>
           <v-btn 
             @click.native="deleteComment(comment._id, index)" 
+            v-if="user.user_id === comment._user"
             class="delete" 
             icon 
             outline
             small 
             color="error"
-          ><v-icon small 
-            v-if="user.user_id === comment._user">
-              delete
-            </v-icon>
+            ><v-icon small>delete_outline</v-icon>
           </v-btn>
         </v-list-tile-action>
       </v-list>

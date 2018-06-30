@@ -1,6 +1,6 @@
 <template>
   <v-layout align-center justify-space-around wrap class="pa-2">
-    <v-flex xs12 sm6>
+    <v-flex xs12>
       <v-container>
         <v-card>
           <h3 class="display-2"><v-icon size="36px">settings</v-icon> Add a build</h3>

@@ -22,3 +22,4 @@ TODO
 - [x] Fix the footer on the site (should resize/move with sidebar)
 - [x] Bug - empty search box on builds list shows no builds
 - [ ] Add loading bars to important screens
+- [ ] Automated docker build on git push
