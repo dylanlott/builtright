@@ -23,3 +23,4 @@ TODO
 - [x] Bug - empty search box on builds list shows no builds
 - [ ] Add loading bars to important screens
 - [ ] Automated docker build on git push
+- [ ] After sign, user token isn't injected into state correctly. Refreshing page fixes problem.

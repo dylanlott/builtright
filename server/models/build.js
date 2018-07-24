@@ -3,6 +3,7 @@ const mongoosastic = require('mongoosastic');
 const slug = require('slug');
 const searchable = require('mongoose-searchable');
 const constants = require('../constants');
+const config = require('../config/main');
 
 const Schema = mongoose.Schema;
 
@@ -51,8 +52,8 @@ const BuildSchema = new Schema({
 
 BuildSchema.plugin(searchable);
 BuildSchema.plugin(mongoosastic, {
-  host: process.env.ELASTICSEARCH_HOST,
-  port: process.env.ELASTICSEARCH_PORT
+  host: config.ELASTICSEARCH_HOST,
+  port: config.ELASTICSEARCH_PORT
 });
 
 BuildSchema.pre('save', function (next) {

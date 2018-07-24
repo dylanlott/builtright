@@ -7,6 +7,9 @@ module.exports = {
   database: process.env.DATABASE_URI || 'mongodb://localhost:27017/builtright',
   // Setting port for server
   port: process.env.PORT || 3000,
+  //ElasticSearch Host
+  elastic_host: process.env.ELASTICSEARCH_HOST || 'localhost',
+  elastic_port: process.env.ELASTICSEARCH_PORT || '9200',
   // Configuring Mailgun API for sending transactional email
   mailgun_priv_key: process.env.MAILGUN_PRIV_KEY || 'mailgun private key here',
   // Configuring Mailgun domain for sending transactional email
