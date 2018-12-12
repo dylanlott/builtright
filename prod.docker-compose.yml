@@ -19,9 +19,7 @@ services:
       - 9300:9300
 
   server:
-    build:
-      context: ./server
-      dockerfile: Dockerfile
+    image: 'hivemindapps/builtright-server:latest'
     env_file:
       - ./server/.env
     ports: 
@@ -32,9 +30,7 @@ services:
     restart: always
 
   gui:
-    build:
-      context: ./client
-      dockerfile: Dockerfile
+    image: 'hivemindapps/builtright-client:latest'
     ports:
       - "80:80"
     links:
