@@ -3,6 +3,9 @@
     <Loader :loading="loading"></Loader>
     <v-layout row wrap justify-space-around>
       <v-flex xs12>
+        <v-toolbar color="accent"></v-toolbar>
+      </v-flex>
+      <v-flex xs12>
         <v-card height="110">
           <v-card-text>
             <v-layout column>
@@ -65,7 +68,7 @@
         </v-card>
       </v-flex>
       <v-flex xs12>
-        <v-btn block router :to="{ name: 'addBuildA Build</' }" large color="accent">
+        <v-btn block router :to="{ name: 'addBuild' }" large color="accent">
           <b>Start A Build</b>
         </v-btn>
       </v-flex>
